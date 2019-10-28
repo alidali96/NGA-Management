@@ -4,8 +4,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import com.jfoenix.controls.JFXTreeTableColumn?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Tables.CategoriesContoller">
    <children>
-       <Label layoutX="272.0" layoutY="192.0" text="Categories Table" />
+       <JFXTreeTableView prefHeight="400.0" prefWidth="600.0" fx:id="table">
+           <columns>
+               <JFXTreeTableColumn fx:id="id" text="ID"></JFXTreeTableColumn>
+               <JFXTreeTableColumn fx:id="name" text="Name"></JFXTreeTableColumn>
+               <JFXTreeTableColumn fx:id="color" text="Color"></JFXTreeTableColumn>
+           </columns>
+       </JFXTreeTableView>
    </children>
 </Pane>

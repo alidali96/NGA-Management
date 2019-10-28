@@ -4,8 +4,20 @@
 <?import javafx.scene.layout.*?>
 
 
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import com.jfoenix.controls.JFXTreeTableColumn?>
 <Pane fx:controller="Tables.TasksController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="272.0" layoutY="192.0" text="Tasks Table" />
+      <JFXTreeTableView prefHeight="400.0" prefWidth="600.0" fx:id="table">
+         <columns>
+            <JFXTreeTableColumn fx:id="id" text="ID"></JFXTreeTableColumn>
+            <JFXTreeTableColumn fx:id="name" text="Name"></JFXTreeTableColumn>
+            <JFXTreeTableColumn fx:id="project" text="Project"></JFXTreeTableColumn>
+            <JFXTreeTableColumn fx:id="startDate" text="Start Date"></JFXTreeTableColumn>
+            <JFXTreeTableColumn fx:id="dueDate" text="Due Date"></JFXTreeTableColumn>
+            <JFXTreeTableColumn fx:id="priority" text="Priority"></JFXTreeTableColumn>
+            <JFXTreeTableColumn fx:id="status" text="Status"></JFXTreeTableColumn>
+         </columns>
+      </JFXTreeTableView>
    </children>
 </Pane>

@@ -10,10 +10,15 @@
     <children>
         <JFXTreeTableView prefHeight="400.0" prefWidth="600.0" fx:id="table">
             <columns>
-                <JFXTreeTableColumn fx:id="id" text="First Name"></JFXTreeTableColumn>
-                <JFXTreeTableColumn fx:id="id1" text="Last Name"></JFXTreeTableColumn>
-                <JFXTreeTableColumn fx:id="id2" text="Age"></JFXTreeTableColumn>
-            </columns>
-        </JFXTreeTableView>
+        <JFXTreeTableColumn fx:id="id" text="ID"></JFXTreeTableColumn>
+        <JFXTreeTableColumn fx:id="projectName" text="Project Name"></JFXTreeTableColumn>
+        <JFXTreeTableColumn fx:id="tasks" text="Tasks"></JFXTreeTableColumn>
+        <JFXTreeTableColumn fx:id="category" text="Category"></JFXTreeTableColumn>
+        <JFXTreeTableColumn fx:id="startDate" text="Start Date"></JFXTreeTableColumn>
+        <JFXTreeTableColumn fx:id="dueDate" text="Due Date"></JFXTreeTableColumn>
+        <JFXTreeTableColumn fx:id="status" text="Status"></JFXTreeTableColumn>
+        <JFXTreeTableColumn fx:id="priority" text="Priority"></JFXTreeTableColumn>
+    </columns>
+    </JFXTreeTableView>
     </children>
 </Pane>
