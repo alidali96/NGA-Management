@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import com.jfoenix.controls.JFXTreeTableColumn?>
 
-
-<Pane fx:controller="Tables.TasksController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Tables.TasksController">
    <children>
-      <Label layoutX="272.0" layoutY="192.0" text="Tasks Table" />
+      <JFXTreeTableView fx:id="table" prefHeight="500.0" prefWidth="700.0">
+         <columns>
+            <JFXTreeTableColumn fx:id="id" text="ID" />
+            <JFXTreeTableColumn fx:id="name" text="Name" />
+            <JFXTreeTableColumn fx:id="project" text="Project" />
+            <JFXTreeTableColumn fx:id="startDate" text="Start Date" />
+            <JFXTreeTableColumn fx:id="dueDate" text="Due Date" />
+            <JFXTreeTableColumn fx:id="priority" text="Priority" />
+            <JFXTreeTableColumn fx:id="status" text="Status" />
+         </columns>
+      </JFXTreeTableView>
    </children>
 </Pane>
