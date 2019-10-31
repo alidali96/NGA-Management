@@ -10,7 +10,7 @@
     <children>
         <JFXTreeTableView fx:id="table" prefHeight="500.0" prefWidth="700.0">
             <columns>
-        <JFXTreeTableColumn fx:id="id" text="ID"></JFXTreeTableColumn>
+        <JFXTreeTableColumn fx:id="id" text="id"></JFXTreeTableColumn>
         <JFXTreeTableColumn fx:id="projectName" text="Project Name"></JFXTreeTableColumn>
         <JFXTreeTableColumn fx:id="tasks" text="Tasks"></JFXTreeTableColumn>
         <JFXTreeTableColumn fx:id="category" text="Category"></JFXTreeTableColumn>
