@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-public class Controller {
+public class Controller{
     @FXML
     AnchorPane tableContainer;
 
