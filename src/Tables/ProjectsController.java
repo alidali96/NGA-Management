@@ -11,59 +11,78 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
-
 import java.net.URL;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
-public class ProjectsController{
 
-   // public class ProjectsController implements Initializable {
+public class ProjectsController implements Initializable {
 
 
-//    @FXML
-//    private JFXTreeTableView table;
-//
-//    @FXML
-//    private JFXTreeTableColumn<Example, String> id;
-//
-//    @FXML
-//    private JFXTreeTableColumn<Example, String> id1;
-//
-//    @FXML
-//    private JFXTreeTableColumn<Example, String> id2;
-//
-//    @Override
-//    public void initialize(URL location, ResourceBundle resources) {
-//
-//        id.setCellValueFactory(param -> param.getValue().getValue().fmane);
-//        id1.setCellValueFactory(param -> param.getValue().getValue().lName);
-//        id2.setCellValueFactory(param -> param.getValue().getValue().age);
-//
-//        table.getColumns().setAll(id, id1, id2);
-//
-//
-//        ObservableList<Example> example = FXCollections.observableArrayList();
-//        example.add(new Example("Ghaith", "Darwish", "25"));
-//        example.add(new Example("Ghaith", "Darwish", "25"));
-//        example.add(new Example("Ghaith", "Darwish", "25"));
-//        example.add(new Example("Ghaith", "Darwish", "25"));
-//
-//
-//        TreeItem<Example> data = new RecursiveTreeItem<Example>(example, RecursiveTreeObject::getChildren);
-//        table.setRoot(data);
-//        table.setShowRoot(false);
-//    }
-//
-//
-//    class Example extends RecursiveTreeObject<Example>{
-//        StringProperty fmane;
-//        StringProperty lName;
-//        StringProperty age;
-//        public Example (String fname, String lName, String age){
-//            this.fmane = new SimpleStringProperty(fname);
-//            this.lName = new SimpleStringProperty(lName);
-//            this.age = new SimpleStringProperty(age);
-//        }
-//    }
+    @FXML
+    private JFXTreeTableView table;
+
+    @FXML
+    private JFXTreeTableColumn<Example, String> id;
+    @FXML
+    private JFXTreeTableColumn<Example, String> projectName;
+    @FXML
+    private JFXTreeTableColumn<Example, String> tasks;
+    @FXML
+    private JFXTreeTableColumn<Example, String> category;
+    @FXML
+    private JFXTreeTableColumn<Example, String> startDate;
+    @FXML
+    private JFXTreeTableColumn<Example, String> dueDate;
+    @FXML
+    private JFXTreeTableColumn<Example, String> status;
+    @FXML
+    private JFXTreeTableColumn<Example, String> priority;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        id.setCellValueFactory(param -> param.getValue().getValue().id);
+        projectName.setCellValueFactory(param -> param.getValue().getValue().projectName);
+        tasks.setCellValueFactory(param -> param.getValue().getValue().tasks);
+        category.setCellValueFactory(param -> param.getValue().getValue().category);
+        startDate.setCellValueFactory(param -> param.getValue().getValue().startDate);
+        dueDate.setCellValueFactory(param -> param.getValue().getValue().dueDate);
+        status.setCellValueFactory(param -> param.getValue().getValue().status);
+        priority.setCellValueFactory(param -> param.getValue().getValue().priority);
+
+        table.getColumns().setAll(id, projectName, tasks, category, startDate, dueDate, status, priority);
+
+
+        ObservableList<Example> example = FXCollections.observableArrayList();
+        example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
+        example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
+        example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
+        example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
+
+        TreeItem<Example> data = new RecursiveTreeItem<Example>(example, RecursiveTreeObject::getChildren);
+        table.setRoot(data);
+        table.setShowRoot(false);
+    }
+
+    class Example extends RecursiveTreeObject<Example> {
+        StringProperty id;
+        StringProperty projectName;
+        StringProperty tasks;
+        StringProperty category;
+        StringProperty startDate;
+        StringProperty status;
+        StringProperty priority;
+        StringProperty dueDate;
+
+        public Example(String id, String projectName, String tasks, String category, String startDate, String status, String priority, String dueDate) {
+            this.id = new SimpleStringProperty(id);
+            this.projectName = new SimpleStringProperty(projectName);
+            this.tasks = new SimpleStringProperty(tasks);
+            this.category = new SimpleStringProperty(category);
+            this.startDate = new SimpleStringProperty(startDate);
+            this.status = new SimpleStringProperty(status);
+            this.priority = new SimpleStringProperty(priority);
+            this.dueDate = new SimpleStringProperty(dueDate);
+        }
+    }
 }
