@@ -13,7 +13,6 @@ public class Controller{
     @FXML
     AnchorPane tableContainer;
 
-
     public void switchTable(ActionEvent event)  {
         Button button = (Button)event.getSource();
 
