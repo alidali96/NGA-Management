@@ -29,7 +29,7 @@ public class DatabaseConnection {
         }
     }
 
-    public static void createTables() {
+    public  void createTables() {
         if (connection != null) {
             try {
                 Statement statement = connection.createStatement();
@@ -47,7 +47,7 @@ public class DatabaseConnection {
         }
     }
 
-    public static void insertRecord(String query, String... values) {
+    public  void insertRecord(String query, String... values) {
         if (connection != null) {
             try {
                 PreparedStatement statement = connection.prepareStatement(query);
@@ -62,26 +62,27 @@ public class DatabaseConnection {
         }
     }
 
-    public static void fetchRecords(String query) {
+    public  ResultSet fetchRecords(String query) {
         if (connection != null) {
             try {
                 Statement statement = connection.createStatement();
 
-                ResultSet result = statement.executeQuery(query);
+                return statement.executeQuery(query);
 
-                while(result.next()) {
-                    int id = result.getInt("id");
-                    String title = result.getString("title");
-                    String description = result.getString("description");
-
-                    System.out.println("ID:" + id + " - Title: " + title + " - Description: " + description);
-
-                }
+//                while(result.next()) {
+//                    int id = result.getInt("id");
+//                    String title = result.getString("title");
+//                    String description = result.getString("description");
+//
+//                    System.out.println("ID:" + id + " - Title: " + title + " - Description: " + description);
+//
+//                }
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        return null;
     }
 
 }
