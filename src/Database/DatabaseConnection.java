@@ -2,10 +2,8 @@ package Database;
 
 import Const.Const;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class DatabaseConnection {
 
@@ -63,4 +61,27 @@ public class DatabaseConnection {
             }
         }
     }
+
+    public static void fetchRecords(String query) {
+        if (connection != null) {
+            try {
+                Statement statement = connection.createStatement();
+
+                ResultSet result = statement.executeQuery(query);
+
+                while(result.next()) {
+                    int id = result.getInt("id");
+                    String title = result.getString("title");
+                    String description = result.getString("description");
+
+                    System.out.println("ID:" + id + " - Title: " + title + " - Description: " + description);
+
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
