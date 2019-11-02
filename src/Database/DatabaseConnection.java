@@ -4,6 +4,7 @@ import Const.Const;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.Statement;
 
 public class DatabaseConnection {
 
@@ -23,6 +24,24 @@ public class DatabaseConnection {
                 Class.forName("com.mysql.jdbc.Driver");
                 connection = DriverManager.getConnection("jdbc:mysql://php.scweb.ca/" + database, user, password);
                 System.out.println("Database connected");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void createTables() {
+        if (connection != null) {
+            try {
+                Statement statement = connection.createStatement();
+                String query = "CREATE TABLE IF NOT EXISTS `project`(\n" +
+                        "    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,\n" +
+                        "    title VARCHAR(255) NOT NULL,\n" +
+                        "    description MEDIUMTEXT NOT NULL\n" +
+                        "    );";
+
+                statement.executeUpdate(query);
+                System.out.println("Tables Created");
             } catch (Exception e) {
                 e.printStackTrace();
             }
