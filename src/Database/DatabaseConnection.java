@@ -4,6 +4,7 @@ import Const.Const;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 public class DatabaseConnection {
@@ -23,7 +24,7 @@ public class DatabaseConnection {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 connection = DriverManager.getConnection("jdbc:mysql://php.scweb.ca/" + database, user, password);
-                System.out.println("Database connected");
+                System.out.println("Database Connected");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -42,6 +43,21 @@ public class DatabaseConnection {
 
                 statement.executeUpdate(query);
                 System.out.println("Tables Created");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void insertRecord(String query, String... values) {
+        if (connection != null) {
+            try {
+                PreparedStatement statement = connection.prepareStatement(query);
+                for (int i = 0; i < values.length; i++) {
+                    statement.setString(i + 1, values[i]);
+                }
+                statement.executeUpdate();
+                System.out.println("Record Inserted");
             } catch (Exception e) {
                 e.printStackTrace();
             }
