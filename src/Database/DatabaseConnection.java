@@ -32,15 +32,11 @@ public class DatabaseConnection {
     public  void createTables() {
         if (connection != null) {
             try {
-                Statement statement = connection.createStatement();
-                String query = "CREATE TABLE IF NOT EXISTS `project`(\n" +
-                        "    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,\n" +
-                        "    title VARCHAR(255) NOT NULL,\n" +
-                        "    description MEDIUMTEXT NOT NULL\n" +
-                        "    );";
-
-                statement.executeUpdate(query);
-                System.out.println("Tables Created");
+//                Statement statement = connection.createStatement();
+//                String query = "";
+//
+//                statement.executeUpdate(query);
+//                System.out.println("Tables Created");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -85,4 +81,9 @@ public class DatabaseConnection {
         return null;
     }
 
+    public static Connection getConnection() throws SQLException {
+        connection = null;
+        connection = DriverManager.getConnection("jdbc:mysql://php.scweb.ca/" + Const.DB_NAME, Const.DB_USER, Const.DB_PASS);
+        return connection;
+    }
 }
