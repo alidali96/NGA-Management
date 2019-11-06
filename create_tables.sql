@@ -11,26 +11,26 @@ CREATE TABLE IF NOT EXISTS `project` (
 );
 
 CREATE TABLE IF NOT EXISTS `task` (
-  `id` int PRIMARY KEY,
+  `id` int PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(255),
   `project` int,
   `priority` varchar(255)
 );
 
 CREATE TABLE IF NOT EXISTS `priority` (
-  `id` int PRIMARY KEY,
+  `id` int PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(255),
   `color` varchar(255)
 );
 
 CREATE TABLE IF NOT EXISTS `category` (
-  `id` int PRIMARY KEY,
+  `id` int PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(255),
   `color` varchar(255)
 );
 
 CREATE TABLE IF NOT EXISTS `status` (
-  `id` int PRIMARY KEY,
+  `id` int PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(255),
   `color` varchar(255)
 );
