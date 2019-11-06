@@ -1,5 +1,6 @@
 package Tables;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
@@ -8,9 +9,15 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -38,6 +45,11 @@ public class ProjectsController implements Initializable {
     @FXML
     private JFXTreeTableColumn<Example, String> priority;
 
+    private JFXButton addProjectBtn;
+    @FXML
+
+    private Pane replacable;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -62,6 +74,17 @@ public class ProjectsController implements Initializable {
         TreeItem<Example> data = new RecursiveTreeItem<Example>(example, RecursiveTreeObject::getChildren);
         table.setRoot(data);
         table.setShowRoot(false);
+    }
+
+    public void addProjectBtn(ActionEvent actionEvent) {
+        try {
+            Pane pane = FXMLLoader.load(getClass().getResource("../Forms/ProjectsFormView.fxml"));
+            replacable.getChildren().retainAll();
+            replacable.getChildren().add(pane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     class Example extends RecursiveTreeObject<Example> {
