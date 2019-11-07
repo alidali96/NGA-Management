@@ -29,7 +29,7 @@ public class DatabaseConnection {
         }
     }
 
-    public  void createTables() {
+    public  void createTable() {
         if (connection != null) {
             try {
 //                Statement statement = connection.createStatement();
@@ -43,47 +43,45 @@ public class DatabaseConnection {
         }
     }
 
-    public  void insertRecord(String query, String... values) {
-        if (connection != null) {
-            try {
-                PreparedStatement statement = connection.prepareStatement(query);
-                for (int i = 0; i < values.length; i++) {
-                    statement.setString(i + 1, values[i]);
-                }
-                statement.executeUpdate();
-                System.out.println("Record Inserted");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public  ResultSet fetchRecords(String query) {
-        if (connection != null) {
-            try {
-                Statement statement = connection.createStatement();
-
-                return statement.executeQuery(query);
-
-//                while(result.next()) {
-//                    int id = result.getInt("id");
-//                    String title = result.getString("title");
-//                    String description = result.getString("description");
-//
-//                    System.out.println("ID:" + id + " - Title: " + title + " - Description: " + description);
-//
+//    public  void insertRecord(String query, String... values) {
+//        if (connection != null) {
+//            try {
+//                PreparedStatement statement = connection.prepareStatement(query);
+//                for (int i = 0; i < values.length; i++) {
+//                    statement.setString(i + 1, values[i]);
 //                }
+//                statement.executeUpdate();
+//                System.out.println("Record Inserted");
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
+//    public  ResultSet fetchRecords(String query) {
+//        if (connection != null) {
+//            try {
+//                Statement statement = connection.createStatement();
+//
+//                return statement.executeQuery(query);
+//
+////                while(result.next()) {
+////                    int id = result.getInt("id");
+////                    String title = result.getString("title");
+////                    String description = result.getString("description");
+////
+////                    System.out.println("ID:" + id + " - Title: " + title + " - Description: " + description);
+////
+////                }
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return null;
+//    }
 
-    public static Connection getConnection() throws SQLException {
-        connection = null;
-        connection = DriverManager.getConnection("jdbc:mysql://php.scweb.ca/" + Const.DB_NAME, Const.DB_USER, Const.DB_PASS);
+    public static Connection getConnection() {
         return connection;
     }
 }

@@ -1,5 +1,7 @@
 package Database;
 
+import java.sql.Statement;
+
 public class Status {
 
     private int id;
@@ -22,23 +24,26 @@ public class Status {
         return id;
     }
 
-    public void setId(int id) {
+    public Status setId(int id) {
         this.id = id;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Status setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public Status setColor(String color) {
         this.color = color;
+        return this;
     }
 }

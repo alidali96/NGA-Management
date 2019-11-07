@@ -58,21 +58,21 @@ public class ProjectsController implements Initializable {
 
         ObservableList<Example> example = FXCollections.observableArrayList();
 
-            try {
-                ResultSet result = DatabaseConnection.getInstance().fetchRecords("SELECT * FROM `project`");
+//            try {
+//                ResultSet result = DatabaseConnection.getInstance().fetchRecords("SELECT * FROM `project`");
+//
+//                while (result.next()) {
+//                    example.add(new Example(result.getInt("id")+"", result.getString("title"), result.getString("description"), "category", "1-11-2019", "In Progress", "High", "1-12-2019"));
+//                }
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
 
-                while (result.next()) {
-                    example.add(new Example(result.getInt("id")+"", result.getString("title"), result.getString("description"), "category", "1-11-2019", "In Progress", "High", "1-12-2019"));
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-//        example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
-//        example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
-//        example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
-//        example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
+        example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
+        example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
+        example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
+        example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
 
         TreeItem<Example> data = new RecursiveTreeItem<Example>(example, RecursiveTreeObject::getChildren);
         table.setRoot(data);

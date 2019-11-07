@@ -1,5 +1,6 @@
 package Main;
 
+import Database.DatabaseConnection;
 import Database.TestStatus;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +21,9 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        // Create Database Connection
+        DatabaseConnection.getInstance();
 
         // Test Status Table Class
         TestStatus testStatus = new TestStatus();

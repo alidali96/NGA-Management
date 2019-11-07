@@ -26,10 +26,11 @@ public class TestStatus {
 
         statusDAO.testPrintAll();
 
-        Optional<Status> deleteStatus = statusDAO.get(5);
-        Status delete = deleteStatus.get();
-        
-        statusDAO.delete(delete);
+        Optional<Status> deleteStatus = statusDAO.get(7);
+        if (deleteStatus.isPresent())
+            statusDAO.delete(deleteStatus.get());
+
+        statusDAO.update(new Status(37, "Completed", "Yellow"));
 
         statusDAO.testPrintAll();
     }

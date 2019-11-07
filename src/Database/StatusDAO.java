@@ -1,28 +1,27 @@
 package Database;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class StatusDAO implements DAO<Status> {
 
-    Connection connection = null;
-    PreparedStatement preparedStatement = null;
-    ResultSet resultSet = null;
+    Connection connection;
+    PreparedStatement preparedStatement;
+    ResultSet resultSet;
 
     private static List<Status> statuses = null;
 
-    private Connection getConnection() throws SQLException {
-        connection = DatabaseConnection.getInstance().getConnection();
-        return connection;
-    }
+//    private Connection getConnection() throws SQLException {
+//        connection = DatabaseConnection.getInstance().getConnection();
+//        return connection;
+//    }
 
 
     public StatusDAO() {
+//        connection = DatabaseConnection.getInstance().getConnection();
+        connection = DatabaseConnection.getConnection();
         updateList();
     }
 
@@ -31,7 +30,7 @@ public class StatusDAO implements DAO<Status> {
         Status status = null;
         try {
             String queryString = "SELECT * FROM `status` WHERE id = ? LIMIT 1";
-            connection = getConnection();
+//            connection = getConnection();
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setInt(1, statusId);
             resultSet = preparedStatement.executeQuery();
@@ -51,8 +50,6 @@ public class StatusDAO implements DAO<Status> {
                     resultSet.close();
                 if (preparedStatement != null)
                     preparedStatement.close();
-                if (connection != null)
-                    connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             } catch (Exception e) {
@@ -71,14 +68,21 @@ public class StatusDAO implements DAO<Status> {
     public void add(Status status) {
         try {
             String queryString = "INSERT INTO `status`(id, name, color) VALUES(0,?,?)";
-            connection = getConnection();
-            preparedStatement = DatabaseConnection.getConnection().prepareStatement(queryString);
+//            connection = getConnection();
+            preparedStatement = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, status.getName());
             preparedStatement.setString(2, status.getColor());
             preparedStatement.executeUpdate();
 
-            updateList();
-//            statuses.add(status);
+            // Get last inserted ID and set it to the status object to add to the statuses list
+            ResultSet result = preparedStatement.getGeneratedKeys();
+            if (result.next()) {
+                int id = result.getInt(1);
+                status.setId(id);
+                statuses.add(status);
+            }
+            result.close();
+
             System.out.println("Status Inserted");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -86,8 +90,6 @@ public class StatusDAO implements DAO<Status> {
             try {
                 if (preparedStatement != null)
                     preparedStatement.close();
-                if (connection != null)
-                    connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             } catch (Exception e) {
@@ -98,22 +100,33 @@ public class StatusDAO implements DAO<Status> {
     }
 
     @Override
-    public void update(Status status, String[] params) {
+    public void update(Status status) {
         try {
-            String queryString = "UPDATE `status` SET name=? WHERE id=?";
-            connection = getConnection();
+            String queryString = "UPDATE `status` SET name=? , color=? WHERE id=?";
+//            connection = getConnection();
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setString(1, status.getName());
-            preparedStatement.setInt(2, status.getId());
+            preparedStatement.setString(2, status.getColor());
+            preparedStatement.setInt(3, status.getId());
             preparedStatement.executeUpdate();
+
+            // Update status name and color in statuses list ;)
+//            statuses.get(statuses.indexOf(status)).setColor(status.getColor()).setName(status.getName());
+
+            for(Status st: statuses) {
+                if (status.getId() == st.getId()) {
+                    st.setName(status.getName());
+                    st.setColor(status.getColor());
+                    //break;
+                }
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
                 if (preparedStatement != null)
                     preparedStatement.close();
-                if (connection != null)
-                    connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             } catch (Exception e) {
@@ -127,15 +140,14 @@ public class StatusDAO implements DAO<Status> {
     public void delete(Status status) {
         try {
             String queryString = "DELETE FROM `status` WHERE id=?";
-            connection = getConnection();
+//            connection = getConnection();
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setInt(1, status.getId());
             preparedStatement.executeUpdate();
 
 
-            updateList();
-//            if (statuses.contains(status))
-//                statuses.remove(status);
+            if (statuses.contains(status))
+                statuses.remove(status);
             System.out.println("Status Deleted");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -143,8 +155,6 @@ public class StatusDAO implements DAO<Status> {
             try {
                 if (preparedStatement != null)
                     preparedStatement.close();
-                if (connection != null)
-                    connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             } catch (Exception e) {
@@ -155,13 +165,13 @@ public class StatusDAO implements DAO<Status> {
     }
 
     /**
-     * Resetting ArrayList of statuses and populating it from database
+     * Populating statuses ArrayList from database
      */
     private void updateList() {
         statuses = new ArrayList<>();
         try {
             String queryString = "SELECT * FROM `status`";
-            connection = getConnection();
+//            connection = getConnection();
             preparedStatement = connection.prepareStatement(queryString);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -183,8 +193,6 @@ public class StatusDAO implements DAO<Status> {
                     resultSet.close();
                 if (preparedStatement != null)
                     preparedStatement.close();
-                if (connection != null)
-                    connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             } catch (Exception e) {
