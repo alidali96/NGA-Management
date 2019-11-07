@@ -1,4 +1,7 @@
-package Database;
+package Database.Status;
+
+import Database.DAO;
+import Database.DatabaseConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -60,34 +63,28 @@ public class StatusDAO implements DAO<Status> {
     }
 
     @Override
-    public List<Status> getAll() {
-        return statuses;
-    }
-
-    @Override
-    public void add(Status status) {
+    public Optional<Status> get(String statusName) {
+        Status status = null;
         try {
-            String queryString = "INSERT INTO `status`(id, name, color) VALUES(0,?,?)";
+            String queryString = "SELECT * FROM `status` WHERE name=? LIMIT 1";
 //            connection = getConnection();
-            preparedStatement = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, status.getName());
-            preparedStatement.setString(2, status.getColor());
-            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement(queryString);
+            preparedStatement.setString(1, statusName);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String color = resultSet.getString("color");
 
-            // Get last inserted ID and set it to the status object to add to the statuses list
-            ResultSet result = preparedStatement.getGeneratedKeys();
-            if (result.next()) {
-                int id = result.getInt(1);
-                status.setId(id);
-                statuses.add(status);
+                status = new Status(id, name, color);
             }
-            result.close();
-
-            System.out.println("Status Inserted");
+            System.out.println("Status Retrieved");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
+                if (resultSet != null)
+                    resultSet.close();
                 if (preparedStatement != null)
                     preparedStatement.close();
             } catch (SQLException e) {
@@ -95,7 +92,51 @@ public class StatusDAO implements DAO<Status> {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+        return Optional.ofNullable(status);
+    }
 
+    @Override
+    public List<Status> getAll() {
+        return statuses;
+    }
+
+    @Override
+    public void add(Status status) {
+        if(!get(status.getName()).isPresent()) {
+            try {
+                String queryString = "INSERT INTO `status`(id, name, color) VALUES(0,?,?)";
+//            connection = getConnection();
+                preparedStatement = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
+                preparedStatement.setString(1, status.getName());
+                preparedStatement.setString(2, status.getColor());
+                preparedStatement.executeUpdate();
+
+                // Get last inserted ID and set it to the status object to add to the statuses list
+                ResultSet result = preparedStatement.getGeneratedKeys();
+                if (result.next()) {
+                    int id = result.getInt(1);
+                    status.setId(id);
+                    statuses.add(status);
+                }
+                result.close();
+
+                System.out.println("Status Inserted");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (preparedStatement != null)
+                        preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        } else {
+            System.out.println("Status already exists");
         }
     }
 

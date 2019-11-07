@@ -1,5 +1,8 @@
 package Database;
 
+import Database.Status.Status;
+import Database.Status.StatusDAO;
+
 import java.util.Optional;
 
 public class TestStatus {
@@ -10,7 +13,7 @@ public class TestStatus {
     public TestStatus() {
         StatusDAO statusDAO = new StatusDAO();
 
-        statusDAO.testPrintAll();
+//        statusDAO.testPrintAll();
 
 //        Status status = new Status(1, "Late", "Red");
 //        Status status2 = new Status(2, "Working", "Blue");
@@ -24,13 +27,13 @@ public class TestStatus {
         statusDAO.add(status2);
         statusDAO.add(status3);
 
-        statusDAO.testPrintAll();
-
-        Optional<Status> deleteStatus = statusDAO.get(7);
-        if (deleteStatus.isPresent())
-            statusDAO.delete(deleteStatus.get());
-
-        statusDAO.update(new Status(37, "Completed", "Yellow"));
+//        statusDAO.testPrintAll();
+//
+//        Optional<Status> deleteStatus = statusDAO.get(7);
+//        if (deleteStatus.isPresent())
+//            statusDAO.delete(deleteStatus.get());
+//
+//        statusDAO.update(new Status(37, "Completed", "Yellow"));
 
         statusDAO.testPrintAll();
     }

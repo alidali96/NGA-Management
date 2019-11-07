@@ -1,6 +1,4 @@
-package Database;
-
-import java.sql.Statement;
+package Database.Status;
 
 public class Status {
 
@@ -10,14 +8,14 @@ public class Status {
 
     public Status(String name, String color) {
         this.id = 0;
-        this.name = name;
-        this.color = color;
+        this.name = name.trim();
+        this.color = color.trim();
     }
 
     public Status(int id, String name, String color) {
         this.id = id;
-        this.name = name;
-        this.color = color;
+        this.name = name.trim();
+        this.color = color.trim();
     }
 
     public int getId() {
