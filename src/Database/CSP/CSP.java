@@ -1,18 +1,19 @@
-package Database.Status;
+package Database.CSP;
 
-public class Status {
+public abstract class CSP  {
 
-    private int id;
+    protected String table;
+
+    private int id = 0;
     private String name;
     private String color;
 
-    public Status(String name, String color) {
-        this.id = 0;
+    public CSP(String name, String color) {
         this.name = name.trim();
         this.color = color.trim();
     }
 
-    public Status(int id, String name, String color) {
+    public CSP(int id, String name, String color) {
         this.id = id;
         this.name = name.trim();
         this.color = color.trim();
@@ -22,7 +23,7 @@ public class Status {
         return id;
     }
 
-    public Status setId(int id) {
+    public CSP setId(int id) {
         this.id = id;
         return this;
     }
@@ -31,7 +32,7 @@ public class Status {
         return name;
     }
 
-    public Status setName(String name) {
+    public CSP setName(String name) {
         this.name = name;
         return this;
     }
@@ -40,8 +41,16 @@ public class Status {
         return color;
     }
 
-    public Status setColor(String color) {
+    public CSP setColor(String color) {
         this.color = color;
         return this;
     }
+
+    public String getTable() {
+        return table;
+    }
+
+//    public void setTable(String table) {
+//        this.table = table;
+//    }
 }

@@ -5,12 +5,12 @@ import java.util.Optional;
 
 public interface DAO<T> {
 
-    Optional<T> get(int id);
-    Optional<T> get(String name);
+    Optional<? extends T> get(int id);
+    Optional<? extends T> get(String name);
 
-    List<T> getAll();
+    List<? extends T> getAll();
 
-    void add(T t);
+    void create(T t);
 
     void update(T t);
 
