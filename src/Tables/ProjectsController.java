@@ -67,9 +67,9 @@ public class ProjectsController implements Initializable {
 
         ObservableList<Example> example = FXCollections.observableArrayList();
         example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
-        example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
-        example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
-        example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
+        example.add(new Example("1", "Project1f", "Task4", "Web", "2016", "Acive", "fast", "2020"));
+        example.add(new Example("1", "Project1d", "Task3", "Mobile App", "2017", "Acive", "fast", "2020"));
+        example.add(new Example("1", "Projectf1", "Task6", "Logo", "2019", "Acive", "fast", "2020"));
 
         TreeItem<Example> data = new RecursiveTreeItem<Example>(example, RecursiveTreeObject::getChildren);
         table.setRoot(data);

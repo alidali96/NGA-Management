@@ -19,121 +19,87 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXButton?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="Forms.ProjectsFormController"
             prefHeight="400.0" prefWidth="900.0">
-    <GridPane xmlns:fx="http://javafx.com/fxml" alignment="center"
-              hgap="10" vgap="10">
-        <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
-        <columnConstraints>
-            <ColumnConstraints minWidth="100" prefWidth="100"
-                               maxWidth="Infinity" halignment="RIGHT">
-            </ColumnConstraints>
-            <ColumnConstraints minWidth="200" prefWidth="500"
-                               maxWidth="Infinity" hgrow="ALWAYS">
-            </ColumnConstraints>
-        </columnConstraints>
-        <Label text="Add new Project" GridPane.columnIndex="0"
-               GridPane.rowIndex="0" GridPane.columnSpan="2"
-               GridPane.rowSpan="1" GridPane.halignment="CENTER" >
-            <font>
-                <Font name="Arial" size="24" ></Font>
-            </font>
-            <GridPane.margin>
-                <Insets top="20" right="0" bottom="20" left="0"></Insets>
-            </GridPane.margin>
-        </Label>
+    <VBox xmlns:fx="http://javafx.com/fxml" fx:id="projectsFormGrid" >
+        <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+        <HBox><Label text="Add new Project"><font><Font name="Arial" size="25" ></Font></font></Label></HBox>
+        <HBox>
+            <Label text="Project Name" prefHeight="40" prefWidth="100"></Label>
+            <JFXTextField fx:id="nameField"  prefWidth="300" prefHeight="40" />
+        </HBox>
+        <VBox fx:id="TasksHBox">
+            <HBox>
+                <Label fx:id="taskOneLabel" text="Tasks" prefHeight="40" prefWidth="100"></Label>
+                <JFXTextField fx:id="task1" prefWidth="300" prefHeight="40"/>
+                <JFXButton buttonType="FLAT" onAction="#addNewTask" style="-fx-background-color:transparent; -fx-text-fill:#903;" text="+" fx:id="addTask" prefHeight="25" prefWidth="25" alignment="BOTTOM_RIGHT">
+                </JFXButton>
+            </HBox>
+        </VBox>
 
+        <HBox>
+            <Label text="Category" prefHeight="40" prefWidth="100">
+            </Label>
+            <JFXComboBox fx:id="category" promptText="Select a category" prefWidth="300" prefHeight="40" >
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Web" />
+                        <String fx:value="Print"/>
+                        <String fx:value="Mobile App"/>
+                        <String fx:value="Logo Design"/>
+                        <String fx:value="Video Editing"/>
+                        <String fx:value="Social Media"/>
+                    </FXCollections>
+                </items>
+            </JFXComboBox>
+        </HBox>
+        <HBox>
+            <Label text="Priority" prefHeight="40" prefWidth="100" ></Label>
+            <JFXComboBox fx:id="priority" promptText="Select a Priority" prefWidth="300" prefHeight="40">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Urgent"/>
+                        <String fx:value="High"/>
+                        <String fx:value="Medium"/>
+                        <String fx:value="Low"/>
+                    </FXCollections>
+                </items>
+            </JFXComboBox>
+        </HBox>
+        <HBox>
+            <Label text="Status" prefHeight="40" prefWidth="100" ></Label>
+            <JFXComboBox fx:id="status" promptText="Select a Status" prefWidth="300" prefHeight="40">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Did not start yet"/>
+                        <String fx:value="Working on it"/>
+                        <String fx:value="Waiting from client"/>
+                        <String fx:value="Completed"/>
+                    </FXCollections>
+                </items>
+            </JFXComboBox>
+        </HBox>
+        <HBox>
+            <Label text="Start Date" prefHeight="40" prefWidth="100"></Label>
+            <JFXDatePicker fx:id="datePicker" prefWidth="300" prefHeight="40"/>
 
-
-        <Label text="Project Name " GridPane.columnIndex="0"
-               GridPane.rowIndex="1" >
-        </Label>
-        <JFXTextField fx:id="nameField" prefHeight="40"
-                      GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-
-        <Label text="Tasks" GridPane.columnIndex="0"
-               GridPane.rowIndex="2" >
-        </Label>
-        <JFXTextArea fx:id="emailField" prefHeight="40"
-                     GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-
-
-        <Label text="Category" GridPane.columnIndex="0"
-               GridPane.rowIndex="3" >
-        </Label>
-        <JFXComboBox fx:id="category" prefHeight="40"
-                  GridPane.columnIndex="1" GridPane.rowIndex="3">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Web"/>
-                    <String fx:value="Print"/>
-                    <String fx:value="Mobile App"/>
-                    <String fx:value="Logo Design"/>
-                    <String fx:value="Video Editing"/>
-                    <String fx:value="Social Media"/>
-                </FXCollections>
-            </items>
-        </JFXComboBox>
-
-        <Label text="Priority" GridPane.columnIndex="0"
-               GridPane.rowIndex="4" >
-        </Label>
-        <JFXComboBox fx:id="priority" prefHeight="40"
-                       GridPane.columnIndex="1" GridPane.rowIndex="4">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Urgent"/>
-                    <String fx:value="High"/>
-                    <String fx:value="Medium"/>
-                    <String fx:value="Low"/>
-                </FXCollections>
-            </items>
-        </JFXComboBox>
-
-        <Label text="Status" GridPane.columnIndex="0"
-               GridPane.rowIndex="5" >
-        </Label>
-
-        <JFXComboBox fx:id="status" prefHeight="40"
-                  GridPane.columnIndex="1" GridPane.rowIndex="5">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Did not start yet"/>
-                    <String fx:value="Working on it"/>
-                    <String fx:value="Waiting from client"/>
-                    <String fx:value="Completed"/>
-                </FXCollections>
-            </items>
-        </JFXComboBox>
-
-        <Label text="Start Date" GridPane.columnIndex="0"
-               GridPane.rowIndex="6" >
-        </Label>
-        <JFXDatePicker fx:id="datePicker" prefHeight="40"
-                  GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-
-        <Label text="Due Date" GridPane.columnIndex="0"
-               GridPane.rowIndex="7" >
-        </Label>
-        <JFXDatePicker fx:id="dueDatePicker" prefHeight="40"
-                       GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+            <Label text="Due Date" prefHeight="40" prefWidth="100"></Label>
+            <JFXDatePicker fx:id="dueDatePicker" prefWidth="300" prefHeight="40"/>
+        </HBox>
+        <HBox>
+            <!-- Add Submit Button -->
+            <Button fx:id="submitButton" text="Add Project" prefWidth="100" prefHeight="40" defaultButton="true">
+            </Button>
+        </HBox>
 
 
 
 
 
-        <!-- Add Submit Button -->
-        <Button fx:id="submitButton" text="Add Project"
-                prefWidth="100" prefHeight="40" defaultButton="true"
-                GridPane.columnIndex="0" GridPane.rowIndex="8"
-                GridPane.columnSpan="2" GridPane.rowSpan="1"
-                GridPane.halignment="CENTER">
-            <GridPane.margin>
-                <Insets top="20" right="0" bottom="20" left="0"></Insets>
-            </GridPane.margin>
-        </Button>
-    </GridPane>
+
+    </VBox>
 
 </AnchorPane>
