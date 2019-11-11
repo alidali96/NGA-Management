@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -45,10 +44,13 @@ public class ProjectsController implements Initializable {
     @FXML
     private JFXTreeTableColumn<Example, String> priority;
 
-    private JFXButton addProjectBtn;
+    private JFXButton addProject;
     @FXML
 
-    private Pane replacable;
+    private Pane replaceable;
+
+    @FXML
+    JFXButton addProjectsBtn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -76,11 +78,12 @@ public class ProjectsController implements Initializable {
         table.setShowRoot(false);
     }
 
-    public void addProjectBtn(ActionEvent actionEvent) {
+    public void addProject(ActionEvent actionEvent) {
         try {
             Pane pane = FXMLLoader.load(getClass().getResource("../Forms/ProjectsFormView.fxml"));
-            replacable.getChildren().retainAll();
-            replacable.getChildren().add(pane);
+            replaceable.getChildren().retainAll();
+            replaceable.getChildren().add(pane);
+            addProjectsBtn.setStyle("visibility: hidden;");
         } catch (IOException e) {
             e.printStackTrace();
         }
