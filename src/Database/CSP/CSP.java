@@ -53,4 +53,10 @@ public abstract class CSP  {
 //    public void setTable(String table) {
 //        this.table = table;
 //    }
+
+
+    @Override
+    public String toString() {
+        return String.format("ID: %d - Name: %s - Color: %s", getId(), getName(), getColor());
+    }
 }

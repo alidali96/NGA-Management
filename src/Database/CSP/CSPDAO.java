@@ -242,7 +242,8 @@ public class CSPDAO implements DAO<CSP> {
     /**
      * Populating CSPes ArrayList from database
      */
-    private void updateList() {
+    @Override
+    public void updateList() {
         CSPes = new ArrayList<>();
         CSP csp = null;
         try {
@@ -289,7 +290,7 @@ public class CSPDAO implements DAO<CSP> {
 
     public void testPrintAll() {
         for (CSP csp : CSPes) {
-            System.out.println(String.format("ID: %d - Name: %s - Color: %s", csp.getId(), csp.getName(), csp.getColor()));
+            System.out.println(csp);
         }
     }
 }

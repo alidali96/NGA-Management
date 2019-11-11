@@ -7,6 +7,7 @@ import Database.CSP.Status.Status;
 import Database.CSP.Status.StatusDAO;
 import Database.DatabaseConnection;
 import Database.CSP.Status.TestStatus;
+import Database.Project.TestProject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,7 +38,10 @@ public class Controller implements Initializable {
 //        TestCategory testCategory = new TestCategory();
 
         // Test Priority Table Class
-        TestPriority testPriority = new TestPriority();
+//        TestPriority testPriority = new TestPriority();
+
+        // Test Project Table Class
+        TestProject testProject = new TestProject();
 
 
     }

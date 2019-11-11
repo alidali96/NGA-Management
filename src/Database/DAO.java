@@ -16,4 +16,6 @@ public interface DAO<T> {
 
     void delete(T t);
 
+    void updateList();
+
 }
