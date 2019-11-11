@@ -1,7 +1,5 @@
 package Database.Project;
 
-import Const.Const;
-
 import java.sql.Date;
 import java.util.Optional;
 
@@ -17,16 +15,16 @@ public class TestProject {
         Date due = new Date(System.currentTimeMillis());
         due.setTime(System.currentTimeMillis() + 999999999);
 
-        Project project = new Project("Tower Defense" , "DESCRIPTION ABOUT THE GAME", "tasks", 63, 4, 1, date, due);
+        Project project = new Project("Tower Defense", "DESCRIPTION ABOUT THE GAME", "tasks", 63, 4, 1, date, due);
 
         projectDAO.create(project);
 
-//        Optional<Project> deleteStatus = projectDAO.get(1);
-//        if (deleteStatus.isPresent())
-//            statusDAO.delete(deleteStatus.get());
+        Optional<Project> deleteProject = (Optional<Project>) projectDAO.get(8);
+        if (deleteProject.isPresent())
+            projectDAO.delete(deleteProject.get());
 
-//        statusDAO.update(new Status(62, "Completed", "Purple"));
-//        statusDAO.update(new Status(62, "Complete", "Yellow"));
+
+        projectDAO.update(new Project(6, "Tower Defense 2", "NEW DESCRIPTION", "tasks", 63, 4, 1, date, due));
 
         projectDAO.testPrintAll();
     }

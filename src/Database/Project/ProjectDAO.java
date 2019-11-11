@@ -124,6 +124,7 @@ public class ProjectDAO implements DAO<Project> {
             preparedStatement.setInt(6, project.getPriority());
             preparedStatement.setDate(7, project.getStartDate());
             preparedStatement.setDate(8, project.getDueDate());
+
             System.out.println(preparedStatement);
 
             preparedStatement.executeUpdate();
@@ -157,7 +158,7 @@ public class ProjectDAO implements DAO<Project> {
     @Override
     public void update(Project project) {
         try {
-            String queryString = String.format("UPDATE `%s` SET %s=?, %s=?, %s=?, %s=?, %s=?, %s=?, %s=?, %s=? WHERE %s=?");
+            String queryString = String.format("UPDATE `%s` SET %s=?, %s=?, %s=?, %s=?, %s=?, %s=?, %s=?, %s=? WHERE %s=?", Const.TABLE_PROJECT, Const.PROJECT_COLUMN_TITLE, Const.PROJECT_COLUMN_DESCRIPTION, Const.PROJECT_COLUMN_TASKS, Const.PROJECT_COLUMN_STATUS, Const.PROJECT_COLUMN_CATEGORY, Const.PROJECT_COLUMN_PRIORITY, Const.PROJECT_COLUMN_START_DATE, Const.PROJECT_COLUMN_DUE_DATE, Const.PROJECT_COLUMN_ID);
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setString(1, project.getTitle());
             preparedStatement.setString(2, project.getDescription());
@@ -167,7 +168,9 @@ public class ProjectDAO implements DAO<Project> {
             preparedStatement.setInt(6, project.getPriority());
             preparedStatement.setDate(7, project.getStartDate());
             preparedStatement.setDate(8, project.getDueDate());
+            preparedStatement.setInt(9, project.getId());
 
+            System.out.println(preparedStatement);
 
             preparedStatement.executeUpdate();
 
