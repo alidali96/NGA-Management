@@ -83,7 +83,7 @@ public class Controller implements Initializable {
 
     private void changeTable(String table)  {
         try {
-            Pane pane = FXMLLoader.load(getClass().getResource("../Tables/" + table + "View.fxml"));
+            Pane pane = FXMLLoader.load(getClass().getResource("../views/tables/" + table + "View.fxml"));
             tableContainer.getChildren().retainAll();
             tableContainer.getChildren().add(pane);
         } catch (IOException e) {

@@ -1,4 +1,4 @@
-package Tables;
+package controllers;
 
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
