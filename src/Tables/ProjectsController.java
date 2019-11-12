@@ -1,6 +1,8 @@
 package Tables;
 
+
 import com.jfoenix.controls.JFXButton;
+import Database.DatabaseConnection;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
@@ -18,6 +20,8 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 
@@ -68,6 +72,18 @@ public class ProjectsController implements Initializable {
 
 
         ObservableList<Example> example = FXCollections.observableArrayList();
+
+//            try {
+//                ResultSet result = DatabaseConnection.getInstance().fetchRecords("SELECT * FROM `project`");
+//
+//                while (result.next()) {
+//                    example.add(new Example(result.getInt("id")+"", result.getString("title"), result.getString("description"), "category", "1-11-2019", "In Progress", "High", "1-12-2019"));
+//                }
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+
         example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
         example.add(new Example("1", "Project1f", "Task4", "Web", "2016", "Acive", "fast", "2020"));
         example.add(new Example("1", "Project1d", "Task3", "Mobile App", "2017", "Acive", "fast", "2020"));
