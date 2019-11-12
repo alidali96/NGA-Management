@@ -13,6 +13,7 @@ public class DatabaseConnection {
     public static DatabaseConnection getInstance() {
         if (databaseConnection == null)
             databaseConnection = new DatabaseConnection(Const.DB_NAME, Const.DB_USER, Const.DB_PASS);
+
         return databaseConnection;
     }
 
@@ -21,7 +22,11 @@ public class DatabaseConnection {
         if (connection == null) {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                connection = DriverManager.getConnection("jdbc:mysql://php.scweb.ca/" + database, user, password);
+//                connection = DriverManager.getConnection("jdbc:mysql://php.scweb.ca/" + database, user, password);
+//                connection=DriverManager.getConnection("jdbc:mysql://php.scweb.ca/"+database+"?user="+user+"&password="+password);
+                  connection=DriverManager.getConnection("jdbc:mysql://localhost/NGA_Management?user=root&password=webmaster");
+
+
                 System.out.println("Database Connected");
             } catch (Exception e) {
                 e.printStackTrace();

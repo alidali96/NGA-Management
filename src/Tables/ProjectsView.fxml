@@ -6,19 +6,28 @@
 <?import javafx.scene.layout.*?>
 <?import com.jfoenix.controls.cells.editors.base.JFXTreeTableCell?>
 
+<?import javafx.geometry.Insets?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Tables.ProjectsController">
     <children>
-        <JFXTreeTableView fx:id="table" prefHeight="500.0" prefWidth="700.0">
-            <columns>
-        <JFXTreeTableColumn fx:id="id" text="id"></JFXTreeTableColumn>
-        <JFXTreeTableColumn fx:id="projectName" text="Project Name"></JFXTreeTableColumn>
-        <JFXTreeTableColumn fx:id="tasks" text="Tasks"></JFXTreeTableColumn>
-        <JFXTreeTableColumn fx:id="category" text="Category"></JFXTreeTableColumn>
-        <JFXTreeTableColumn fx:id="startDate" text="Start Date"></JFXTreeTableColumn>
-        <JFXTreeTableColumn fx:id="dueDate" text="Due Date"></JFXTreeTableColumn>
-        <JFXTreeTableColumn fx:id="status" text="Status"></JFXTreeTableColumn>
-        <JFXTreeTableColumn fx:id="priority" text="Priority"></JFXTreeTableColumn>
-    </columns>
-    </JFXTreeTableView>
+        <VBox spacing="5" alignment="TOP_RIGHT">
+            <JFXButton fx:id="addProjectsBtn" style="-fx-background-color: #0275d8; -fx-text-fill: white;" buttonType="RAISED" onAction="#addProject" text="[+] Add">
+                <padding><Insets top="5" right="20" bottom="5" left="20"/></padding>
+            </JFXButton>
+            <Pane fx:id="replaceable">
+            <JFXTreeTableView fx:id="table" prefHeight="500.0" prefWidth="700.0">
+                <columns>
+                    <JFXTreeTableColumn fx:id="id" text="id"></JFXTreeTableColumn>
+                    <JFXTreeTableColumn fx:id="projectName" text="Project Name"></JFXTreeTableColumn>
+                    <JFXTreeTableColumn fx:id="tasks" text="Tasks"></JFXTreeTableColumn>
+                    <JFXTreeTableColumn fx:id="category" text="Category"></JFXTreeTableColumn>
+                    <JFXTreeTableColumn fx:id="startDate" text="Start Date"></JFXTreeTableColumn>
+                    <JFXTreeTableColumn fx:id="dueDate" text="Due Date"></JFXTreeTableColumn>
+                    <JFXTreeTableColumn fx:id="status" text="Status"></JFXTreeTableColumn>
+                    <JFXTreeTableColumn fx:id="priority" text="Priority"></JFXTreeTableColumn>
+                </columns>
+            </JFXTreeTableView>
+            </Pane>
+        </VBox>
     </children>
+
 </Pane>

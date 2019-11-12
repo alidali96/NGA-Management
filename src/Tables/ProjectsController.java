@@ -1,5 +1,7 @@
 package Tables;
 
+
+import com.jfoenix.controls.JFXButton;
 import Database.DatabaseConnection;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -9,9 +11,14 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
+import javafx.scene.layout.Pane;
+
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,6 +47,14 @@ public class ProjectsController implements Initializable {
     private JFXTreeTableColumn<Example, String> status;
     @FXML
     private JFXTreeTableColumn<Example, String> priority;
+
+    private JFXButton addProject;
+    @FXML
+
+    private Pane replaceable;
+
+    @FXML
+    JFXButton addProjectsBtn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -70,13 +85,25 @@ public class ProjectsController implements Initializable {
 //            }
 
         example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
-        example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
-        example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
-        example.add(new Example("1", "Project1", "Task1", "Design", "2019", "Acive", "fast", "2020"));
+        example.add(new Example("1", "Project1f", "Task4", "Web", "2016", "Acive", "fast", "2020"));
+        example.add(new Example("1", "Project1d", "Task3", "Mobile App", "2017", "Acive", "fast", "2020"));
+        example.add(new Example("1", "Projectf1", "Task6", "Logo", "2019", "Acive", "fast", "2020"));
 
         TreeItem<Example> data = new RecursiveTreeItem<Example>(example, RecursiveTreeObject::getChildren);
         table.setRoot(data);
         table.setShowRoot(false);
+    }
+
+    public void addProject(ActionEvent actionEvent) {
+        try {
+            Pane pane = FXMLLoader.load(getClass().getResource("../Forms/ProjectsFormView.fxml"));
+            replaceable.getChildren().retainAll();
+            replaceable.getChildren().add(pane);
+            addProjectsBtn.setStyle("visibility: hidden;");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     class Example extends RecursiveTreeObject<Example> {
