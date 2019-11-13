@@ -2,8 +2,6 @@ package controllers;
 
 
 import com.jfoenix.controls.JFXButton;
-import de.jensd.fx.glyphs.GlyphsDude;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -64,12 +61,10 @@ public class ProjectController implements Initializable {
         edit.setCellFactory(param -> new ButtonCell());
 
         ObservableList<ProjectItem> projectModel1 = FXCollections.observableArrayList();
-        projectModel1.add(new ProjectItem("1", "Project1", "Design", "2019", "Acive", "fast", "2020"));
-        projectModel1.add(new ProjectItem("1", "Project1", "Design", "2019", "Acive", "fast", "2020"));
-        projectModel1.add(new ProjectItem("1", "Project1", "Design", "2019", "Acive", "fast", "2020"));
-        projectModel1.add(new ProjectItem("1", "Project1", "Design", "2019", "Acive", "fast", "2020"));
-
-
+//        projectModel1.add(new ProjectItem("1", "Project1", "Design", "2019", "Acive", "fast", "2020"));
+//        projectModel1.add(new ProjectItem("1", "Project1", "Design", "2019", "Acive", "fast", "2020"));
+//        projectModel1.add(new ProjectItem("1", "Project1", "Design", "2019", "Acive", "fast", "2020"));
+//        projectModel1.add(new ProjectItem("1", "Project1", "Design", "2019", "Acive", "fast", "2020"));
 
         table.setItems(projectModel1);
     }

@@ -48,9 +48,9 @@ public class TasksController implements Initializable {
         edit.setCellFactory(param -> new ButtonCell());
 
         ObservableList<ProjectItem> Tasklist = FXCollections.observableArrayList();
-        Tasklist.add(new ProjectItem("1", "Ghaith", "RED", "cc", "cc", "cc", "status"));
-        Tasklist.add(new ProjectItem("1", "Ghaith", "RED", "cc", "cc", "cc", "status"));
-        Tasklist.add(new ProjectItem("1", "Ghaith", "RED", "cc", "cc", "cc", "status"));
+//        Tasklist.add(new ProjectItem("1", "Ghaith", "RED", "cc", "cc", "cc", "status"));
+//        Tasklist.add(new ProjectItem("1", "Ghaith", "RED", "cc", "cc", "cc", "status"));
+//        Tasklist.add(new ProjectItem("1", "Ghaith", "RED", "cc", "cc", "cc", "status"));
 
         taskTable.setItems(Tasklist);
     }

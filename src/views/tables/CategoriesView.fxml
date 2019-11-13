@@ -8,12 +8,13 @@
 <?import com.jfoenix.controls.JFXTreeTableColumn?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CategoriesContoller">
    <children>
-       <JFXTreeTableView fx:id="categoriesTable" prefHeight="500.0" prefWidth="700.0">
+       <TableView fx:id="categoriesTable" prefHeight="500.0" prefWidth="700.0">
            <columns>
-               <JFXTreeTableColumn fx:id="id" text="Id"></JFXTreeTableColumn>
-               <JFXTreeTableColumn fx:id="name" text="Name"></JFXTreeTableColumn>
-               <JFXTreeTableColumn fx:id="color" text="Color"></JFXTreeTableColumn>
+               <TableColumn fx:id="id" text="Id"></TableColumn>
+               <TableColumn fx:id="name" text="Name"></TableColumn>
+               <TableColumn fx:id="color" text="Color"></TableColumn>
+               <TableColumn fx:id="edit" text="Edit"/>
            </columns>
-       </JFXTreeTableView>
+       </TableView>
    </children>
 </Pane>
