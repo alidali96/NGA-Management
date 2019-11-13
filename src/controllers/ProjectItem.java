@@ -2,22 +2,23 @@ package controllers;
 public class ProjectItem {
 
     private String id;
-    private String projectName;
-    private String category;
+    private String name;
+    private String project;
     private String startDate;
-    private String status;
-    private String priority;
     private String dueDate;
+    private String priority;
+    private String status;
 
-    public ProjectItem(String id, String projectName, String category, String startDate, String status, String priority, String dueDate) {
+    public ProjectItem(String id, String name, String project, String startDate, String dueDate, String priority, String status) {
         this.id = id;
-        this.projectName = projectName;
-        this.category = category;
+        this.name = name;
+        this.project = project;
         this.startDate = startDate;
-        this.status = status;
-        this.priority = priority;
         this.dueDate = dueDate;
+        this.priority = priority;
+        this.status = status;
     }
+
 
     public String getId() {
         return id;
@@ -27,20 +28,20 @@ public class ProjectItem {
         this.id = id;
     }
 
-    public String getProjectName() {
-        return projectName;
+    public String getName() {
+        return name;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCategory() {
-        return category;
+    public String getProject() {
+        return project;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setProject(String project) {
+        this.project = project;
     }
 
     public String getStartDate() {
@@ -51,12 +52,12 @@ public class ProjectItem {
         this.startDate = startDate;
     }
 
-    public String getStatus() {
-        return status;
+    public String getDueDate() {
+        return dueDate;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
     }
 
     public String getPriority() {
@@ -67,11 +68,11 @@ public class ProjectItem {
         this.priority = priority;
     }
 
-    public String getDueDate() {
-        return dueDate;
+    public String getStatus() {
+        return status;
     }
 
-    public void setDueDate(String dueDate) {
-        this.dueDate = dueDate;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

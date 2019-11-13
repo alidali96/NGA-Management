@@ -61,33 +61,14 @@ public class ProjectController implements Initializable {
         priority.setCellValueFactory(new PropertyValueFactory<>("priority"));
 
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-
-
-        edit.setCellFactory(param -> new TableCell<ProjectItem, ProjectItem>() {
-            @Override
-            public void updateItem(ProjectItem project, boolean empty) {
-                super.updateItem(project, empty);
-
-                if (empty) {
-                    setGraphic(null);
-                    setText(null);
-                } else {
-                    JFXButton btn = new JFXButton();
-                    btn.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.PENCIL));
-
-                    btn.setButtonType(JFXButton.ButtonType.RAISED);
-                    btn.setOnAction(event -> {
-//                        System.out.println(project.getId());
-                    });
-                    setGraphic(btn);
-                    setText(null);
-                }
-            }
-        });
+        edit.setCellFactory(param -> new ButtonCell());
 
         ObservableList<ProjectItem> projectModel1 = FXCollections.observableArrayList();
-
         projectModel1.add(new ProjectItem("1", "Project1", "Design", "2019", "Acive", "fast", "2020"));
+        projectModel1.add(new ProjectItem("1", "Project1", "Design", "2019", "Acive", "fast", "2020"));
+        projectModel1.add(new ProjectItem("1", "Project1", "Design", "2019", "Acive", "fast", "2020"));
+        projectModel1.add(new ProjectItem("1", "Project1", "Design", "2019", "Acive", "fast", "2020"));
+
 
 
         table.setItems(projectModel1);
