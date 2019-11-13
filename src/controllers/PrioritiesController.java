@@ -12,10 +12,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CategoriesContoller implements Initializable {
+public class PrioritiesController implements Initializable {
 
     @FXML
-    private TableView categoriesTable;
+    private TableView prioritiesTable;
     @FXML
     private TableColumn<ProjectItem, String> id;
     @FXML
@@ -27,6 +27,7 @@ public class CategoriesContoller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         color.setCellValueFactory(new PropertyValueFactory<>("color"));
@@ -34,15 +35,12 @@ public class CategoriesContoller implements Initializable {
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         edit.setCellFactory(param -> new ButtonCell());
 
+        ObservableList<ProjectItem> Priolist = FXCollections.observableArrayList();
+        Priolist.add(new ProjectItem("1", "priority", "RED"));
+        Priolist.add(new ProjectItem("1", "priority", "RED"));
+        Priolist.add(new ProjectItem("1", "priority", "RED"));
+        Priolist.add(new ProjectItem("1", "priority", "RED"));
 
-        ObservableList<ProjectItem> Catlist = FXCollections.observableArrayList();
-        Catlist.add(new ProjectItem("1", "Ghaith", "RED"));
-        Catlist.add(new ProjectItem("1", "Ghaith", "RED"));
-        Catlist.add(new ProjectItem("1", "Ghaith", "RED"));
-        Catlist.add(new ProjectItem("1", "Ghaith", "RED"));
-
-        categoriesTable.setItems(Catlist);
-
-
+        prioritiesTable.setItems(Priolist);
     }
 }

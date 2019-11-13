@@ -37,8 +37,6 @@ public class Controller implements Initializable {
     JFXButton projectsButton;
 
 
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -57,15 +55,16 @@ public class Controller implements Initializable {
 
         // Test Project Table Class
 //        TestProject testProject = new TestProject();
+
+
 //        Label icon=createIconLabel("Project");
 //        projectsButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcons.BRIEFCASE,"13px"));
 
     }
 
 
-
-    public void switchTable(ActionEvent event)  {
-        Button button = (Button)event.getSource();
+    public void switchTable(ActionEvent event) {
+        Button button = (Button) event.getSource();
 
         switch (button.getId()) {
             case "projectsButton":
@@ -77,12 +76,18 @@ public class Controller implements Initializable {
             case "categoriesButton":
                 changeTable("Categories");
                 break;
+            case "statusButton":
+                changeTable("Status");
+                break;
+            case "prioritiesButton":
+                changeTable("Priorities");
+                break;
             default:
                 System.out.println("ID not found");
         }
     }
 
-    private void changeTable(String table)  {
+    private void changeTable(String table) {
         try {
             Pane pane = FXMLLoader.load(getClass().getResource("../views/tables/" + table + "View.fxml"));
             tableContainer.getChildren().retainAll();

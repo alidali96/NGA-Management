@@ -15,7 +15,7 @@ public class TestProject {
         Date due = new Date(System.currentTimeMillis());
         due.setTime(System.currentTimeMillis() + 999999999);
 
-        Project project = new Project("Tower Defense", "DESCRIPTION ABOUT THE GAME", "tasks", 1, 1, 1, date, due);
+        Project project = new Project("Tower Defense", "DESCRIPTION ABOUT THE GAME", "tasks", 66, 1, 1, date, due);
 
         projectDAO.create(project);
 
