@@ -1,13 +1,16 @@
 package controllers;
 
+import Database.Project.Project;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,24 +21,31 @@ public class TasksController implements Initializable {
     @FXML
     private TableView taskTable;
     @FXML
-    private TableColumn<ProjectItem, String> id;
+    private TableColumn<Project, String> id;
     @FXML
-    private TableColumn<ProjectItem, String> name;
+    private TableColumn<Project, String> name;
     @FXML
-    private TableColumn<ProjectItem, String> project;
+    private TableColumn<Project, String> project;
     @FXML
-    private TableColumn<ProjectItem, String> startDate;
+    private TableColumn<Project, String> startDate;
     @FXML
-    private TableColumn<ProjectItem, String> dueDate;
+    private TableColumn<Project, String> dueDate;
     @FXML
-    private TableColumn<ProjectItem, String> priority;
+    private TableColumn<Project, String> priority;
     @FXML
-    private TableColumn<ProjectItem, String> status;
+    private TableColumn<Project, String> status;
     @FXML
-    TableColumn<ProjectItem, ProjectItem> edit;
+    TableColumn<Project, Project> edit;
+
+    @FXML
+    private VBox replaceable;
+    @FXML
+    private Button addProjectsBtn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Projects"));
+
         id.setCellValueFactory(new PropertyValueFactory<>("id"));
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         project.setCellValueFactory(new PropertyValueFactory<>("project"));
@@ -45,12 +55,12 @@ public class TasksController implements Initializable {
         status.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        edit.setCellFactory(param -> new ButtonCell());
+        edit.setCellFactory(param -> new ButtonCell(replaceable, "Projects"));
 
-        ObservableList<ProjectItem> Tasklist = FXCollections.observableArrayList();
-//        Tasklist.add(new ProjectItem("1", "Ghaith", "RED", "cc", "cc", "cc", "status"));
-//        Tasklist.add(new ProjectItem("1", "Ghaith", "RED", "cc", "cc", "cc", "status"));
-//        Tasklist.add(new ProjectItem("1", "Ghaith", "RED", "cc", "cc", "cc", "status"));
+        ObservableList<Project> Tasklist = FXCollections.observableArrayList();
+//        Tasklist.add(new Project("1", "Ghaith", "RED", "cc", "cc", "cc", "status"));
+//        Tasklist.add(new Project("1", "Ghaith", "RED", "cc", "cc", "cc", "status"));
+//        Tasklist.add(new Project("1", "Ghaith", "RED", "cc", "cc", "cc", "status"));
 
         taskTable.setItems(Tasklist);
     }

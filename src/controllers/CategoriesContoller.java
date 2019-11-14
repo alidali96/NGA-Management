@@ -1,5 +1,6 @@
 package controllers;
 
+import Database.Project.Project;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,13 +18,13 @@ public class CategoriesContoller implements Initializable {
     @FXML
     private TableView categoriesTable;
     @FXML
-    private TableColumn<ProjectItem, String> id;
+    private TableColumn<Project, String> id;
     @FXML
-    private TableColumn<ProjectItem, String> name;
+    private TableColumn<Project, String> name;
     @FXML
-    private TableColumn<ProjectItem, String> color;
+    private TableColumn<Project, String> color;
     @FXML
-    private TableColumn<ProjectItem, ProjectItem> edit;
+    private TableColumn<Project, Project> edit;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -32,14 +33,14 @@ public class CategoriesContoller implements Initializable {
         color.setCellValueFactory(new PropertyValueFactory<>("color"));
 
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        edit.setCellFactory(param -> new ButtonCell());
+//        edit.setCellFactory(param -> new ButtonCell());
 
 
-        ObservableList<ProjectItem> Catlist = FXCollections.observableArrayList();
-        Catlist.add(new ProjectItem("1", "Ghaith", "RED"));
-        Catlist.add(new ProjectItem("1", "Ghaith", "RED"));
-        Catlist.add(new ProjectItem("1", "Ghaith", "RED"));
-        Catlist.add(new ProjectItem("1", "Ghaith", "RED"));
+        ObservableList<Project> Catlist = FXCollections.observableArrayList();
+//        Catlist.add(new Project("1", "Ghaith", "RED"));
+//        Catlist.add(new Project("1", "Ghaith", "RED"));
+//        Catlist.add(new Project("1", "Ghaith", "RED"));
+//        Catlist.add(new Project("1", "Ghaith", "RED"));
 
         categoriesTable.setItems(Catlist);
 

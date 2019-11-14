@@ -11,9 +11,4 @@ public class ProjectModel {
     public ProjectModel() {
         this.projectDAO = new ProjectDAO();
     }
-
-    public void addProject(Project project){
-
-    }
-
 }

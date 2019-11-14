@@ -3,8 +3,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.JFXButton?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PrioritiesController">
     <children>
+        <VBox fx:id="rightBox" spacing="5" alignment="TOP_RIGHT">
+            <JFXButton fx:id="addProjectsBtn" style="-fx-background-color: #0275d8; -fx-text-fill: white;" buttonType="RAISED" text="[+] Add">
+                <padding><Insets top="5" right="20" bottom="5" left="20"/></padding>
+            </JFXButton>
+<!--        <Pane fx:id="replaceable">-->
         <TableView fx:id="prioritiesTable" prefHeight="500.0" prefWidth="700.0">
             <columns>
                 <TableColumn fx:id="id" text="Id"></TableColumn>
@@ -13,5 +20,7 @@
                 <TableColumn fx:id="edit" text="Edit"/>
             </columns>
         </TableView>
+<!--        </Pane>-->
+        </VBox>
     </children>
 </Pane>

@@ -5,19 +5,23 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 
+
+import java.net.URL;
 import java.util.LinkedList;
+import java.util.ResourceBundle;
 
 
-public class ProjectsFormController {
+public class ProjectsFormController implements Initializable {
+
     @FXML
     VBox TasksHBox;
     @FXML
@@ -37,19 +41,27 @@ public class ProjectsFormController {
     @FXML
     private JFXDatePicker dueDatePicker;
 
-    String projectNameStr="";
-    String categoryStr="";
-    String priorityStr="";
-    String statusStr="";
-    String startDateStr="";
-    String endDateStr="";
+    @FXML
+    private Label projectTitle;
+    @FXML
+    private Button submitButton;
+
+    String projectNameStr = "";
+    String categoryStr = "";
+    String priorityStr = "";
+    String statusStr = "";
+    String startDateStr = "";
+    String endDateStr = "";
+
+    public static boolean updateForm = false;
 
     public void addNewTask(ActionEvent actionEvent) {
-        vBox=new HBox();
-        JFXTextField newTask=new JFXTextField();
-        JFXButton remove=new JFXButton();
+
+        vBox = new HBox();
+        JFXTextField newTask = new JFXTextField();
+        JFXButton remove = new JFXButton();
         remove.setText("-");
-        remove.setStyle( "-fx-min-width: 10px; " +
+        remove.setStyle("-fx-min-width: 10px; " +
                 "-fx-background-radius: 5em; " +
                 "-fx-min-height: 30px; " +
                 "-fx-max-width: 30px; " +
@@ -61,16 +73,16 @@ public class ProjectsFormController {
          * Remove the task row,when - clicked
          */
         remove.setOnAction(event -> {
-            HBox parent= (HBox) remove.getParent();
+            HBox parent = (HBox) remove.getParent();
             TasksHBox.getChildren().remove(parent);
         });
         taskOneLabel.setText("Task #1");
-        Label label=new Label("Task #"+(TasksHBox.getChildren().size()+1));
+        Label label = new Label("Task #" + (TasksHBox.getChildren().size() + 1));
         label.setMinHeight(40);
         label.setMinWidth(100);
         newTask.setMinWidth(300);
         newTask.setMinHeight(40);
-        vBox.getChildren().addAll(label,newTask,remove);
+        vBox.getChildren().addAll(label, newTask, remove);
         TasksHBox.getChildren().add(vBox);
 
 
@@ -78,10 +90,10 @@ public class ProjectsFormController {
 
 
     public void processProjectsForm(ActionEvent actionEvent) {
-        LinkedList<String>tasksList=new LinkedList<>();
-        for(Node child:TasksHBox.getChildren()){
-            HBox box= (HBox) child;
-            for(Node achild:box.getChildren()) {
+        LinkedList<String> tasksList = new LinkedList<>();
+        for (Node child : TasksHBox.getChildren()) {
+            HBox box = (HBox) child;
+            for (Node achild : box.getChildren()) {
                 if (achild instanceof TextField) {
                     tasksList.add(((TextField) achild).getText());
                 }
@@ -89,31 +101,37 @@ public class ProjectsFormController {
         }
 
 
-         projectNameStr=projectName.getText();
+        projectNameStr = projectName.getText();
         System.out.println("Tasks----");
-        for(int i=0;i<tasksList.size();i++){
+        for (int i = 0; i < tasksList.size(); i++) {
             System.out.println(tasksList.get(i));
         }
-         categoryStr=category.getValue().toString();
-         priorityStr=priority.getValue();
-         statusStr=status.getValue();
-         startDateStr=startDatePicker.getValue().toString();
-         endDateStr=dueDatePicker.getValue().toString();
+        categoryStr = category.getValue().toString();
+        priorityStr = priority.getValue();
+        statusStr = status.getValue();
+        startDateStr = startDatePicker.getValue().toString();
+        endDateStr = dueDatePicker.getValue().toString();
 
         category.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
-                    System.out.println("hiii");
-                    System.out.println(oldValue+" "+newValue);
+                    System.out.println(oldValue + " " + newValue);
                 }
         );
 
 
         System.out.println(projectName.getText());
-        System.out.println("category:"+categoryStr);
-        System.out.println("priority:"+priorityStr);
-        System.out.println("status:"+statusStr);
-        System.out.println("startDate:"+startDateStr);
-        System.out.println("dueDate:"+endDateStr);
+        System.out.println("category:" + categoryStr);
+        System.out.println("priority:" + priorityStr);
+        System.out.println("status:" + statusStr);
+        System.out.println("startDate:" + startDateStr);
+        System.out.println("dueDate:" + endDateStr);
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if (updateForm) {
+            projectTitle.setText("Edit Project");
+            submitButton.setText("Submit");
+        }
+    }
 }

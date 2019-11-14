@@ -1,5 +1,6 @@
 package controllers;
 
+import Database.Project.Project;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,13 +18,13 @@ public class StatusContrller implements Initializable {
     @FXML
     private TableView statusTable;
     @FXML
-    private TableColumn<ProjectItem, String> id;
+    private TableColumn<Project, String> id;
     @FXML
-    private TableColumn<ProjectItem, String> name;
+    private TableColumn<Project, String> name;
     @FXML
-    private TableColumn<ProjectItem, String> color;
+    private TableColumn<Project, String> color;
     @FXML
-    private TableColumn<ProjectItem, ProjectItem> edit;
+    private TableColumn<Project, Project> edit;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -34,13 +35,13 @@ public class StatusContrller implements Initializable {
         color.setCellValueFactory(new PropertyValueFactory<>("color"));
 
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        edit.setCellFactory(param -> new ButtonCell());
+//        edit.setCellFactory(param -> new ButtonCell());
 
-        ObservableList<ProjectItem> Statuslist = FXCollections.observableArrayList();
-        Statuslist.add(new ProjectItem("1", "1", "Status"));
-        Statuslist.add(new ProjectItem("2", "2", "Status"));
-        Statuslist.add(new ProjectItem("3", "3", "Status"));
-        Statuslist.add(new ProjectItem("4", "4", "Status"));
+        ObservableList<Project> Statuslist = FXCollections.observableArrayList();
+//        Statuslist.add(new Project("1", "1", "Status"));
+//        Statuslist.add(new Project("2", "2", "Status"));
+//        Statuslist.add(new Project("3", "3", "Status"));
+//        Statuslist.add(new Project("4", "4", "Status"));
 
         statusTable.setItems(Statuslist);
     }

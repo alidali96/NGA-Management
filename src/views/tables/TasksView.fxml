@@ -3,19 +3,31 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TasksController">
-   <children>
-      <TableView fx:id="taskTable" prefHeight="500.0" prefWidth="700.0">
-         <columns>
-            <TableColumn fx:id="id" text="ID" />
-            <TableColumn fx:id="name" text="Name" />
-            <TableColumn fx:id="project" text="Project" />
-            <TableColumn fx:id="startDate" text="Start Date" />
-            <TableColumn fx:id="dueDate" text="Due Date" />
-            <TableColumn fx:id="priority" text="Priority" />
-            <TableColumn fx:id="status" text="Status" />
-            <TableColumn fx:id="edit" text="Edit"/>
-         </columns>
-      </TableView>
-   </children>
+<?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.JFXButton?>
+<Pane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.TasksController">
+    <children>
+        <VBox fx:id="replaceable" spacing="5" alignment="TOP_RIGHT">
+            <JFXButton fx:id="addProjectsBtn" style="-fx-background-color: #0275d8; -fx-text-fill: white;"
+                       buttonType="RAISED" text="[+] Add">
+                <padding>
+                    <Insets top="5" right="20" bottom="5" left="20"/>
+                </padding>
+            </JFXButton>
+            <TableView fx:id="taskTable" prefHeight="500.0" prefWidth="700.0">
+                <columns>
+                    <TableColumn fx:id="id" text="ID"/>
+                    <TableColumn fx:id="name" text="Name"/>
+                    <TableColumn fx:id="project" text="Project"/>
+                    <TableColumn fx:id="startDate" text="Start Date"/>
+                    <TableColumn fx:id="dueDate" text="Due Date"/>
+                    <TableColumn fx:id="priority" text="Priority"/>
+                    <TableColumn fx:id="status" text="Status"/>
+                    <TableColumn fx:id="edit" text="Edit"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </children>
 </Pane>
