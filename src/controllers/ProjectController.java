@@ -1,24 +1,18 @@
 package controllers;
 
 
-import Forms.ProjectsFormController;
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import Database.Project.Project;
-
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
@@ -55,8 +49,8 @@ public class ProjectController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        id.setCellValueFactory(new PropertyValueFactory<>("id"));
-        projectName.setCellValueFactory(new PropertyValueFactory<>("projectName"));
+
+        projectName.setCellValueFactory(new PropertyValueFactory<>("title"));
         category.setCellValueFactory(new PropertyValueFactory<>("category"));
         startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
         dueDate.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
@@ -68,17 +62,17 @@ public class ProjectController implements Initializable {
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         edit.setCellFactory(param -> new ButtonCell(replaceable, "Projects"));
 
-        ObservableList<Database.Project.Project> projectModel1 = FXCollections.observableArrayList();
+        ObservableList<Project> projectModel1 = FXCollections.observableArrayList();
 
 
         Date date = new Date(System.currentTimeMillis());
         Date due = new Date(System.currentTimeMillis());
         due.setTime(System.currentTimeMillis() + 999999999);
-        projectModel1.add(new Database.Project.Project("Tower Defense", "DESCRIPTION ABOUT THE GAME", "tasks", 66, 1, 1, date, due));
-        projectModel1.add(new Database.Project.Project("Tower Defense", "DESCRIPTION ABOUT THE GAME", "tasks", 66, 1, 1, date, due));
-        projectModel1.add(new Database.Project.Project("Tower Defense", "DESCRIPTION ABOUT THE GAME", "tasks", 66, 1, 1, date, due));
-        projectModel1.add(new Database.Project.Project("Tower Defense", "DESCRIPTION ABOUT THE GAME", "tasks", 66, 1, 1, date, due));
-
+        projectModel1.add(new Project("Tower Defense", "DESCRIPTION ABOUT THE GAME", 66, 1, 1, date, due));
+        projectModel1.add(new Project("Tower Defense", "DESCRIPTION ABOUT THE GAME", 66, 1, 1, date, due));
+        projectModel1.add(new Project("Tower Defense", "DESCRIPTION ABOUT THE GAME", 66, 1, 1, date, due));
+        projectModel1.add(new Project("Tower Defense", "DESCRIPTION ABOUT THE GAME", 66, 1, 1, date, due));
+        projectModel1.add(new Project("Tower Defense", "DESCRIPTION ABOUT THE GAME", 66, 1, 1, date, due));
 
         table.setItems(projectModel1);
     }

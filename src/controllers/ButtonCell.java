@@ -3,6 +3,7 @@ package controllers;
 import Database.Project.Project;
 import Forms.ProjectsFormController;
 import Forms.StatusFormController;
+import Forms.TaskFormController;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -10,25 +11,24 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableCell;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class ButtonCell extends TableCell<Project, Project> {
+public class ButtonCell<S,T> extends TableCell<S, T> {
 
     JFXButton btn;
-    VBox replaceable;
+    Pane replaceable;
     String form;
 
-    public ButtonCell(VBox replaceable, String form) {
+    public ButtonCell(Pane replaceable, String form) {
         this.replaceable = replaceable;
         this.form = form;
         btn = new JFXButton();
     }
 
     @Override
-    public void updateItem(Project project, boolean empty) {
-        super.updateItem(project, empty);
+    public void updateItem(T object, boolean empty) {
+        super.updateItem(object, empty);
 
         if (empty) {
             setGraphic(null);
@@ -40,6 +40,7 @@ public class ButtonCell extends TableCell<Project, Project> {
             btn.setOnAction(event -> {
                 ProjectsFormController.updateForm = true;
                 StatusFormController.updateForm = true;
+                TaskFormController.updateForm = true;
                 editProject(event);
             });
             setGraphic(btn);

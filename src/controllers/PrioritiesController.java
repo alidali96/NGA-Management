@@ -1,5 +1,6 @@
 package controllers;
 
+import Database.CSP.Priority.Priority;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,39 +22,38 @@ public class PrioritiesController implements Initializable {
 
     @FXML
     private TableView prioritiesTable;
+
     @FXML
-    private TableColumn<Project, String> id;
+    private TableColumn<Priority, String> name;
     @FXML
-    private TableColumn<Project, String> name;
+    private TableColumn<Priority, String> color;
     @FXML
-    private TableColumn<Project, String> color;
-    @FXML
-    private TableColumn<Database.Project.Project, Project> edit;
+    private TableColumn<Priority, Priority> edit;
     @FXML
     private VBox replaceable;
     @FXML
     Button addProjectsBtn;
 
-    @FXML
-    private VBox rightBox;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        rightBox.getChildren().set(0, new AddProjectButton(replaceable, "Status"));
+        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Status"));
 
-        id.setCellValueFactory(new PropertyValueFactory<>("id"));
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         color.setCellValueFactory(new PropertyValueFactory<>("color"));
 
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         edit.setCellFactory(param -> new ButtonCell(replaceable, "Status"));
 
-        ObservableList<Project> Priolist = FXCollections.observableArrayList();
-//        Priolist.add(new Project("1", "priority", "RED"));
-//        Priolist.add(new Project("1", "priority", "RED"));
-//        Priolist.add(new Project("1", "priority", "RED"));
-//        Priolist.add(new Project("1", "priority", "RED"));
+        ObservableList<Priority> priolist = FXCollections.observableArrayList();
+        priolist.add(new Priority("name", "REd"));
+        priolist.add(new Priority("name", "REd"));
+        priolist.add(new Priority("name", "REd"));
+        priolist.add(new Priority("name", "REd"));
+        priolist.add(new Priority("name", "REd"));
 
-        prioritiesTable.setItems(Priolist);
+
+        prioritiesTable.setItems(priolist);
     }
 }

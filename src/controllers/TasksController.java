@@ -1,12 +1,11 @@
 package controllers;
 
-import Database.Project.Project;
+import Database.Task.Task;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -20,48 +19,43 @@ public class TasksController implements Initializable {
 
     @FXML
     private TableView taskTable;
+
     @FXML
-    private TableColumn<Project, String> id;
+    private TableColumn<Task, String> name;
     @FXML
-    private TableColumn<Project, String> name;
+    private TableColumn<Task, String> description;
     @FXML
-    private TableColumn<Project, String> project;
+    private TableColumn<Task, Integer> project;
     @FXML
-    private TableColumn<Project, String> startDate;
+    private TableColumn<Task, Integer> open;
     @FXML
-    private TableColumn<Project, String> dueDate;
-    @FXML
-    private TableColumn<Project, String> priority;
-    @FXML
-    private TableColumn<Project, String> status;
-    @FXML
-    TableColumn<Project, Project> edit;
+    TableColumn<Task, Task> edit;
 
     @FXML
     private VBox replaceable;
-    @FXML
-    private Button addProjectsBtn;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Projects"));
+        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Task"));
 
-        id.setCellValueFactory(new PropertyValueFactory<>("id"));
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        description.setCellValueFactory(new PropertyValueFactory<>("description"));
         project.setCellValueFactory(new PropertyValueFactory<>("project"));
-        startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-        dueDate.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
-        priority.setCellValueFactory(new PropertyValueFactory<>("priority"));
-        status.setCellValueFactory(new PropertyValueFactory<>("status"));
+        open.setCellValueFactory(new PropertyValueFactory<>("open"));
 
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        edit.setCellFactory(param -> new ButtonCell(replaceable, "Projects"));
+        edit.setCellFactory(param -> new ButtonCell(replaceable, "Task"));
 
-        ObservableList<Project> Tasklist = FXCollections.observableArrayList();
-//        Tasklist.add(new Project("1", "Ghaith", "RED", "cc", "cc", "cc", "status"));
-//        Tasklist.add(new Project("1", "Ghaith", "RED", "cc", "cc", "cc", "status"));
-//        Tasklist.add(new Project("1", "Ghaith", "RED", "cc", "cc", "cc", "status"));
+        ObservableList<Task> tasklist = FXCollections.observableArrayList();
+        tasklist.add(new Task("name", "saldnv", 6, 0));
+        tasklist.add(new Task("name", "saldnv", 6, 0));
+        tasklist.add(new Task("name", "saldnv", 6, 0));
+        tasklist.add(new Task("name", "saldnv", 6, 0));
+        tasklist.add(new Task("name", "saldnv", 6, 0));
+        tasklist.add(new Task("name", "saldnv", 6, 0));
 
-        taskTable.setItems(Tasklist);
+
+        taskTable.setItems(tasklist);
     }
 }

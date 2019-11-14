@@ -2,6 +2,7 @@ package controllers;
 
 import Forms.ProjectsFormController;
 import Forms.StatusFormController;
+import Forms.TaskFormController;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,7 @@ public class AddProjectButton extends JFXButton{
             try {
                 ProjectsFormController.updateForm = false;
                 StatusFormController.updateForm = false;
+                TaskFormController.updateForm = false;
                 Pane pane = FXMLLoader.load(getClass().getResource("../Forms/" + form + "FormView.fxml"));
                 replaceable.getChildren().retainAll();
                 replaceable.getChildren().add(pane);

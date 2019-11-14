@@ -20,7 +20,6 @@
                   <children>
                   <TableView fx:id="table" prefHeight="500.0" prefWidth="700.0">
                       <columns>
-                          <TableColumn fx:id="id" text="id" />
                           <TableColumn fx:id="projectName" text="Project Name" />
                           <TableColumn fx:id="category" text="Category" />
                           <TableColumn fx:id="startDate" text="Start Date" />
