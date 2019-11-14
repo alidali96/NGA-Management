@@ -6,22 +6,22 @@ public class Task {
     private String name;
     private String description;
     private int project;
-    private int closed;
+    private int open;
 
 
-    public Task(String name, String description, int project, int closed) {
+    public Task(String name, String description, int project, int open) {
         this.name = name;
         this.description = description;
         this.project = project;
-        this.closed = closed;
+        this.open = open;
     }
 
-    public Task(int id, String name, String description, int project, int closed) {
+    public Task(int id, String name, String description, int project, int open) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.project = project;
-        this.closed = closed;
+        this.open = open;
     }
 
     public int getId() {
@@ -56,16 +56,16 @@ public class Task {
         this.project = project;
     }
 
-    public int getClosed() {
-        return closed;
+    public int getOpen() {
+        return open;
     }
 
-    public void setClosed(int closed) {
-        this.closed = closed;
+    public void setOpen(int open) {
+        this.open = open;
     }
 
     @Override
     public String toString() {
-        return String.format("ID: %d Name: %s Description: %s Project %d Closed: %d", id, name, description, project, closed);
+        return String.format("ID: %d Name: %s Description: %s Project %d Open: %d", id, name, description, project, open);
     }
 }

@@ -35,9 +35,9 @@ public class TaskDAO implements DAO<Task> {
                 String name = resultSet.getString(Const.TASK_COLUMN_NAME);
                 String description = resultSet.getString(Const.TASK_COLUMN_DESCRIPTION);
                 int project = resultSet.getInt(Const.TASK_COLUMN_PROJECT);
-                int closed = resultSet.getInt(Const.TASK_COLUMN_CLOSED);
+                int open = resultSet.getInt(Const.TASK_COLUMN_OPEN);
 
-                task = new Task(id, name, description, project, closed);
+                task = new Task(id, name, description, project, open);
                 System.out.println(task.getName() + " Retrieved");
             } else {
                 System.out.println(taskID + " id was not found");
@@ -74,9 +74,9 @@ public class TaskDAO implements DAO<Task> {
                 String name = resultSet.getString(Const.TASK_COLUMN_NAME);
                 String description = resultSet.getString(Const.TASK_COLUMN_DESCRIPTION);
                 int project = resultSet.getInt(Const.TASK_COLUMN_PROJECT);
-                int closed = resultSet.getInt(Const.TASK_COLUMN_CLOSED);
+                int open = resultSet.getInt(Const.TASK_COLUMN_OPEN);
 
-                task = new Task(id, name, description, project, closed);
+                task = new Task(id, name, description, project, open);
                 System.out.println(task.getName() + " Retrieved");
             } else {
                 System.out.println(taskName + " was not found");
@@ -111,7 +111,7 @@ public class TaskDAO implements DAO<Task> {
             preparedStatement.setString(1, task.getName());
             preparedStatement.setString(2, task.getDescription());
             preparedStatement.setInt(3, task.getProject());
-            preparedStatement.setInt(4, task.getClosed());
+            preparedStatement.setInt(4, task.getOpen());
 
             System.out.println(preparedStatement);
 
@@ -144,12 +144,12 @@ public class TaskDAO implements DAO<Task> {
     @Override
     public void update(Task task) {
         try {
-            String queryString = String.format("UPDATE `%s` SET %s=?, %s=?, %s=?, %s=? WHERE %s=?", Const.TABLE_TASK, Const.TASK_COLUMN_NAME, Const.TASK_COLUMN_DESCRIPTION, Const.TASK_COLUMN_PROJECT, Const.TASK_COLUMN_CLOSED);
+            String queryString = String.format("UPDATE `%s` SET %s=?, %s=?, %s=?, %s=? WHERE %s=?", Const.TABLE_TASK, Const.TASK_COLUMN_NAME, Const.TASK_COLUMN_DESCRIPTION, Const.TASK_COLUMN_PROJECT, Const.TASK_COLUMN_OPEN);
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setString(1, task.getName());
             preparedStatement.setString(2, task.getDescription());
             preparedStatement.setInt(3, task.getProject());
-            preparedStatement.setInt(4, task.getClosed());
+            preparedStatement.setInt(4, task.getOpen());
 
             System.out.println(preparedStatement);
 
@@ -161,7 +161,7 @@ public class TaskDAO implements DAO<Task> {
                     t.setName(task.getName());
                     t.setDescription(task.getDescription());
                     t.setProject(task.getProject());
-                    t.setClosed(task.getClosed());
+                    t.setOpen(task.getOpen());
                     break;
                 }
             }
@@ -228,9 +228,9 @@ public class TaskDAO implements DAO<Task> {
                 String name = resultSet.getString(Const.TASK_COLUMN_NAME);
                 String description = resultSet.getString(Const.TASK_COLUMN_DESCRIPTION);
                 int project = resultSet.getInt(Const.TASK_COLUMN_PROJECT);
-                int closed = resultSet.getInt(Const.TASK_COLUMN_CLOSED);
+                int open = resultSet.getInt(Const.TASK_COLUMN_OPEN);
 
-                task = new Task(id, name, description, project, closed);
+                task = new Task(id, name, description, project, open);
                 tasks.add(task);
             }
 

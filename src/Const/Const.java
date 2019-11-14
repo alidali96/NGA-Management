@@ -34,7 +34,7 @@ public class Const {
     public static final String TASK_COLUMN_NAME = "name";
     public static final String TASK_COLUMN_DESCRIPTION = "description";
     public static final String TASK_COLUMN_PROJECT = "project";
-    public static final String TASK_COLUMN_CLOSED = "closed";
+    public static final String TASK_COLUMN_OPEN = "open";
 
 
 
