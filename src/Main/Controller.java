@@ -54,7 +54,7 @@ public class Controller implements Initializable {
 //        TestPriority testPriority = new TestPriority();
 
         // Test Project Table Class
-//        TestProject testProject = new TestProject();
+        TestProject testProject = new TestProject();
 
 
 //        Label icon=createIconLabel("Project");

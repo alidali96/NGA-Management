@@ -35,14 +35,13 @@ public class ProjectDAO implements DAO<Project> {
                 int id = resultSet.getInt(Const.PROJECT_COLUMN_ID);
                 String title = resultSet.getString(Const.PROJECT_COLUMN_TITLE);
                 String description = resultSet.getString(Const.PROJECT_COLUMN_DESCRIPTION);
-                String tasks = resultSet.getString(Const.PROJECT_COLUMN_TASKS);
                 int status = resultSet.getInt(Const.PROJECT_COLUMN_STATUS);
                 int category = resultSet.getInt(Const.PROJECT_COLUMN_CATEGORY);
                 int priority = resultSet.getInt(Const.PROJECT_COLUMN_PRIORITY);
                 Date startDate = resultSet.getDate(Const.PROJECT_COLUMN_START_DATE);
                 Date dueDate = resultSet.getDate(Const.PROJECT_COLUMN_DUE_DATE);
 
-                project = new Project(id, title, description, tasks, status, category, priority, startDate, dueDate);
+                project = new Project(id, title, description, status, category, priority, startDate, dueDate);
                 System.out.println(project.getTitle() + " Retrieved");
             } else {
                 System.out.println(projectID + " id was not found");
@@ -77,14 +76,13 @@ public class ProjectDAO implements DAO<Project> {
                 int id = resultSet.getInt(Const.PROJECT_COLUMN_ID);
                 String title = resultSet.getString(Const.PROJECT_COLUMN_TITLE);
                 String description = resultSet.getString(Const.PROJECT_COLUMN_DESCRIPTION);
-                String tasks = resultSet.getString(Const.PROJECT_COLUMN_TASKS);
                 int status = resultSet.getInt(Const.PROJECT_COLUMN_STATUS);
                 int category = resultSet.getInt(Const.PROJECT_COLUMN_CATEGORY);
                 int priority = resultSet.getInt(Const.PROJECT_COLUMN_PRIORITY);
                 Date startDate = resultSet.getDate(Const.PROJECT_COLUMN_START_DATE);
                 Date dueDate = resultSet.getDate(Const.PROJECT_COLUMN_DUE_DATE);
 
-                project = new Project(id, title, description, tasks, status, category, priority, startDate, dueDate);
+                project = new Project(id, title, description, status, category, priority, startDate, dueDate);
                 System.out.println(project.getTitle() + " Retrieved");
             } else {
                 System.out.println(projectTitle + " id was not found");
@@ -114,16 +112,15 @@ public class ProjectDAO implements DAO<Project> {
     @Override
     public void create(Project project) {
         try {
-            String queryString = "INSERT INTO `" + Const.TABLE_PROJECT + "` VALUES(0,?,?,?,?,?,?,?,?)";
+            String queryString = "INSERT INTO `" + Const.TABLE_PROJECT + "` VALUES(0,?,?,?,?,?,?,?)";
             preparedStatement = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, project.getTitle());
             preparedStatement.setString(2, project.getDescription());
-            preparedStatement.setString(3, project.getTasks());
-            preparedStatement.setInt(4, project.getStatus());
-            preparedStatement.setInt(5, project.getCategory());
-            preparedStatement.setInt(6, project.getPriority());
-            preparedStatement.setDate(7, project.getStartDate());
-            preparedStatement.setDate(8, project.getDueDate());
+            preparedStatement.setInt(3, project.getStatus());
+            preparedStatement.setInt(4, project.getCategory());
+            preparedStatement.setInt(5, project.getPriority());
+            preparedStatement.setDate(6, project.getStartDate());
+            preparedStatement.setDate(7, project.getDueDate());
 
             System.out.println(preparedStatement);
 
@@ -158,17 +155,16 @@ public class ProjectDAO implements DAO<Project> {
     @Override
     public void update(Project project) {
         try {
-            String queryString = String.format("UPDATE `%s` SET %s=?, %s=?, %s=?, %s=?, %s=?, %s=?, %s=?, %s=? WHERE %s=?", Const.TABLE_PROJECT, Const.PROJECT_COLUMN_TITLE, Const.PROJECT_COLUMN_DESCRIPTION, Const.PROJECT_COLUMN_TASKS, Const.PROJECT_COLUMN_STATUS, Const.PROJECT_COLUMN_CATEGORY, Const.PROJECT_COLUMN_PRIORITY, Const.PROJECT_COLUMN_START_DATE, Const.PROJECT_COLUMN_DUE_DATE, Const.PROJECT_COLUMN_ID);
+            String queryString = String.format("UPDATE `%s` SET %s=?, %s=?, %s=?, %s=?, %s=?, %s=?, %s=? WHERE %s=?", Const.TABLE_PROJECT, Const.PROJECT_COLUMN_TITLE, Const.PROJECT_COLUMN_DESCRIPTION, Const.PROJECT_COLUMN_STATUS, Const.PROJECT_COLUMN_CATEGORY, Const.PROJECT_COLUMN_PRIORITY, Const.PROJECT_COLUMN_START_DATE, Const.PROJECT_COLUMN_DUE_DATE, Const.PROJECT_COLUMN_ID);
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setString(1, project.getTitle());
             preparedStatement.setString(2, project.getDescription());
-            preparedStatement.setString(3, project.getTasks());
-            preparedStatement.setInt(4, project.getStatus());
-            preparedStatement.setInt(5, project.getCategory());
-            preparedStatement.setInt(6, project.getPriority());
-            preparedStatement.setDate(7, project.getStartDate());
-            preparedStatement.setDate(8, project.getDueDate());
-            preparedStatement.setInt(9, project.getId());
+            preparedStatement.setInt(3, project.getStatus());
+            preparedStatement.setInt(4, project.getCategory());
+            preparedStatement.setInt(5, project.getPriority());
+            preparedStatement.setDate(6, project.getStartDate());
+            preparedStatement.setDate(7, project.getDueDate());
+            preparedStatement.setInt(8, project.getId());
 
             System.out.println(preparedStatement);
 
@@ -179,7 +175,6 @@ public class ProjectDAO implements DAO<Project> {
                 if (p.getId() == project.getId()) {
                     p.setTitle(project.getTitle());
                     p.setDescription(project.getDescription());
-                    p.setTasks(project.getTasks());
                     p.setStatus(project.getStatus());
                     p.setCategory(project.getCategory());
                     p.setPriority(project.getPriority());
@@ -250,7 +245,6 @@ public class ProjectDAO implements DAO<Project> {
                 int id = resultSet.getInt(Const.PROJECT_COLUMN_ID);
                 String title = resultSet.getString(Const.PROJECT_COLUMN_TITLE);
                 String description = resultSet.getString(Const.PROJECT_COLUMN_DESCRIPTION);
-                String tasks = resultSet.getString(Const.PROJECT_COLUMN_TASKS);
                 int status = resultSet.getInt(Const.PROJECT_COLUMN_STATUS);
                 int category = resultSet.getInt(Const.PROJECT_COLUMN_CATEGORY);
                 int priority = resultSet.getInt(Const.PROJECT_COLUMN_PRIORITY);
@@ -258,7 +252,7 @@ public class ProjectDAO implements DAO<Project> {
                 Date dueDate = resultSet.getDate(Const.PROJECT_COLUMN_DUE_DATE);
 
 
-                project = new Project(id, title, description, tasks, status, category, priority, startDate, dueDate);
+                project = new Project(id, title, description, status, category, priority, startDate, dueDate);
 
                 projects.add(project);
             }
