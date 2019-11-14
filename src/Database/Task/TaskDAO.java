@@ -144,12 +144,13 @@ public class TaskDAO implements DAO<Task> {
     @Override
     public void update(Task task) {
         try {
-            String queryString = String.format("UPDATE `%s` SET %s=?, %s=?, %s=?, %s=? WHERE %s=?", Const.TABLE_TASK, Const.TASK_COLUMN_NAME, Const.TASK_COLUMN_DESCRIPTION, Const.TASK_COLUMN_PROJECT, Const.TASK_COLUMN_OPEN);
+            String queryString = String.format("UPDATE `%s` SET %s=?, %s=?, %s=?, %s=? WHERE %s=?", Const.TABLE_TASK, Const.TASK_COLUMN_NAME, Const.TASK_COLUMN_DESCRIPTION, Const.TASK_COLUMN_PROJECT, Const.TASK_COLUMN_OPEN, Const.TASK_COLUMN_ID);
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setString(1, task.getName());
             preparedStatement.setString(2, task.getDescription());
             preparedStatement.setInt(3, task.getProject());
             preparedStatement.setInt(4, task.getOpen());
+            preparedStatement.setInt(5, task.getId());
 
             System.out.println(preparedStatement);
 
