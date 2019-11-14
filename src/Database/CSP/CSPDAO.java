@@ -29,12 +29,12 @@ public class CSPDAO implements DAO<CSP> {
     }
 
     @Override
-    public Optional<? extends CSP> get(int CSPId) {
+    public Optional<? extends CSP> get(int cspID) {
         CSP csp = null;
         try {
             String queryString = "SELECT * FROM `" + table + "` WHERE id=? LIMIT 1";
             preparedStatement = connection.prepareStatement(queryString);
-            preparedStatement.setInt(1, CSPId);
+            preparedStatement.setInt(1, cspID);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -54,7 +54,7 @@ public class CSPDAO implements DAO<CSP> {
                 }
                 System.out.println(csp.getName() + " Retrieved");
             } else {
-                System.out.println(CSPId + " id was not found");
+                System.out.println(cspID + " id was not found");
             }
         } catch (SQLException e) {
             e.printStackTrace();
