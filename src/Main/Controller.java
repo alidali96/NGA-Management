@@ -9,6 +9,7 @@ import Database.CSP.Status.StatusDAO;
 import Database.DatabaseConnection;
 import Database.CSP.Status.TestStatus;
 import Database.Project.TestProject;
+import Database.Task.TestTask;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.GlyphIcons;
 import de.jensd.fx.glyphs.GlyphsDude;
@@ -55,6 +56,9 @@ public class Controller implements Initializable {
 
         // Test Project Table Class
 //        TestProject testProject = new TestProject();
+
+        // Test Task Table Class
+        TestTask testTask = new TestTask();
 
 
 //        Label icon=createIconLabel("Project");

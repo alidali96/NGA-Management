@@ -7,17 +7,15 @@ public class Project {
     private int id;
     private String title;
     private String description;
-    private String tasks;
     private int status;
     private int category;
     private int priority;
     private Date startDate;
     private Date dueDate;
 
-    public Project(String title, String description, String tasks, int status, int category, int priority, Date startDate, Date dueDate) {
+    public Project(String title, String description, int status, int category, int priority, Date startDate, Date dueDate) {
         this.title = title;
         this.description = description;
-        this.tasks = tasks;
         this.status = status;
         this.category = category;
         this.priority = priority;
@@ -25,11 +23,10 @@ public class Project {
         this.dueDate = dueDate;
     }
 
-    public Project(int id, String title, String description, String tasks, int status, int category, int priority, Date startDate, Date dueDate) {
+    public Project(int id, String title, String description, int status, int category, int priority, Date startDate, Date dueDate) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.tasks = tasks;
         this.status = status;
         this.category = category;
         this.priority = priority;
@@ -61,15 +58,6 @@ public class Project {
 
     public Project setDescription(String description) {
         this.description = description;
-        return this;
-    }
-
-    public String getTasks() {
-        return tasks;
-    }
-
-    public Project setTasks(String tasks) {
-        this.tasks = tasks;
         return this;
     }
 
