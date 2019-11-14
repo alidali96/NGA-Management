@@ -3,15 +3,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StatusContrller">
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+      prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.StatusContrller">
     <children>
-        <TableView fx:id="statusTable" prefHeight="500.0" prefWidth="700.0">
-            <columns>
-                <TableColumn fx:id="id" text="Id"></TableColumn>
-                <TableColumn fx:id="name" text="NameS"></TableColumn>
-                <TableColumn fx:id="color" text="Color"></TableColumn>
-                <TableColumn fx:id="edit" text="Edit"/>
-            </columns>
-        </TableView>
+        <VBox fx:id="replaceable" alignment="TOP_RIGHT" spacing="5">
+            <JFXButton fx:id="addProjectsBtn" buttonType="RAISED"
+                       style="-fx-background-color: #0275d8; -fx-text-fill: white;" text="[+] Add">
+                <padding>
+                    <Insets bottom="5" left="20" right="20" top="5"/>
+                </padding>
+            </JFXButton>
+            <TableView fx:id="statusTable" prefHeight="500.0" prefWidth="700.0">
+                <columns>
+                    <TableColumn fx:id="name" text="Name"></TableColumn>
+                    <TableColumn fx:id="color" text="Color"></TableColumn>
+                    <TableColumn fx:id="edit" text="Edit"/>
+                </columns>
+            </TableView>
+        </VBox>
     </children>
 </Pane>
