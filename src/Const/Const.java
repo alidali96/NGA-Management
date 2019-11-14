@@ -7,22 +7,34 @@ public class Const {
     public static final String DB_PASS = "j54czj54czhm4v1hm4v1";
 
 
+    public static final int CLOSED = 0;
+    public static final int OPEN = 1;
+
 
     public static final String TABLE_STATUS = "status";
     public static final String TABLE_CATEGORY = "category";
     public static final String TABLE_PRIORITY = "priority";
     public static final String TABLE_PROJECT = "project";
+    public static final String TABLE_TASK = "task";
 
 
+    // TABLE PROJECT
     public static final String PROJECT_COLUMN_ID = "id";
     public static final String PROJECT_COLUMN_TITLE = "title";
     public static final String PROJECT_COLUMN_DESCRIPTION = "description";
-    public static final String PROJECT_COLUMN_TASKS = "tasks";
     public static final String PROJECT_COLUMN_STATUS = "status";
     public static final String PROJECT_COLUMN_CATEGORY = "category";
     public static final String PROJECT_COLUMN_PRIORITY = "priority";
     public static final String PROJECT_COLUMN_START_DATE = "start_date";
     public static final String PROJECT_COLUMN_DUE_DATE = "due_date";
+
+
+    // TABLE TASK
+    public static final String TASK_COLUMN_ID = "id";
+    public static final String TASK_COLUMN_NAME = "name";
+    public static final String TASK_COLUMN_DESCRIPTION = "description";
+    public static final String TASK_COLUMN_PROJECT = "project";
+    public static final String TASK_COLUMN_CLOSED = "closed";
 
 
 

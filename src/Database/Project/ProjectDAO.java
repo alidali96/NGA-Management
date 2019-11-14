@@ -85,7 +85,7 @@ public class ProjectDAO implements DAO<Project> {
                 project = new Project(id, title, description, status, category, priority, startDate, dueDate);
                 System.out.println(project.getTitle() + " Retrieved");
             } else {
-                System.out.println(projectTitle + " id was not found");
+                System.out.println(projectTitle + " was not found");
             }
         } catch (SQLException e) {
             e.printStackTrace();

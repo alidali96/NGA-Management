@@ -1,0 +1,259 @@
+package Database.Task;
+
+import Const.Const;
+import Database.DAO;
+import Database.DatabaseConnection;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+public class TaskDAO implements DAO<Task> {
+
+    Connection connection;
+    PreparedStatement preparedStatement;
+    ResultSet resultSet;
+
+    private static List<Task> tasks;
+
+    public TaskDAO() {
+        connection = DatabaseConnection.getConnection();
+        updateList();
+    }
+
+    @Override
+    public Optional<? extends Task> get(int taskID) {
+        Task task = null;
+        try {
+            String queryString = "SELECT * FROM `" + Const.TABLE_TASK + "` WHERE id=? LIMIT 1";
+            preparedStatement = connection.prepareStatement(queryString);
+            preparedStatement.setInt(1, taskID);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int id = resultSet.getInt(Const.TASK_COLUMN_ID);
+                String name = resultSet.getString(Const.TASK_COLUMN_NAME);
+                String description = resultSet.getString(Const.TASK_COLUMN_DESCRIPTION);
+                int project = resultSet.getInt(Const.TASK_COLUMN_PROJECT);
+                int closed = resultSet.getInt(Const.TASK_COLUMN_CLOSED);
+
+                task = new Task(id, name, description, project, closed);
+                System.out.println(task.getName() + " Retrieved");
+            } else {
+                System.out.println(taskID + " id was not found");
+            }
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return Optional.ofNullable(task);
+    }
+
+    @Override
+    public Optional<? extends Task> get(String taskName) {
+        Task task = null;
+        try {
+            String queryString = "SELECT * FROM `" + Const.TABLE_TASK + "` WHERE " + Const.TASK_COLUMN_NAME + " = ? LIMIT 1";
+            preparedStatement = connection.prepareStatement(queryString);
+            preparedStatement.setString(1, taskName);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int id = resultSet.getInt(Const.TASK_COLUMN_ID);
+                String name = resultSet.getString(Const.TASK_COLUMN_NAME);
+                String description = resultSet.getString(Const.TASK_COLUMN_DESCRIPTION);
+                int project = resultSet.getInt(Const.TASK_COLUMN_PROJECT);
+                int closed = resultSet.getInt(Const.TASK_COLUMN_CLOSED);
+
+                task = new Task(id, name, description, project, closed);
+                System.out.println(task.getName() + " Retrieved");
+            } else {
+                System.out.println(taskName + " was not found");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return Optional.ofNullable(task);
+    }
+
+    @Override
+    public List<? extends Task> getAll() {
+        return tasks;
+    }
+
+    @Override
+    public void create(Task task) {
+        try {
+            String queryString = "INSERT INTO `" + Const.TABLE_TASK + "` VALUES(0,?,?,?,?)";
+            preparedStatement = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, task.getName());
+            preparedStatement.setString(2, task.getDescription());
+            preparedStatement.setInt(3, task.getProject());
+            preparedStatement.setInt(4, task.getClosed());
+
+            System.out.println(preparedStatement);
+
+            preparedStatement.executeUpdate();
+
+            // Get last inserted ID and set it to the project object to add to the projects list
+            resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                task.setId(id);
+                tasks.add(task);
+            }
+            System.out.println(task.getName() + " Inserted");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void update(Task task) {
+        try {
+            String queryString = String.format("UPDATE `%s` SET %s=?, %s=?, %s=?, %s=? WHERE %s=?", Const.TABLE_TASK, Const.TASK_COLUMN_NAME, Const.TASK_COLUMN_DESCRIPTION, Const.TASK_COLUMN_PROJECT, Const.TASK_COLUMN_CLOSED);
+            preparedStatement = connection.prepareStatement(queryString);
+            preparedStatement.setString(1, task.getName());
+            preparedStatement.setString(2, task.getDescription());
+            preparedStatement.setInt(3, task.getProject());
+            preparedStatement.setInt(4, task.getClosed());
+
+            System.out.println(preparedStatement);
+
+            preparedStatement.executeUpdate();
+
+            // Update project in projects list :)
+            for (Task t : tasks) {
+                if (t.getId() == task.getId()) {
+                    t.setName(task.getName());
+                    t.setDescription(task.getDescription());
+                    t.setProject(task.getProject());
+                    t.setClosed(task.getClosed());
+                    break;
+                }
+            }
+            System.out.println(task.getName() + " Updated");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void delete(Task task) {
+        if (get(task.getId()).isPresent()) {
+            try {
+                String queryString = "DELETE FROM `" + Const.TABLE_STATUS + "` WHERE " + Const.TASK_COLUMN_ID + " = ?";
+                preparedStatement = connection.prepareStatement(queryString);
+                preparedStatement.setInt(1, task.getId());
+                preparedStatement.executeUpdate();
+
+                // Delete project if it exist in projects list :)
+                for (Task t : tasks) {
+                    if (t.getId() == task.getId()) {
+                        tasks.remove(t);
+                        break;
+                    }
+                }
+                System.out.println(task.getName() + " Deleted");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (preparedStatement != null)
+                        preparedStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        } else {
+            System.out.println(task.getId() + " id is not found (Can't delete)");
+        }
+    }
+
+    @Override
+    public void updateList() {
+        tasks = new ArrayList<>();
+        Task task = null;
+        try {
+            String queryString = "SELECT * FROM `" + Const.TABLE_TASK + "`";
+            preparedStatement = connection.prepareStatement(queryString);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt(Const.TASK_COLUMN_ID);
+                String name = resultSet.getString(Const.TASK_COLUMN_NAME);
+                String description = resultSet.getString(Const.TASK_COLUMN_DESCRIPTION);
+                int project = resultSet.getInt(Const.TASK_COLUMN_PROJECT);
+                int closed = resultSet.getInt(Const.TASK_COLUMN_CLOSED);
+
+                task = new Task(id, name, description, project, closed);
+                tasks.add(task);
+            }
+
+            System.out.println("List Updated");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void testPrintAll() {
+        for (Task task : tasks) {
+            System.out.println(task);
+        }
+    }
+}
