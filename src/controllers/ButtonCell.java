@@ -1,9 +1,7 @@
 package controllers;
 
 import Database.Project.Project;
-import Forms.ProjectsFormController;
-import Forms.StatusFormController;
-import Forms.TaskFormController;
+import Forms.*;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -14,7 +12,7 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-public class ButtonCell<S,T> extends TableCell<S, T> {
+public class ButtonCell<S, T> extends TableCell<S, T> {
 
     JFXButton btn;
     Pane replaceable;
@@ -41,6 +39,8 @@ public class ButtonCell<S,T> extends TableCell<S, T> {
                 ProjectsFormController.updateForm = true;
                 StatusFormController.updateForm = true;
                 TaskFormController.updateForm = true;
+                PrioritiesFormController.updateForm = true;
+                CategoriesFormController.updateForm = true;
                 editProject(event);
             });
             setGraphic(btn);

@@ -9,12 +9,12 @@
 <?import javafx.geometry.Insets?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Forms.StatusFormController"
+            fx:controller="Forms.CategoriesFormController"
             prefHeight="400.0" prefWidth="600.0">
-    <VBox xmlns:fx="http://javafx.com/fxml" fx:id="statusFormGrid">
+    <VBox xmlns:fx="http://javafx.com/fxml" fx:id="categoryFormGrid">
 
         <HBox>
-            <Label fx:id="title" text="Add New Status">
+            <Label fx:id="title" text="Add New Category">
                 <font>
                     <Font name="Arial" size="25"></Font>
                 </font>

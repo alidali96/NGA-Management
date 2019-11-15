@@ -38,13 +38,13 @@ public class PrioritiesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Status"));
+        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Priorities"));
 
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         color.setCellValueFactory(new PropertyValueFactory<>("color"));
 
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        edit.setCellFactory(param -> new ButtonCell(replaceable, "Status"));
+        edit.setCellFactory(param -> new ButtonCell(replaceable, "Priorities"));
 
         ObservableList<Priority> priolist = FXCollections.observableArrayList();
         priolist.add(new Priority("name", "REd"));
