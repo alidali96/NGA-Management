@@ -2,12 +2,9 @@ package controllers;
 
 import Forms.*;
 import com.jfoenix.controls.JFXButton;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
-
 import java.io.IOException;
 
 public class AddProjectButton extends JFXButton{
@@ -21,7 +18,7 @@ public class AddProjectButton extends JFXButton{
         this.setText("[+] Add");
         this.setStyle("-fx-background-color: #0275d8; -fx-text-fill: white;");
         this.setButtonType(ButtonType.RAISED);
-        setOnAction(e->{
+        setOnAction(e -> {
             try {
                 ProjectsFormController.updateForm = false;
                 StatusFormController.updateForm = false;

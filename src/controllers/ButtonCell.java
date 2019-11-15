@@ -1,6 +1,5 @@
 package controllers;
 
-import Database.Project.Project;
 import Forms.*;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.GlyphsDude;
@@ -17,6 +16,8 @@ public class ButtonCell<S, T> extends TableCell<S, T> {
     JFXButton btn;
     Pane replaceable;
     String form;
+
+
 
     public ButtonCell(Pane replaceable, String form) {
         this.replaceable = replaceable;
@@ -53,8 +54,6 @@ public class ButtonCell<S, T> extends TableCell<S, T> {
             Pane pane = FXMLLoader.load(getClass().getResource("../Forms/" + form + "FormView.fxml"));
             replaceable.getChildren().retainAll();
             replaceable.getChildren().add(pane);
-//            .setStyle("visibility: hidden;");
-//           AddProjectButton.setStyle("visibility: hidden;");
         } catch (IOException e) {
             e.printStackTrace();
         }
