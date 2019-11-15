@@ -33,13 +33,12 @@ public class CategoriesContoller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Status"));
+        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Categories"));
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         color.setCellValueFactory(new PropertyValueFactory<>("color"));
 
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        edit.setCellFactory(param -> new ButtonCell(replaceable, "Status"));
-
+        edit.setCellFactory(param -> new ButtonCell(replaceable, "Categories"));
 
         ObservableList<Category> catlist = FXCollections.observableArrayList();
         catlist.add(new Category("name", "red"));
@@ -48,10 +47,6 @@ public class CategoriesContoller implements Initializable {
         catlist.add(new Category("name", "red"));
         catlist.add(new Category("name", "red"));
 
-
-
         categoriesTable.setItems(catlist);
-
-
     }
 }

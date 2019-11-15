@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class StatusFormController implements Initializable {
+public class CategoriesFormController implements Initializable {
 
     @FXML
     Button submitButton;
@@ -27,7 +27,7 @@ public class StatusFormController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (updateForm) {
-            title.setText("Edit Status");
+            title.setText("Edit Category");
             submitButton.setText("Submit");
         }
     }
