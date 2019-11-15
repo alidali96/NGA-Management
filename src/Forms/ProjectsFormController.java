@@ -1,22 +1,18 @@
 package Forms;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
+import controllers.AddProjectButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-
 import java.net.URL;
 import java.util.LinkedList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 
@@ -46,14 +42,18 @@ public class ProjectsFormController implements Initializable {
     @FXML
     private Button submitButton;
 
+    @FXML
+    private ToggleButton closeProject;
+
+
     String projectNameStr = "";
     String categoryStr = "";
     String priorityStr = "";
     String statusStr = "";
     String startDateStr = "";
     String endDateStr = "";
-
     public static boolean updateForm = false;
+
 
     public void addNewTask(ActionEvent actionEvent) {
 
@@ -127,11 +127,31 @@ public class ProjectsFormController implements Initializable {
         System.out.println("dueDate:" + endDateStr);
     }
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        closeProject.setStyle("visibility: hidden;");
         if (updateForm) {
             projectTitle.setText("Edit Project");
             submitButton.setText("Submit");
+            closeProject.setStyle("visibility: visible;");
+        }
+    }
+
+
+    public void on(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Warning");
+        alert.setHeaderText("Warning!");
+        alert.setContentText("Are you sure you want to close the project?");
+        if (closeProject.isSelected()) {
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                projectTitle.setText("Closed!"); // test
+                // database query should go here!
+            } else {
+                closeProject.setSelected(false);
+            }
         }
     }
 }
