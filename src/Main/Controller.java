@@ -45,6 +45,8 @@ public class Controller implements Initializable {
         // Create Database Connection
         DatabaseConnection.getInstance();
 
+        changeTable("Projects");
+
         // Test Status Table Class
 //        TestStatus testStatus = new TestStatus();
 
