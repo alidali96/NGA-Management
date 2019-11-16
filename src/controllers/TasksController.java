@@ -1,81 +1,61 @@
 package controllers;
 
-import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableView;
-import com.jfoenix.controls.RecursiveTreeItem;
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import javafx.beans.property.SimpleStringProperty;
+import Database.Task.Task;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TreeItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
 public class TasksController implements Initializable {
 
     @FXML
-    private JFXTreeTableView taskTable;
+    private TableView taskTable;
+
     @FXML
-    private JFXTreeTableColumn<CreateTask, String> id;
+    private TableColumn<Task, String> name;
     @FXML
-    private JFXTreeTableColumn<CreateTask, String> name;
+    private TableColumn<Task, String> description;
     @FXML
-    private JFXTreeTableColumn<CreateTask, String> project;
+    private TableColumn<Task, Integer> project;
     @FXML
-    private JFXTreeTableColumn<CreateTask, String> startDate;
+    private TableColumn<Task, Integer> open;
     @FXML
-    private JFXTreeTableColumn<CreateTask, String> dueDate;
+    TableColumn<Task, Task> edit;
+
     @FXML
-    private JFXTreeTableColumn<CreateTask, String> priority;
-    @FXML
-    private JFXTreeTableColumn<CreateTask, String> status;
+    private VBox replaceable;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        id.setCellValueFactory(param -> param.getValue().getValue().id);
-        name.setCellValueFactory(param -> param.getValue().getValue().name);
-        project.setCellValueFactory(param -> param.getValue().getValue().project);
-        startDate.setCellValueFactory(param -> param.getValue().getValue().startDate);
-        dueDate.setCellValueFactory(param -> param.getValue().getValue().dueDate);
-        priority.setCellValueFactory(param -> param.getValue().getValue().priority);
-        status.setCellValueFactory(param -> param.getValue().getValue().status);
+        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Task"));
 
-        taskTable.getColumns().setAll(id, name, project, startDate, dueDate, priority);
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        description.setCellValueFactory(new PropertyValueFactory<>("description"));
+        project.setCellValueFactory(new PropertyValueFactory<>("project"));
+        open.setCellValueFactory(new PropertyValueFactory<>("open"));
 
-        ObservableList<CreateTask> list = FXCollections.observableArrayList();
-        list.add(new CreateTask("1", "Ghaith", "RED", "cc", "cc", "cc", "status"));
-        list.add(new CreateTask("1", "Ghaith", "RED", "cc", "cc", "cc", "status"));
-        list.add(new CreateTask("1", "Ghaith", "RED", "cc", "cc", "cc", "status"));
+        edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        edit.setCellFactory(param -> new ButtonCell(replaceable, "Task"));
+
+        ObservableList<Task> tasklist = FXCollections.observableArrayList();
+        tasklist.add(new Task("name", "saldnv", 6, 0));
+        tasklist.add(new Task("name", "saldnv", 6, 0));
+        tasklist.add(new Task("name", "saldnv", 6, 0));
+        tasklist.add(new Task("name", "saldnv", 6, 0));
+        tasklist.add(new Task("name", "saldnv", 6, 0));
+        tasklist.add(new Task("name", "saldnv", 6, 0));
 
 
-
-        TreeItem<CreateTask> data = new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren);
-        taskTable.setRoot(data);
-        taskTable.setShowRoot(false);
-    }
-
-    class CreateTask extends RecursiveTreeObject<CreateTask> {
-        SimpleStringProperty id;
-        SimpleStringProperty name;
-        SimpleStringProperty project;
-        SimpleStringProperty startDate;
-        SimpleStringProperty dueDate;
-        SimpleStringProperty priority;
-        SimpleStringProperty status;
-
-        public CreateTask(String id, String name, String project, String startDate, String dueDate, String priority, String status) {
-            this.id = new SimpleStringProperty(id);
-            this.name = new SimpleStringProperty(name);
-            this.project = new SimpleStringProperty(project);
-            this.startDate = new SimpleStringProperty(startDate);
-            this.dueDate = new SimpleStringProperty(dueDate);
-            this.priority = new SimpleStringProperty(priority);
-            this.status = new SimpleStringProperty(status);
-        }
+        taskTable.setItems(tasklist);
     }
 }
-

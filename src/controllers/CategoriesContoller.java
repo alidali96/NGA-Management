@@ -1,15 +1,16 @@
 package controllers;
 
-import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableView;
-import com.jfoenix.controls.RecursiveTreeItem;
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import javafx.beans.property.SimpleStringProperty;
+import Database.CSP.Category.Category;
+import Database.Project.Project;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TreeItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,43 +18,35 @@ import java.util.ResourceBundle;
 public class CategoriesContoller implements Initializable {
 
     @FXML
-    private JFXTreeTableView categoriesTable;
+    private TableView categoriesTable;
     @FXML
-    private JFXTreeTableColumn<CreateCat, String> id;
+    private TableColumn<Category, String> id;
     @FXML
-    private JFXTreeTableColumn<CreateCat, String> name;
+    private TableColumn<Category, String> name;
     @FXML
-    private JFXTreeTableColumn<CreateCat, String> color;
+    private TableColumn<Category, String> color;
+    @FXML
+    private TableColumn<Category, Category> edit;
+
+    @FXML
+    private VBox replaceable;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        id.setCellValueFactory(param -> param.getValue().getValue().id);
-        name.setCellValueFactory(param -> param.getValue().getValue().name);
-        color.setCellValueFactory(param -> param.getValue().getValue().color);
+        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Categories"));
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        color.setCellValueFactory(new PropertyValueFactory<>("color"));
 
-        categoriesTable.getColumns().setAll(id, name, color);
+        edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        edit.setCellFactory(param -> new ButtonCell(replaceable, "Categories"));
 
-        ObservableList<CreateCat> list = FXCollections.observableArrayList();
-        list.add(new CreateCat("1", "Ghaith", "RED"));
-        list.add(new CreateCat("1", "Ghaith", "RED"));
-        list.add(new CreateCat("1", "Ghaith", "RED"));
-        list.add(new CreateCat("1", "Ghaith", "RED"));
+        ObservableList<Category> catlist = FXCollections.observableArrayList();
+        catlist.add(new Category("name", "red"));
+        catlist.add(new Category("name", "red"));
+        catlist.add(new Category("name", "red"));
+        catlist.add(new Category("name", "red"));
+        catlist.add(new Category("name", "red"));
 
-
-        TreeItem<CreateCat> data = new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren);
-        categoriesTable.setRoot(data);
-        categoriesTable.setShowRoot(false);
-    }
-
-    class CreateCat extends RecursiveTreeObject<CreateCat> {
-        SimpleStringProperty id;
-        SimpleStringProperty name;
-        SimpleStringProperty color;
-
-        public CreateCat(String id, String name, String color) {
-            this.id = new SimpleStringProperty(id);
-            this.name = new SimpleStringProperty(name);
-            this.color = new SimpleStringProperty(color);
-        }
+        categoriesTable.setItems(catlist);
     }
 }

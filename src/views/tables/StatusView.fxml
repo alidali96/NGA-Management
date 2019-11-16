@@ -3,11 +3,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.geometry.Insets?>
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
       prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controllers.CategoriesContoller">
+      fx:controller="controllers.StatusContrller">
     <children>
         <VBox fx:id="replaceable" alignment="TOP_RIGHT" spacing="5">
             <JFXButton fx:id="addProjectsBtn" buttonType="RAISED"
@@ -16,7 +16,7 @@
                     <Insets bottom="5" left="20" right="20" top="5"/>
                 </padding>
             </JFXButton>
-            <TableView fx:id="categoriesTable" prefHeight="500.0" prefWidth="700.0">
+            <TableView fx:id="statusTable" prefHeight="500.0" prefWidth="700.0">
                 <columns>
                     <TableColumn fx:id="name" text="Name"></TableColumn>
                     <TableColumn fx:id="color" text="Color"></TableColumn>
