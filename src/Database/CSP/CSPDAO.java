@@ -18,7 +18,7 @@ public class CSPDAO implements DAO<CSP> {
     PreparedStatement preparedStatement;
     ResultSet resultSet;
 
-    private static List<CSP> CSPes = null;
+    private static List<CSP> cspList = null;
 
     private String table;
 
@@ -120,7 +120,7 @@ public class CSPDAO implements DAO<CSP> {
 
     @Override
     public List<? extends CSP> getAll() {
-        return CSPes;
+        return cspList;
     }
 
     @Override
@@ -139,7 +139,7 @@ public class CSPDAO implements DAO<CSP> {
                 if (resultSet.next()) {
                     int id = resultSet.getInt(1);
                     csp.setId(id);
-                    CSPes.add(csp);
+                    cspList.add(csp);
                 }
 
                 System.out.println(csp.getName() + " Inserted");
@@ -187,7 +187,7 @@ public class CSPDAO implements DAO<CSP> {
             preparedStatement.executeUpdate();
 
             // Update CSP name and color in CSPes list :)
-            for (CSP oldCSP : CSPes) {
+            for (CSP oldCSP : cspList) {
                 if (csp.getId() == oldCSP.getId()) {
                     oldCSP.setName(csp.getName());
                     oldCSP.setColor(csp.getColor());
@@ -224,9 +224,9 @@ public class CSPDAO implements DAO<CSP> {
                 preparedStatement.executeUpdate();
 
                 // Delete CSP if it exist in CSPes list :)
-                for (CSP oldCSP : CSPes) {
+                for (CSP oldCSP : cspList) {
                     if (csp.getId() == oldCSP.getId()) {
-                        CSPes.remove(csp);
+                        cspList.remove(csp);
                         break;
                     }
                 }
@@ -257,7 +257,7 @@ public class CSPDAO implements DAO<CSP> {
      */
     @Override
     public void updateList() {
-        CSPes = new ArrayList<>();
+        cspList = new ArrayList<>();
         CSP csp = null;
         try {
             String queryString = "SELECT * FROM `" + table + "`";
@@ -280,7 +280,7 @@ public class CSPDAO implements DAO<CSP> {
                         csp = new Priority(id, name, color);
                         break;
                 }
-                CSPes.add(csp);
+                cspList.add(csp);
             }
 
             System.out.println("List Updated");
@@ -300,9 +300,13 @@ public class CSPDAO implements DAO<CSP> {
         }
     }
 
+    @Override
+    public int getLastInsertedId() {
+        return !cspList.isEmpty() ? cspList.get(cspList.size() - 1).getId() : 0;
+    }
 
     public void testPrintAll() {
-        for (CSP csp : CSPes) {
+        for (CSP csp : cspList) {
             System.out.println(csp);
         }
     }

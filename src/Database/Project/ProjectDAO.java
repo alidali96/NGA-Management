@@ -247,7 +247,7 @@ public class ProjectDAO implements DAO<Project> {
     @Override
     public void updateList() {
         projects = new ArrayList<>();
-        Project project = null;
+        Project project;
         try {
             String queryString = "SELECT * FROM `" + Const.TABLE_PROJECT + "`";
             preparedStatement = connection.prepareStatement(queryString);
@@ -283,6 +283,11 @@ public class ProjectDAO implements DAO<Project> {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public int getLastInsertedId() {
+        return !projects.isEmpty() ? projects.get(projects.size() - 1).getId() : 0;
     }
 
     public void testPrintAll() {

@@ -264,6 +264,11 @@ public class TaskDAO implements DAO<Task> {
         }
     }
 
+    @Override
+    public int getLastInsertedId() {
+        return !tasks.isEmpty() ? tasks.get(tasks.size() - 1).getId() : 0;
+    }
+
     public void testPrintAll() {
         for (Task task : tasks) {
             System.out.println(task);

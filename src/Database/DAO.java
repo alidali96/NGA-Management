@@ -18,4 +18,6 @@ public interface DAO<T> {
 
     void updateList();
 
+    int getLastInsertedId();
+
 }
