@@ -10,12 +10,14 @@ public interface DAO<T> {
 
     List<? extends T> getAll();
 
-    void create(T t);
+    int create(T t);
 
-    void update(T t);
+    int update(T t);
 
-    void delete(T t);
+    int delete(T t);
 
     void updateList();
+
+    int getLastInsertedId();
 
 }

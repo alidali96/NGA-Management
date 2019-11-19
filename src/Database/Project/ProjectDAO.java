@@ -17,7 +17,13 @@ public class ProjectDAO implements DAO<Project> {
 
     private static List<Project> projects;
 
-    public ProjectDAO() {
+    private static ProjectDAO projectDAO = new ProjectDAO();
+
+    public static ProjectDAO getInstance() {
+        return projectDAO;
+    }
+
+    private ProjectDAO() {
         connection = DatabaseConnection.getConnection();
         updateList();
     }
@@ -110,7 +116,8 @@ public class ProjectDAO implements DAO<Project> {
     }
 
     @Override
-    public void create(Project project) {
+    public int create(Project project) {
+        int result;
         try {
             String queryString = "INSERT INTO `" + Const.TABLE_PROJECT + "` VALUES(0,?,?,?,?,?,?,?)";
             preparedStatement = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
@@ -135,8 +142,10 @@ public class ProjectDAO implements DAO<Project> {
                 projects.add(project);
             }
             System.out.println(project.getTitle() + " Inserted");
+            result = Const.SUCCESS;
         } catch (SQLException e) {
             e.printStackTrace();
+            result = Const.FAILED;
         } finally {
             try {
                 if (resultSet != null)
@@ -148,12 +157,13 @@ public class ProjectDAO implements DAO<Project> {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
+        return result;
     }
 
     @Override
-    public void update(Project project) {
+    public int update(Project project) {
+        int result;
         try {
             String queryString = String.format("UPDATE `%s` SET %s=?, %s=?, %s=?, %s=?, %s=?, %s=?, %s=? WHERE %s=?", Const.TABLE_PROJECT, Const.PROJECT_COLUMN_TITLE, Const.PROJECT_COLUMN_DESCRIPTION, Const.PROJECT_COLUMN_STATUS, Const.PROJECT_COLUMN_CATEGORY, Const.PROJECT_COLUMN_PRIORITY, Const.PROJECT_COLUMN_START_DATE, Const.PROJECT_COLUMN_DUE_DATE, Const.PROJECT_COLUMN_ID);
             preparedStatement = connection.prepareStatement(queryString);
@@ -184,8 +194,10 @@ public class ProjectDAO implements DAO<Project> {
                 }
             }
             System.out.println(project.getTitle() + " Updated");
+            result = Const.SUCCESS;
         } catch (SQLException e) {
             e.printStackTrace();
+            result = Const.FAILED;
         } finally {
             try {
                 if (preparedStatement != null)
@@ -196,10 +208,12 @@ public class ProjectDAO implements DAO<Project> {
                 e.printStackTrace();
             }
         }
+        return result;
     }
 
     @Override
-    public void delete(Project project) {
+    public int delete(Project project) {
+        int result;
         if (get(project.getId()).isPresent()) {
             try {
                 String queryString = "DELETE FROM `" + Const.TABLE_PROJECT + "` WHERE " + Const.PROJECT_COLUMN_ID + " = ?";
@@ -215,8 +229,10 @@ public class ProjectDAO implements DAO<Project> {
                     }
                 }
                 System.out.println(project.getTitle() + " Deleted");
+                result = Const.SUCCESS;
             } catch (SQLException e) {
                 e.printStackTrace();
+                result = Const.FAILED;
             } finally {
                 try {
                     if (preparedStatement != null)
@@ -226,17 +242,18 @@ public class ProjectDAO implements DAO<Project> {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
         } else {
             System.out.println(project.getId() + " id is not found (Can't delete)");
+            result = Const.NOT_FOUND;
         }
+        return result;
     }
 
     @Override
     public void updateList() {
         projects = new ArrayList<>();
-        Project project = null;
+        Project project;
         try {
             String queryString = "SELECT * FROM `" + Const.TABLE_PROJECT + "`";
             preparedStatement = connection.prepareStatement(queryString);
@@ -272,6 +289,11 @@ public class ProjectDAO implements DAO<Project> {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public int getLastInsertedId() {
+        return !projects.isEmpty() ? projects.get(projects.size() - 1).getId() : 0;
     }
 
     public void testPrintAll() {
