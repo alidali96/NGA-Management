@@ -104,8 +104,8 @@ public class TaskDAO implements DAO<Task> {
     }
 
     @Override
-    public boolean create(Task task) {
-        boolean result = false;
+    public int create(Task task) {
+        int result;
         try {
             String queryString = "INSERT INTO `" + Const.TABLE_TASK + "` VALUES(0,?,?,?,?)";
             preparedStatement = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
@@ -126,9 +126,10 @@ public class TaskDAO implements DAO<Task> {
                 tasks.add(task);
             }
             System.out.println(task.getName() + " Inserted");
-            result = true;
+            result = Const.SUCCESS;
         } catch (SQLException e) {
             e.printStackTrace();
+            result = Const.FAILED;
         } finally {
             try {
                 if (resultSet != null)
@@ -140,13 +141,13 @@ public class TaskDAO implements DAO<Task> {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return result;
         }
+        return result;
     }
 
     @Override
-    public boolean update(Task task) {
-        boolean result = false;
+    public int update(Task task) {
+        int result;
         try {
             String queryString = String.format("UPDATE `%s` SET %s=?, %s=?, %s=?, %s=? WHERE %s=?", Const.TABLE_TASK, Const.TASK_COLUMN_NAME, Const.TASK_COLUMN_DESCRIPTION, Const.TASK_COLUMN_PROJECT, Const.TASK_COLUMN_OPEN, Const.TASK_COLUMN_ID);
             preparedStatement = connection.prepareStatement(queryString);
@@ -171,9 +172,10 @@ public class TaskDAO implements DAO<Task> {
                 }
             }
             System.out.println(task.getName() + " Updated");
-            result = true;
+            result = Const.SUCCESS;
         } catch (SQLException e) {
             e.printStackTrace();
+            result = Const.FAILED;
         } finally {
             try {
                 if (preparedStatement != null)
@@ -183,13 +185,13 @@ public class TaskDAO implements DAO<Task> {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return result;
         }
+        return result;
     }
 
     @Override
-    public boolean delete(Task task) {
-        boolean result = false;
+    public int delete(Task task) {
+        int result;
         if (get(task.getId()).isPresent()) {
             try {
                 String queryString = "DELETE FROM `" + Const.TABLE_STATUS + "` WHERE " + Const.TASK_COLUMN_ID + " = ?";
@@ -205,9 +207,10 @@ public class TaskDAO implements DAO<Task> {
                     }
                 }
                 System.out.println(task.getName() + " Deleted");
-                result = true;
+                result = Const.SUCCESS;
             } catch (SQLException e) {
                 e.printStackTrace();
+                result = Const.FAILED;
             } finally {
                 try {
                     if (preparedStatement != null)
@@ -217,12 +220,12 @@ public class TaskDAO implements DAO<Task> {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                return result;
             }
         } else {
             System.out.println(task.getId() + " id is not found (Can't delete)");
-            return false;
+            result = Const.NOT_FOUND;
         }
+        return result;
     }
 
     @Override

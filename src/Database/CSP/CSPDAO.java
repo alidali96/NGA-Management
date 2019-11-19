@@ -124,8 +124,8 @@ public class CSPDAO implements DAO<CSP> {
     }
 
     @Override
-    public boolean create(CSP csp) {
-        boolean result = false;
+    public int create(CSP csp) {
+        int result;
         if (!get(csp.getName()).isPresent()) {
             try {
                 String queryString = "INSERT INTO `" + table + "`(id, name, color) VALUES(0,?,?)";
@@ -143,9 +143,10 @@ public class CSPDAO implements DAO<CSP> {
                 }
 
                 System.out.println(csp.getName() + " Inserted");
-                result = true;
+                result = Const.SUCCESS;
             } catch (SQLException e) {
                 e.printStackTrace();
+                result = Const.FAILED;
             } finally {
                 try {
                     if (preparedStatement != null)
@@ -157,17 +158,17 @@ public class CSPDAO implements DAO<CSP> {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                return result;
             }
         } else {
             System.out.println(csp.getName() + " already exists");
-            return false;
+            result = Const.EXIST;
         }
+        return result;
     }
 
     @Override
-    public boolean update(CSP csp) {
-        boolean result = false;
+    public int update(CSP csp) {
+        int result;
         try {
             // Check if name already exist do not update it (prevent duplicate names)
             if (!get(csp.getName()).isPresent()) {
@@ -194,9 +195,10 @@ public class CSPDAO implements DAO<CSP> {
                 }
             }
             System.out.println(csp.getName() + " Updated");
-            result = true;
+            result = Const.SUCCESS;
         } catch (SQLException e) {
             e.printStackTrace();
+            result = Const.FAILED;
         } finally {
             try {
                 if (preparedStatement != null)
@@ -206,14 +208,14 @@ public class CSPDAO implements DAO<CSP> {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return result;
         }
+        return result;
     }
 
 
     @Override
-    public boolean delete(CSP csp) {
-        boolean result = false;
+    public int delete(CSP csp) {
+        int result;
         if (get(csp.getId()).isPresent()) {
             try {
                 String queryString = "DELETE FROM `" + table + "` WHERE id=?";
@@ -229,9 +231,10 @@ public class CSPDAO implements DAO<CSP> {
                     }
                 }
                 System.out.println(csp.getName() + " Deleted");
-                result = true;
+                result = Const.SUCCESS;
             } catch (SQLException e) {
                 e.printStackTrace();
+                result = Const.FAILED;
             } finally {
                 try {
                     if (preparedStatement != null)
@@ -241,12 +244,12 @@ public class CSPDAO implements DAO<CSP> {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                return result;
             }
         } else {
             System.out.println(csp.getId() + " id is not found (Can't delete)");
-            return false;
+            result = Const.NOT_FOUND;
         }
+        return result;
     }
 
     /**

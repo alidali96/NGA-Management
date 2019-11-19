@@ -10,6 +10,12 @@ public class Const {
     public static final int CLOSED = 0;
     public static final int OPEN = 1;
 
+    public static final int SUCCESS = 1;
+    public static final int EXIST = 0;
+    public static final int FAILED = -1;
+    public static final int NOT_FOUND = -2;
+
+
 
     public static final String TABLE_STATUS = "status";
     public static final String TABLE_CATEGORY = "category";

@@ -110,8 +110,8 @@ public class ProjectDAO implements DAO<Project> {
     }
 
     @Override
-    public boolean create(Project project) {
-        boolean result = false;
+    public int create(Project project) {
+        int result;
         try {
             String queryString = "INSERT INTO `" + Const.TABLE_PROJECT + "` VALUES(0,?,?,?,?,?,?,?)";
             preparedStatement = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
@@ -136,9 +136,10 @@ public class ProjectDAO implements DAO<Project> {
                 projects.add(project);
             }
             System.out.println(project.getTitle() + " Inserted");
-            result = true;
+            result = Const.SUCCESS;
         } catch (SQLException e) {
             e.printStackTrace();
+            result = Const.FAILED;
         } finally {
             try {
                 if (resultSet != null)
@@ -150,13 +151,13 @@ public class ProjectDAO implements DAO<Project> {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return result;
         }
+        return result;
     }
 
     @Override
-    public boolean update(Project project) {
-        boolean result = false;
+    public int update(Project project) {
+        int result;
         try {
             String queryString = String.format("UPDATE `%s` SET %s=?, %s=?, %s=?, %s=?, %s=?, %s=?, %s=? WHERE %s=?", Const.TABLE_PROJECT, Const.PROJECT_COLUMN_TITLE, Const.PROJECT_COLUMN_DESCRIPTION, Const.PROJECT_COLUMN_STATUS, Const.PROJECT_COLUMN_CATEGORY, Const.PROJECT_COLUMN_PRIORITY, Const.PROJECT_COLUMN_START_DATE, Const.PROJECT_COLUMN_DUE_DATE, Const.PROJECT_COLUMN_ID);
             preparedStatement = connection.prepareStatement(queryString);
@@ -187,9 +188,10 @@ public class ProjectDAO implements DAO<Project> {
                 }
             }
             System.out.println(project.getTitle() + " Updated");
-            result = true;
+            result = Const.SUCCESS;
         } catch (SQLException e) {
             e.printStackTrace();
+            result = Const.FAILED;
         } finally {
             try {
                 if (preparedStatement != null)
@@ -199,13 +201,13 @@ public class ProjectDAO implements DAO<Project> {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return result;
         }
+        return result;
     }
 
     @Override
-    public boolean delete(Project project) {
-        boolean result = false;
+    public int delete(Project project) {
+        int result;
         if (get(project.getId()).isPresent()) {
             try {
                 String queryString = "DELETE FROM `" + Const.TABLE_PROJECT + "` WHERE " + Const.PROJECT_COLUMN_ID + " = ?";
@@ -221,9 +223,10 @@ public class ProjectDAO implements DAO<Project> {
                     }
                 }
                 System.out.println(project.getTitle() + " Deleted");
-                result = true;
+                result = Const.SUCCESS;
             } catch (SQLException e) {
                 e.printStackTrace();
+                result = Const.FAILED;
             } finally {
                 try {
                     if (preparedStatement != null)
@@ -233,12 +236,12 @@ public class ProjectDAO implements DAO<Project> {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                return result;
             }
         } else {
             System.out.println(project.getId() + " id is not found (Can't delete)");
-            return false;
+            result = Const.NOT_FOUND;
         }
+        return result;
     }
 
     @Override
