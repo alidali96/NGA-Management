@@ -9,7 +9,7 @@ public class TestProject {
      * Include all tests in this class
      */
     public TestProject() {
-        ProjectDAO projectDAO = new ProjectDAO();
+        ProjectDAO projectDAO = ProjectDAO.getInstance();
 
         Date date = new Date(System.currentTimeMillis());
         Date due = new Date(System.currentTimeMillis());

@@ -8,7 +8,7 @@ public class ProjectFormModel {
 
     ProjectDAO projectDAO;
     public ProjectFormModel(){
-        this.projectDAO = new ProjectDAO();
+        this.projectDAO = ProjectDAO.getInstance();
         System.out.println("print from Model");
     }
     public void addProject(Project project){

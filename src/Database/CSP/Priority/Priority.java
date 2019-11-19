@@ -3,9 +3,7 @@ package Database.CSP.Priority;
 import Database.CSP.CSP;
 
 public class Priority extends CSP {
-    public Priority(int id, String name) {
-        super(id, name);
-    }
+
     public Priority(String name, String color) {
         super(name, color);
     }

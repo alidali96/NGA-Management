@@ -18,7 +18,7 @@ public class CSPDAO implements DAO<CSP> {
     PreparedStatement preparedStatement;
     ResultSet resultSet;
 
-    private List<CSP> CSPes = null;
+    private  List<CSP> cspList = null;
 
     private String table;
 
@@ -37,9 +37,9 @@ public class CSPDAO implements DAO<CSP> {
             preparedStatement.setInt(1, cspID);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String color = resultSet.getString("color");
+                int id = resultSet.getInt(Const.CSP_COLUMN_ID);
+                String name = resultSet.getString(Const.CSP_COLUMN_NAME);
+                String color = resultSet.getString(Const.CSP_COLUMN_COLOR);
 
                 switch (table) {
                     case Const.TABLE_STATUS:
@@ -77,14 +77,14 @@ public class CSPDAO implements DAO<CSP> {
     public Optional<? extends CSP> get(String CSPName) {
         CSP csp = null;
         try {
-            String queryString = "SELECT * FROM `" + table + "` WHERE name=? LIMIT 1";
+            String queryString = "SELECT * FROM `" + table + "` WHERE  " + Const.CSP_COLUMN_NAME + " = ? LIMIT 1";
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setString(1, CSPName);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String color = resultSet.getString("color");
+                int id = resultSet.getInt(Const.CSP_COLUMN_ID);
+                String name = resultSet.getString(Const.CSP_COLUMN_NAME);
+                String color = resultSet.getString(Const.CSP_COLUMN_COLOR);
 
                 switch (table) {
                     case Const.TABLE_STATUS:
@@ -120,59 +120,65 @@ public class CSPDAO implements DAO<CSP> {
 
     @Override
     public List<? extends CSP> getAll() {
-        return CSPes;
+        return cspList;
     }
 
     @Override
-    public void create(CSP csp) {
+    public int create(CSP csp) {
+        int result;
         if (!get(csp.getName()).isPresent()) {
             try {
-                String queryString = "INSERT INTO `" + table + "`(id, name, color) VALUES(0,?,?)";
+                String queryString = "INSERT INTO `" + table + "`(" + Const.CSP_COLUMN_ID + ", " + Const.CSP_COLUMN_NAME + ", " + Const.CSP_COLUMN_COLOR + ") VALUES(0,?,?)";
                 preparedStatement = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
                 preparedStatement.setString(1, csp.getName());
                 preparedStatement.setString(2, csp.getColor());
                 preparedStatement.executeUpdate();
 
                 // Get last inserted ID and set it to the CSP object to add to the CSPes list
-                ResultSet result = preparedStatement.getGeneratedKeys();
-                if (result.next()) {
-                    int id = result.getInt(1);
+                resultSet = preparedStatement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    int id = resultSet.getInt(1);
                     csp.setId(id);
-                    CSPes.add(csp);
+                    cspList.add(csp);
                 }
-                result.close();
 
                 System.out.println(csp.getName() + " Inserted");
+                result = Const.SUCCESS;
             } catch (SQLException e) {
                 e.printStackTrace();
+                result = Const.FAILED;
             } finally {
                 try {
                     if (preparedStatement != null)
                         preparedStatement.close();
+                    if (resultSet != null)
+                        resultSet.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
         } else {
             System.out.println(csp.getName() + " already exists");
+            result = Const.EXIST;
         }
+        return result;
     }
 
     @Override
-    public void update(CSP csp) {
+    public int update(CSP csp) {
+        int result;
         try {
             // Check if name already exist do not update it (prevent duplicate names)
             if (!get(csp.getName()).isPresent()) {
-                String queryString = "UPDATE `" + table + "` SET name=? , color=? WHERE id=?";
+                String queryString = "UPDATE `" + table + "` SET " + Const.CSP_COLUMN_NAME + " = ? ,  " + Const.CSP_COLUMN_COLOR + " = ? WHERE " + Const.CSP_COLUMN_ID + " = ?";
                 preparedStatement = connection.prepareStatement(queryString);
                 preparedStatement.setString(1, csp.getName());
                 preparedStatement.setString(2, csp.getColor());
                 preparedStatement.setInt(3, csp.getId());
             } else {
-                String queryString = "UPDATE `" + table + "` SET color=? WHERE id=?";
+                String queryString = "UPDATE `" + table + "` SET " + Const.CSP_COLUMN_COLOR + " = ? WHERE " + Const.CSP_COLUMN_ID + " = ?";
                 preparedStatement = connection.prepareStatement(queryString);
                 preparedStatement.setString(1, csp.getColor());
                 preparedStatement.setInt(2, csp.getId());
@@ -181,7 +187,7 @@ public class CSPDAO implements DAO<CSP> {
             preparedStatement.executeUpdate();
 
             // Update CSP name and color in CSPes list :)
-            for (CSP oldCSP : CSPes) {
+            for (CSP oldCSP : cspList) {
                 if (csp.getId() == oldCSP.getId()) {
                     oldCSP.setName(csp.getName());
                     oldCSP.setColor(csp.getColor());
@@ -189,8 +195,10 @@ public class CSPDAO implements DAO<CSP> {
                 }
             }
             System.out.println(csp.getName() + " Updated");
+            result = Const.SUCCESS;
         } catch (SQLException e) {
             e.printStackTrace();
+            result = Const.FAILED;
         } finally {
             try {
                 if (preparedStatement != null)
@@ -201,11 +209,13 @@ public class CSPDAO implements DAO<CSP> {
                 e.printStackTrace();
             }
         }
+        return result;
     }
 
 
     @Override
-    public void delete(CSP csp) {
+    public int delete(CSP csp) {
+        int result;
         if (get(csp.getId()).isPresent()) {
             try {
                 String queryString = "DELETE FROM `" + table + "` WHERE id=?";
@@ -214,15 +224,17 @@ public class CSPDAO implements DAO<CSP> {
                 preparedStatement.executeUpdate();
 
                 // Delete CSP if it exist in CSPes list :)
-                for (CSP oldCSP : CSPes) {
+                for (CSP oldCSP : cspList) {
                     if (csp.getId() == oldCSP.getId()) {
-                        CSPes.remove(csp);
+                        cspList.remove(csp);
                         break;
                     }
                 }
                 System.out.println(csp.getName() + " Deleted");
+                result = Const.SUCCESS;
             } catch (SQLException e) {
                 e.printStackTrace();
+                result = Const.FAILED;
             } finally {
                 try {
                     if (preparedStatement != null)
@@ -232,11 +244,12 @@ public class CSPDAO implements DAO<CSP> {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
         } else {
             System.out.println(csp.getId() + " id is not found (Can't delete)");
+            result = Const.NOT_FOUND;
         }
+        return result;
     }
 
     /**
@@ -244,7 +257,7 @@ public class CSPDAO implements DAO<CSP> {
      */
     @Override
     public void updateList() {
-        CSPes = new ArrayList<>();
+        cspList = new ArrayList<>();
         CSP csp = null;
         try {
             String queryString = "SELECT * FROM `" + table + "`";
@@ -252,9 +265,9 @@ public class CSPDAO implements DAO<CSP> {
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 // Table columns (id, name, color)
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String color = resultSet.getString("color");
+                int id = resultSet.getInt(Const.CSP_COLUMN_ID);
+                String name = resultSet.getString(Const.CSP_COLUMN_NAME);
+                String color = resultSet.getString(Const.CSP_COLUMN_COLOR);
 
                 switch (table) {
                     case Const.TABLE_STATUS:
@@ -267,7 +280,7 @@ public class CSPDAO implements DAO<CSP> {
                         csp = new Priority(id, name, color);
                         break;
                 }
-                CSPes.add(csp);
+                cspList.add(csp);
             }
 
             System.out.println("List Updated CSPDAO");
@@ -287,9 +300,13 @@ public class CSPDAO implements DAO<CSP> {
         }
     }
 
+    @Override
+    public int getLastInsertedId() {
+        return !cspList.isEmpty() ? cspList.get(cspList.size() - 1).getId() : 0;
+    }
 
     public void testPrintAll() {
-        for (CSP csp : CSPes) {
+        for (CSP csp : cspList) {
             System.out.println(csp);
         }
     }

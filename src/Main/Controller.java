@@ -59,7 +59,7 @@ public class Controller implements Initializable {
 //        TestProject testProject = new TestProject();
 
         // Test Task Table Class
-//        TestTask testTask = new TestTask();
+        TestTask testTask = new TestTask();
 
 
 //        Label icon=createIconLabel("Project");

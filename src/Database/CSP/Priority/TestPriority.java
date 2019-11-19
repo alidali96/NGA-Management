@@ -8,7 +8,7 @@ import java.util.Optional;
 public class TestPriority {
 
     public TestPriority() {
-        PriorityDAO priorityDAO = new PriorityDAO(Const.TABLE_PRIORITY);
+        PriorityDAO priorityDAO = PriorityDAO.getInstance();
 
 
         Priority priority = new Priority("High", "Red");
