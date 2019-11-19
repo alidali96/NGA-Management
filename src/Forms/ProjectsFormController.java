@@ -1,7 +1,21 @@
 package Forms;
 
+import Const.Const;
+import Database.CSP.CSPDAO;
+import Database.CSP.Category.Category;
+import Database.CSP.Category.CategoryDAO;
+import Database.CSP.Priority.Priority;
+import Database.CSP.Priority.PriorityDAO;
+import Database.CSP.Status.Status;
+import Database.CSP.Status.StatusDAO;
+import Database.Project.Project;
+import Database.Project.ProjectDAO;
+import Database.Task.Task;
+import Database.Task.TaskDAO;
 import com.jfoenix.controls.*;
 import controllers.AddProjectButton;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +27,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import models.ProjectFormModel;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 
@@ -33,11 +49,11 @@ public class ProjectsFormController implements Initializable {
     @FXML
     private JFXTextField projectName;
     @FXML
-    private JFXComboBox category;
+     JFXComboBox<Category> category;
     @FXML
-    private JFXComboBox<String> priority;
+     JFXComboBox<Priority> priority;
     @FXML
-    private JFXComboBox<String> status;
+     JFXComboBox<Status> status;
     @FXML
     private JFXDatePicker startDatePicker;
     @FXML
@@ -47,9 +63,9 @@ public class ProjectsFormController implements Initializable {
     private VBox errorDisplay;
 
     private String projectNameStr="";
-    private String categoryStr="";
-    private String priorityStr="";
-    private String statusStr="";
+    private int categoryStr;
+    private int priorityStr;
+    private int statusStr;
     private String startDateStr="";
     private String endDateStr="";
     private HashMap<String,String> formFieldsArray =new HashMap<>();
@@ -63,6 +79,9 @@ public class ProjectsFormController implements Initializable {
     private ToggleButton closeProject;
 
     public static boolean updateForm = false;
+    CategoryDAO categoryDAO = new CategoryDAO(Const.TABLE_CATEGORY);
+    PriorityDAO priorityDAO = new PriorityDAO(Const.TABLE_PRIORITY);
+    StatusDAO statusDAO = new StatusDAO(Const.TABLE_STATUS);
 
 
     public void addNewTask(ActionEvent actionEvent) {
@@ -99,10 +118,6 @@ public class ProjectsFormController implements Initializable {
         if(TasksHBox.getChildren().size()<6){
             TasksHBox.getChildren().add(vBox);
         }
-
-        vBox.getChildren().addAll(label, newTask, remove);
-        TasksHBox.getChildren().add(vBox);
-
     }
 
 
@@ -141,14 +156,14 @@ public class ProjectsFormController implements Initializable {
             category.setStyle("-fx-border-color: red;");
         }else{
             category.setStyle("-fx-border-color: none;");
-            categoryStr=category.getValue().toString();
+            categoryStr=category.getSelectionModel().getSelectedItem().getId();
         }
         if(priority.getValue()==null){
             errors.add("Select a Priority");
             priority.setStyle("-fx-border-color: red;");
         }else{
             priority.setStyle("-fx-border-color: none;");
-            priorityStr=priority.getValue();
+            priorityStr=priority.getSelectionModel().getSelectedItem().getId();
         }
 
 
@@ -157,7 +172,7 @@ public class ProjectsFormController implements Initializable {
             status.setStyle("-fx-border-color: red;");
         }else{
             status.setStyle("-fx-border-color: none;");
-            statusStr=status.getValue();
+            statusStr=status.getSelectionModel().getSelectedItem().getId();
         }
         if(startDatePicker.getValue()==null){
             errors.add("Select a Start Date for your project");
@@ -185,17 +200,31 @@ public class ProjectsFormController implements Initializable {
         }else{
             errorDisplay.getChildren().add(new Label("ALL SET"));
             formFieldsArray.put("projectName",projectNameStr);
-            formFieldsArray.put("projectName",projectNameStr);
                 for(int i=0;i<tasksList.size();i++){
                     formFieldsArray.put("task"+i,tasksList.get(i));
-            }
-            formFieldsArray.put("category",categoryStr);
-            formFieldsArray.put("priority",priorityStr);
-            formFieldsArray.put("status",statusStr);
+                }
+            formFieldsArray.put("category",categoryStr+"");
+            formFieldsArray.put("priority",priorityStr+"");
+            formFieldsArray.put("status",statusStr+"");
             formFieldsArray.put("startDate",startDateStr);
             formFieldsArray.put("endDate",endDateStr);
+            ProjectDAO projectDAO=new ProjectDAO();
+            TaskDAO taskDAO = new TaskDAO();
 
-            ProjectFormModel projectFormModel=new ProjectFormModel();
+                Date startdate= Date.valueOf(startDateStr);
+                Date duedate= Date.valueOf(endDateStr);
+
+                Project project = new Project(projectNameStr, "DESCRIPTION ABOUT THE GAME", statusStr, categoryStr, priorityStr, startdate, duedate);
+                projectDAO.create(project);
+                int lastInsertedId=projectDAO.getAll().get(projectDAO.getAll().size()-1).getId();
+
+            for(int i=0;i<tasksList.size();i++){
+                formFieldsArray.put("task"+i,tasksList.get(i));
+                Task task = new Task(tasksList.get(i), lastInsertedId, 1);
+                taskDAO.create(task);
+            }
+
+
         }
         category.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
@@ -214,6 +243,17 @@ public class ProjectsFormController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         closeProject.setStyle("visibility: hidden;");
+
+        for(int i=0;i<categoryDAO.getAll().size();i++){
+            category.getItems().add(new Category(categoryDAO.getAll().get(i).getId(),categoryDAO.getAll().get(i).getName()));
+        }
+        for(int i=0;i<priorityDAO.getAll().size();i++){
+            priority.getItems().add(new Priority(priorityDAO.getAll().get(i).getId(),priorityDAO.getAll().get(i).getName()));
+        }
+        for(int i=0;i<statusDAO.getAll().size();i++){
+            status.getItems().add(new Status(statusDAO.getAll().get(i).getId(),statusDAO.getAll().get(i).getName()));
+        }
+
         if (updateForm) {
             projectTitle.setText("Edit Project");
             submitButton.setText("Submit");

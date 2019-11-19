@@ -106,12 +106,11 @@ public class TaskDAO implements DAO<Task> {
     @Override
     public void create(Task task) {
         try {
-            String queryString = "INSERT INTO `" + Const.TABLE_TASK + "` VALUES(0,?,?,?,?)";
+            String queryString = "INSERT INTO `" + Const.TABLE_TASK + "` VALUES(0,?,?,?)";
             preparedStatement = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, task.getName());
-            preparedStatement.setString(2, task.getDescription());
-            preparedStatement.setInt(3, task.getProject());
-            preparedStatement.setInt(4, task.getOpen());
+            preparedStatement.setInt(2, task.getProject());
+            preparedStatement.setInt(3, task.getOpen());
 
             System.out.println(preparedStatement);
 

@@ -12,6 +12,10 @@ public abstract class CSP  {
         this.name = name.trim();
         this.color = color.trim();
     }
+    public CSP(int id, String name) {
+        this.id = id;
+        this.name = name.trim();
+    }
 
     public CSP(int id, String name, String color) {
         this.id = id;

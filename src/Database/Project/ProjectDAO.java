@@ -15,11 +15,12 @@ public class ProjectDAO implements DAO<Project> {
     PreparedStatement preparedStatement;
     ResultSet resultSet;
 
-    private static List<Project> projects;
+    private static ArrayList<Project> projects;
 
     public ProjectDAO() {
         connection = DatabaseConnection.getConnection();
-        //updateList();
+        projects=new ArrayList<>();
+        updateList();
     }
 
     @Override
@@ -122,7 +123,7 @@ public class ProjectDAO implements DAO<Project> {
             preparedStatement.setDate(6, project.getStartDate());
             preparedStatement.setDate(7, project.getDueDate());
 
-            System.out.println(preparedStatement);
+//            System.out.println(preparedStatement);
 
             preparedStatement.executeUpdate();
 

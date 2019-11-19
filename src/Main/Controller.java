@@ -43,7 +43,7 @@ public class Controller implements Initializable {
 
         changeTable("Projects");
         // Create Database Connection
-//        DatabaseConnection.getInstance();
+        DatabaseConnection.getInstance();
 
 
         // Test Status Table Class

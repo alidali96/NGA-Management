@@ -9,9 +9,8 @@ public class Task {
     private int open;
 
 
-    public Task(String name, String description, int project, int open) {
+    public Task(String name, int project, int open) {
         this.name = name;
-        this.description = description;
         this.project = project;
         this.open = open;
     }

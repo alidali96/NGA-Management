@@ -42,42 +42,16 @@
             <Label prefHeight="40" prefWidth="100" text="Category">
             </Label>
             <JFXComboBox fx:id="category" prefHeight="40" prefWidth="300" promptText="Select a category">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Web" />
-                        <String fx:value="Print" />
-                        <String fx:value="Mobile App" />
-                        <String fx:value="Logo Design" />
-                        <String fx:value="Video Editing" />
-                        <String fx:value="Social Media" />
-                    </FXCollections>
-                </items>
             </JFXComboBox>
         </HBox>
         <HBox>
             <Label prefHeight="40" prefWidth="100" text="Priority" />
             <JFXComboBox fx:id="priority" prefHeight="40" prefWidth="300" promptText="Select a Priority">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Urgent" />
-                        <String fx:value="High" />
-                        <String fx:value="Medium" />
-                        <String fx:value="Low" />
-                    </FXCollections>
-                </items>
             </JFXComboBox>
         </HBox>
         <HBox>
             <Label prefHeight="40" prefWidth="100" text="Status" />
             <JFXComboBox fx:id="status" prefHeight="40" prefWidth="300" promptText="Select a Status">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Did not start yet" />
-                        <String fx:value="Working on it" />
-                        <String fx:value="Waiting from client" />
-                        <String fx:value="Completed" />
-                    </FXCollections>
-                </items>
             </JFXComboBox>
         </HBox>
         <HBox>

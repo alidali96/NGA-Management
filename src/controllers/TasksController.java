@@ -48,12 +48,12 @@ public class TasksController implements Initializable {
         edit.setCellFactory(param -> new ButtonCell(replaceable, "Task"));
 
         ObservableList<Task> tasklist = FXCollections.observableArrayList();
-        tasklist.add(new Task("name", "saldnv", 6, 0));
-        tasklist.add(new Task("name", "saldnv", 6, 0));
-        tasklist.add(new Task("name", "saldnv", 6, 0));
-        tasklist.add(new Task("name", "saldnv", 6, 0));
-        tasklist.add(new Task("name", "saldnv", 6, 0));
-        tasklist.add(new Task("name", "saldnv", 6, 0));
+        tasklist.add(new Task("name",  6, 0));
+        tasklist.add(new Task("name",  6, 0));
+        tasklist.add(new Task("name", 6, 0));
+        tasklist.add(new Task("name",  6, 0));
+        tasklist.add(new Task("name", 6, 0));
+        tasklist.add(new Task("name",  6, 0));
 
 
         taskTable.setItems(tasklist);
