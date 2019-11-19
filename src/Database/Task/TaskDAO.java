@@ -39,11 +39,10 @@ public class TaskDAO implements DAO<Task> {
             if (resultSet.next()) {
                 int id = resultSet.getInt(Const.TASK_COLUMN_ID);
                 String name = resultSet.getString(Const.TASK_COLUMN_NAME);
-                String description = resultSet.getString(Const.TASK_COLUMN_DESCRIPTION);
                 int project = resultSet.getInt(Const.TASK_COLUMN_PROJECT);
                 int open = resultSet.getInt(Const.TASK_COLUMN_OPEN);
 
-                task = new Task(id, name, description, project, open);
+                task = new Task(id, name, project, open);
                 System.out.println(task.getName() + " Retrieved");
             } else {
                 System.out.println(taskID + " id was not found");
@@ -78,11 +77,10 @@ public class TaskDAO implements DAO<Task> {
             if (resultSet.next()) {
                 int id = resultSet.getInt(Const.TASK_COLUMN_ID);
                 String name = resultSet.getString(Const.TASK_COLUMN_NAME);
-                String description = resultSet.getString(Const.TASK_COLUMN_DESCRIPTION);
                 int project = resultSet.getInt(Const.TASK_COLUMN_PROJECT);
                 int open = resultSet.getInt(Const.TASK_COLUMN_OPEN);
 
-                task = new Task(id, name, description, project, open);
+                task = new Task(id, name, project, open);
                 System.out.println(task.getName() + " Retrieved");
             } else {
                 System.out.println(taskName + " was not found");
@@ -113,12 +111,11 @@ public class TaskDAO implements DAO<Task> {
     public int create(Task task) {
         int result;
         try {
-            String queryString = "INSERT INTO `" + Const.TABLE_TASK + "` VALUES(0,?,?,?,?)";
+            String queryString = "INSERT INTO `" + Const.TABLE_TASK + "` VALUES(0,?,?,?)";
             preparedStatement = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, task.getName());
-            preparedStatement.setString(2, task.getDescription());
-            preparedStatement.setInt(3, task.getProject());
-            preparedStatement.setInt(4, task.getOpen());
+            preparedStatement.setInt(2, task.getProject());
+            preparedStatement.setInt(3, task.getOpen());
 
             System.out.println(preparedStatement);
 
@@ -155,14 +152,12 @@ public class TaskDAO implements DAO<Task> {
     public int update(Task task) {
         int result;
         try {
-            String queryString = String.format("UPDATE `%s` SET %s=?, %s=?, %s=?, %s=? WHERE %s=?", Const.TABLE_TASK, Const.TASK_COLUMN_NAME, Const.TASK_COLUMN_DESCRIPTION, Const.TASK_COLUMN_PROJECT, Const.TASK_COLUMN_OPEN, Const.TASK_COLUMN_ID);
+            String queryString = String.format("UPDATE `%s` SET %s=?, %s=?, %s=? WHERE %s=?", Const.TABLE_TASK, Const.TASK_COLUMN_NAME, Const.TASK_COLUMN_PROJECT, Const.TASK_COLUMN_OPEN, Const.TASK_COLUMN_ID);
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setString(1, task.getName());
-            preparedStatement.setString(2, task.getDescription());
-            preparedStatement.setInt(3, task.getProject());
-            preparedStatement.setInt(4, task.getOpen());
-            preparedStatement.setInt(5, task.getId());
-
+            preparedStatement.setInt(2, task.getProject());
+            preparedStatement.setInt(3, task.getOpen());
+            preparedStatement.setInt(4, task.getId());
             System.out.println(preparedStatement);
 
             preparedStatement.executeUpdate();
@@ -171,7 +166,6 @@ public class TaskDAO implements DAO<Task> {
             for (Task t : tasks) {
                 if (t.getId() == task.getId()) {
                     t.setName(task.getName());
-                    t.setDescription(task.getDescription());
                     t.setProject(task.getProject());
                     t.setOpen(task.getOpen());
                     break;
@@ -245,15 +239,14 @@ public class TaskDAO implements DAO<Task> {
             while (resultSet.next()) {
                 int id = resultSet.getInt(Const.TASK_COLUMN_ID);
                 String name = resultSet.getString(Const.TASK_COLUMN_NAME);
-                String description = resultSet.getString(Const.TASK_COLUMN_DESCRIPTION);
                 int project = resultSet.getInt(Const.TASK_COLUMN_PROJECT);
                 int open = resultSet.getInt(Const.TASK_COLUMN_OPEN);
 
-                task = new Task(id, name, description, project, open);
+                task = new Task(id, name, project, open);
                 tasks.add(task);
             }
 
-            System.out.println("List Updated");
+            System.out.println("List Updated Task");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

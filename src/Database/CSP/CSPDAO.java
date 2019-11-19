@@ -18,7 +18,7 @@ public class CSPDAO implements DAO<CSP> {
     PreparedStatement preparedStatement;
     ResultSet resultSet;
 
-    private static List<CSP> cspList = null;
+    private  List<CSP> cspList = null;
 
     private String table;
 
@@ -271,10 +271,10 @@ public class CSPDAO implements DAO<CSP> {
 
                 switch (table) {
                     case Const.TABLE_STATUS:
-                        csp = new Status(id, name, color);
+                        csp = new Status(id, name,color);
                         break;
                     case Const.TABLE_CATEGORY:
-                        csp = new Category(id, name, color);
+                        csp = new Category(id, name,color);
                         break;
                     case Const.TABLE_PRIORITY:
                         csp = new Priority(id, name, color);
@@ -283,7 +283,7 @@ public class CSPDAO implements DAO<CSP> {
                 cspList.add(csp);
             }
 
-            System.out.println("List Updated");
+            System.out.println("List Updated CSPDAO");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

@@ -15,7 +15,7 @@ public class ProjectDAO implements DAO<Project> {
     PreparedStatement preparedStatement;
     ResultSet resultSet;
 
-    private static List<Project> projects;
+    private static ArrayList<Project> projects;
 
     private static ProjectDAO projectDAO = new ProjectDAO();
 
@@ -25,6 +25,7 @@ public class ProjectDAO implements DAO<Project> {
 
     private ProjectDAO() {
         connection = DatabaseConnection.getConnection();
+        projects=new ArrayList<>();
         updateList();
     }
 
@@ -129,7 +130,7 @@ public class ProjectDAO implements DAO<Project> {
             preparedStatement.setDate(6, project.getStartDate());
             preparedStatement.setDate(7, project.getDueDate());
 
-            System.out.println(preparedStatement);
+//            System.out.println(preparedStatement);
 
             preparedStatement.executeUpdate();
 
@@ -274,7 +275,7 @@ public class ProjectDAO implements DAO<Project> {
                 projects.add(project);
             }
 
-            System.out.println("List Updated");
+            System.out.println("List Updated Project");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

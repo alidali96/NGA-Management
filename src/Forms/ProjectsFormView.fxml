@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import com.jfoenix.controls.JFXTextArea?>
 <AnchorPane prefHeight="400.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.231" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Forms.ProjectsFormController">
     <VBox fx:id="projectsFormGrid" xmlns:fx="http://javafx.com/fxml">
         <padding>
@@ -30,6 +31,10 @@
             <Label prefHeight="40" prefWidth="100" text="Project Name" />
             <JFXTextField fx:id="projectName" prefHeight="40" prefWidth="300" />
         </HBox>
+        <HBox>
+            <Label prefHeight="40" prefWidth="100" text="Project Description" />
+            <JFXTextArea fx:id="projectDescription" prefHeight="50" prefWidth="300" />
+        </HBox>
         <VBox fx:id="TasksHBox">
             <HBox>
                 <Label fx:id="taskOneLabel" prefHeight="40" prefWidth="100" text="Tasks" />
@@ -42,48 +47,23 @@
             <Label prefHeight="40" prefWidth="100" text="Category">
             </Label>
             <JFXComboBox fx:id="category" prefHeight="40" prefWidth="300" promptText="Select a category">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Web" />
-                        <String fx:value="Print" />
-                        <String fx:value="Mobile App" />
-                        <String fx:value="Logo Design" />
-                        <String fx:value="Video Editing" />
-                        <String fx:value="Social Media" />
-                    </FXCollections>
-                </items>
             </JFXComboBox>
         </HBox>
         <HBox>
             <Label prefHeight="40" prefWidth="100" text="Priority" />
             <JFXComboBox fx:id="priority" prefHeight="40" prefWidth="300" promptText="Select a Priority">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Urgent" />
-                        <String fx:value="High" />
-                        <String fx:value="Medium" />
-                        <String fx:value="Low" />
-                    </FXCollections>
-                </items>
             </JFXComboBox>
         </HBox>
         <HBox>
             <Label prefHeight="40" prefWidth="100" text="Status" />
             <JFXComboBox fx:id="status" prefHeight="40" prefWidth="300" promptText="Select a Status">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Did not start yet" />
-                        <String fx:value="Working on it" />
-                        <String fx:value="Waiting from client" />
-                        <String fx:value="Completed" />
-                    </FXCollections>
-                </items>
             </JFXComboBox>
         </HBox>
         <HBox>
             <Label prefHeight="40" prefWidth="100" text="Start Date" />
             <JFXDatePicker fx:id="startDatePicker" prefHeight="40" prefWidth="300" />
-
+        </HBox>
+        <HBox>
             <Label prefHeight="40" prefWidth="100" text="Due Date" />
             <JFXDatePicker fx:id="dueDatePicker" prefHeight="40" prefWidth="300" />
         </HBox>
@@ -102,5 +82,8 @@
             </JFXButton>
 
         </HBox>
+        <VBox fx:id="errorDisplay">
+
+        </VBox>
     </VBox>
 </AnchorPane>

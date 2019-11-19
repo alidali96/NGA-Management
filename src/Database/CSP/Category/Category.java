@@ -7,7 +7,12 @@ public class Category extends CSP {
         super(name, color);
     }
 
+
     public Category(int id, String name, String color) {
         super(id, name, color);
+    }
+
+    public String toString(){
+        return this.getName();
     }
 }

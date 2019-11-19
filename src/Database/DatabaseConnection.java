@@ -22,9 +22,9 @@ public class DatabaseConnection {
         if (connection == null) {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                connection = DriverManager.getConnection("jdbc:mysql://php.scweb.ca/" + database, user, password);
+//                connection = DriverManager.getConnection("jdbc:mysql://php.scweb.ca/" + database, user, password);
 //                connection=DriverManager.getConnection("jdbc:mysql://php.scweb.ca/"+database+"?user="+user+"&password="+password);
-//                  connection=DriverManager.getConnection("jdbc:mysql://localhost/NGA_Management?user=root&password=webmaster");
+                  connection=DriverManager.getConnection("jdbc:mysql://localhost/NGA_Management?user=root&password=webmaster&useSSL=false");
 
 
                 System.out.println("Database Connected");

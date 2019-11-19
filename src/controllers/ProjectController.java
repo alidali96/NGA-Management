@@ -68,11 +68,11 @@ public class ProjectController implements Initializable {
         Date date = new Date(System.currentTimeMillis());
         Date due = new Date(System.currentTimeMillis());
         due.setTime(System.currentTimeMillis() + 999999999);
-        projectModel1.add(new Project("Tower Defense", "DESCRIPTION ABOUT THE GAME", 66, 1, 1, date, due));
-        projectModel1.add(new Project("Tower Defense", "DESCRIPTION ABOUT THE GAME", 66, 1, 1, date, due));
-        projectModel1.add(new Project("Tower Defense", "DESCRIPTION ABOUT THE GAME", 66, 1, 1, date, due));
-        projectModel1.add(new Project("Tower Defense", "DESCRIPTION ABOUT THE GAME", 66, 1, 1, date, due));
-        projectModel1.add(new Project("Tower Defense", "DESCRIPTION ABOUT THE GAME", 66, 1, 1, date, due));
+        projectModel1.add(new Project("Tower 1 Defense", "DESCRIPTION 1 ABOUT THE GAME", 66, 1, 1, date, due));
+        projectModel1.add(new Project("Tower 2 Defense", "DESCRIPTION 2 ABOUT THE GAME", 66, 1, 1, date, due));
+        projectModel1.add(new Project("Tower 3 Defense", "DESCRIPTION 3 ABOUT THE GAME", 66, 1, 1, date, due));
+        projectModel1.add(new Project("Tower 4 Defense", "DESCRIPTION 4 ABOUT THE GAME", 66, 1, 1, date, due));
+        projectModel1.add(new Project("Tower 5 Defense", "DESCRIPTION 5 ABOUT THE GAME", 66, 1, 1, date, due));
 
         table.setItems(projectModel1);
     }
