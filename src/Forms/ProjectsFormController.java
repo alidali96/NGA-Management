@@ -163,7 +163,7 @@ public class ProjectsFormController implements Initializable {
         if(category.getValue()==null){
             errors.add("Select a Category");
             HBox catParent= (HBox) category.getParent();
-            catParent.getChildren().add(new Label("*"));
+            catParent.getChildren().add(new Label("Select a Category"));
             category.setStyle("-fx-border-color: red;");
         }else{
             category.setStyle("-fx-border-color: none;");

@@ -62,7 +62,8 @@
         <HBox>
             <Label prefHeight="40" prefWidth="100" text="Start Date" />
             <JFXDatePicker fx:id="startDatePicker" prefHeight="40" prefWidth="300" />
-
+        </HBox>
+        <HBox>
             <Label prefHeight="40" prefWidth="100" text="Due Date" />
             <JFXDatePicker fx:id="dueDatePicker" prefHeight="40" prefWidth="300" />
         </HBox>
