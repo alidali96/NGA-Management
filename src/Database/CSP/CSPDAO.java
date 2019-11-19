@@ -270,7 +270,7 @@ public class CSPDAO implements DAO<CSP> {
                 CSPes.add(csp);
             }
 
-            System.out.println("List Updated");
+            System.out.println("List Updated CSPDAO");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

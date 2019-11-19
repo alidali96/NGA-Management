@@ -49,6 +49,8 @@ public class ProjectsFormController implements Initializable {
     @FXML
     private JFXTextField projectName;
     @FXML
+    private JFXTextArea projectDescription;
+    @FXML
      JFXComboBox<Category> category;
     @FXML
      JFXComboBox<Priority> priority;
@@ -63,6 +65,7 @@ public class ProjectsFormController implements Initializable {
     private VBox errorDisplay;
 
     private String projectNameStr="";
+    private String projectDescriptionStr="";
     private int categoryStr;
     private int priorityStr;
     private int statusStr;
@@ -133,6 +136,14 @@ public class ProjectsFormController implements Initializable {
         }else{
             projectName.setStyle("-fx-border-color: none;");
             projectNameStr=projectName.getText();
+        }
+
+        if(projectDescription.getText().isEmpty() || projectDescription.getText().length()<20){
+            errors.add("Project description should contain at least 10 letters");
+            projectDescription.setStyle("-fx-border-color: red;");
+        }else{
+            projectDescription.setStyle("-fx-border-color: none;");
+            projectDescriptionStr=projectDescription.getText();
         }
 
         for (Node child : TasksHBox.getChildren()) {
@@ -214,7 +225,7 @@ public class ProjectsFormController implements Initializable {
                 Date startdate= Date.valueOf(startDateStr);
                 Date duedate= Date.valueOf(endDateStr);
 
-                Project project = new Project(projectNameStr, "DESCRIPTION ABOUT THE GAME", statusStr, categoryStr, priorityStr, startdate, duedate);
+                Project project = new Project(projectNameStr, projectDescriptionStr, statusStr, categoryStr, priorityStr, startdate, duedate);
                 projectDAO.create(project);
                 int lastInsertedId=projectDAO.getAll().get(projectDAO.getAll().size()-1).getId();
 

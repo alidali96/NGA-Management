@@ -258,7 +258,7 @@ public class ProjectDAO implements DAO<Project> {
                 projects.add(project);
             }
 
-            System.out.println("List Updated");
+            System.out.println("List Updated Project");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

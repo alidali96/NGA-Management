@@ -30,8 +30,8 @@ public class TestTask {
         if (deleteTask.isPresent())
             taskDAO.delete(deleteTask.get());
 
-        taskDAO.update(new Task(1, "task111", "description111",9 ,1));
-        taskDAO.update(new Task(2, "task222", "description222",9,0));
+        taskDAO.update(new Task(1, "task111",9 ,1));
+        taskDAO.update(new Task(2, "task222",9,0));
 
         taskDAO.testPrintAll();
     }

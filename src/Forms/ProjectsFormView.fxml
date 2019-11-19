@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import com.jfoenix.controls.JFXTextArea?>
 <AnchorPane prefHeight="400.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.231" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Forms.ProjectsFormController">
     <VBox fx:id="projectsFormGrid" xmlns:fx="http://javafx.com/fxml">
         <padding>
@@ -29,6 +30,10 @@
         <HBox>
             <Label prefHeight="40" prefWidth="100" text="Project Name" />
             <JFXTextField fx:id="projectName" prefHeight="40" prefWidth="300" />
+        </HBox>
+        <HBox>
+            <Label prefHeight="40" prefWidth="100" text="Project Description" />
+            <JFXTextArea fx:id="projectDescription" prefHeight="50" prefWidth="300" />
         </HBox>
         <VBox fx:id="TasksHBox">
             <HBox>

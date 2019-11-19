@@ -4,7 +4,6 @@ public class Task {
 
     private int id;
     private String name;
-    private String description;
     private int project;
     private int open;
 
@@ -15,10 +14,9 @@ public class Task {
         this.open = open;
     }
 
-    public Task(int id, String name, String description, int project, int open) {
+    public Task(int id, String name, int project, int open) {
         this.id = id;
         this.name = name;
-        this.description = description;
         this.project = project;
         this.open = open;
     }
@@ -39,13 +37,6 @@ public class Task {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public int getProject() {
         return project;
@@ -65,6 +56,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format("ID: %d Name: %s Description: %s Project %d Open: %d", id, name, description, project, open);
+        return String.format("ID: %d Name: %s Project %d Open: %d", id, name, project, open);
     }
 }
