@@ -10,11 +10,11 @@ public interface DAO<T> {
 
     List<? extends T> getAll();
 
-    void create(T t);
+    boolean create(T t);
 
-    void update(T t);
+    boolean update(T t);
 
-    void delete(T t);
+    boolean delete(T t);
 
     void updateList();
 
