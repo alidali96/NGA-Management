@@ -37,9 +37,9 @@ public class CSPDAO implements DAO<CSP> {
             preparedStatement.setInt(1, cspID);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String color = resultSet.getString("color");
+                int id = resultSet.getInt(Const.CSP_COLUMN_ID);
+                String name = resultSet.getString(Const.CSP_COLUMN_NAME);
+                String color = resultSet.getString(Const.CSP_COLUMN_COLOR);
 
                 switch (table) {
                     case Const.TABLE_STATUS:
@@ -77,14 +77,14 @@ public class CSPDAO implements DAO<CSP> {
     public Optional<? extends CSP> get(String CSPName) {
         CSP csp = null;
         try {
-            String queryString = "SELECT * FROM `" + table + "` WHERE name=? LIMIT 1";
+            String queryString = "SELECT * FROM `" + table + "` WHERE  " + Const.CSP_COLUMN_NAME + " = ? LIMIT 1";
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setString(1, CSPName);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String color = resultSet.getString("color");
+                int id = resultSet.getInt(Const.CSP_COLUMN_ID);
+                String name = resultSet.getString(Const.CSP_COLUMN_NAME);
+                String color = resultSet.getString(Const.CSP_COLUMN_COLOR);
 
                 switch (table) {
                     case Const.TABLE_STATUS:
@@ -128,7 +128,7 @@ public class CSPDAO implements DAO<CSP> {
         int result;
         if (!get(csp.getName()).isPresent()) {
             try {
-                String queryString = "INSERT INTO `" + table + "`(id, name, color) VALUES(0,?,?)";
+                String queryString = "INSERT INTO `" + table + "`(" + Const.CSP_COLUMN_ID + ", " + Const.CSP_COLUMN_NAME + ", " + Const.CSP_COLUMN_COLOR + ") VALUES(0,?,?)";
                 preparedStatement = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
                 preparedStatement.setString(1, csp.getName());
                 preparedStatement.setString(2, csp.getColor());
@@ -172,13 +172,13 @@ public class CSPDAO implements DAO<CSP> {
         try {
             // Check if name already exist do not update it (prevent duplicate names)
             if (!get(csp.getName()).isPresent()) {
-                String queryString = "UPDATE `" + table + "` SET name=? , color=? WHERE id=?";
+                String queryString = "UPDATE `" + table + "` SET " + Const.CSP_COLUMN_NAME + " = ? ,  " + Const.CSP_COLUMN_COLOR + " = ? WHERE " + Const.CSP_COLUMN_ID + " = ?";
                 preparedStatement = connection.prepareStatement(queryString);
                 preparedStatement.setString(1, csp.getName());
                 preparedStatement.setString(2, csp.getColor());
                 preparedStatement.setInt(3, csp.getId());
             } else {
-                String queryString = "UPDATE `" + table + "` SET color=? WHERE id=?";
+                String queryString = "UPDATE `" + table + "` SET " + Const.CSP_COLUMN_COLOR + " = ? WHERE " + Const.CSP_COLUMN_ID + " = ?";
                 preparedStatement = connection.prepareStatement(queryString);
                 preparedStatement.setString(1, csp.getColor());
                 preparedStatement.setInt(2, csp.getId());
@@ -265,9 +265,9 @@ public class CSPDAO implements DAO<CSP> {
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 // Table columns (id, name, color)
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String color = resultSet.getString("color");
+                int id = resultSet.getInt(Const.CSP_COLUMN_ID);
+                String name = resultSet.getString(Const.CSP_COLUMN_NAME);
+                String color = resultSet.getString(Const.CSP_COLUMN_COLOR);
 
                 switch (table) {
                     case Const.TABLE_STATUS:
