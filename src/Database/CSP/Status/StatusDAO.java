@@ -1,5 +1,6 @@
 package Database.CSP.Status;
 
+import Const.Const;
 import Database.CSP.CSPDAO;
 import Database.DAO;
 import Database.DatabaseConnection;
@@ -11,7 +12,13 @@ import java.util.Optional;
 
 public class StatusDAO extends CSPDAO {
 
-    public StatusDAO(String table) {
-        super(table);
+    private static StatusDAO statusDAO = new StatusDAO();
+
+    public static StatusDAO getInstance() {
+        return statusDAO;
+    }
+
+    private StatusDAO() {
+        super(Const.TABLE_STATUS);
     }
 }

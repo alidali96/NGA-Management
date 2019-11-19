@@ -9,6 +9,6 @@ public class ProjectModel {
     ProjectDAO projectDAO;
 
     public ProjectModel() {
-        this.projectDAO = new ProjectDAO();
+        this.projectDAO = ProjectDAO.getInstance();
     }
 }

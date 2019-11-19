@@ -47,16 +47,16 @@ public class Controller implements Initializable {
 
 
         // Test Status Table Class
-//        TestStatus testStatus = new TestStatus();
+        TestStatus testStatus = new TestStatus();
 
 //         Test Category Table Class
-//        TestCategory testCategory = new TestCategory();
+        TestCategory testCategory = new TestCategory();
 
 //         Test Priority Table Class
-//        TestPriority testPriority = new TestPriority();
+        TestPriority testPriority = new TestPriority();
 
         // Test Project Table Class
-//        TestProject testProject = new TestProject();
+        TestProject testProject = new TestProject();
 
         // Test Task Table Class
 //        TestTask testTask = new TestTask();

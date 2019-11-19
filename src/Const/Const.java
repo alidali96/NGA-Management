@@ -10,12 +10,23 @@ public class Const {
     public static final int CLOSED = 0;
     public static final int OPEN = 1;
 
+    public static final int SUCCESS = 1;
+    public static final int EXIST = 0;
+    public static final int FAILED = -1;
+    public static final int NOT_FOUND = -2;
+
+
 
     public static final String TABLE_STATUS = "status";
     public static final String TABLE_CATEGORY = "category";
     public static final String TABLE_PRIORITY = "priority";
     public static final String TABLE_PROJECT = "project";
     public static final String TABLE_TASK = "task";
+
+    // TABLES CATEGORY - STATUS - PRIORITY
+    public static final String CSP_COLUMN_ID = "id";
+    public static final String CSP_COLUMN_NAME = "name";
+    public static final String CSP_COLUMN_COLOR = "color";
 
 
     // TABLE PROJECT

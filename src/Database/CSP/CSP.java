@@ -2,8 +2,6 @@ package Database.CSP;
 
 public abstract class CSP  {
 
-    protected String table;
-
     private int id = 0;
     private String name;
     private String color;
@@ -45,14 +43,6 @@ public abstract class CSP  {
         this.color = color;
         return this;
     }
-
-    public String getTable() {
-        return table;
-    }
-
-//    public void setTable(String table) {
-//        this.table = table;
-//    }
 
 
     @Override
