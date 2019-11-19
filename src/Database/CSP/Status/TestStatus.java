@@ -11,7 +11,7 @@ public class TestStatus {
      * Include all tests in this class
      */
     public TestStatus() {
-        StatusDAO statusDAO = new StatusDAO();
+        StatusDAO statusDAO = StatusDAO.getInstance();
 
 
         Status status = new Status("Late", "Red");

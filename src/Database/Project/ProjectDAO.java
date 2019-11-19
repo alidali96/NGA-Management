@@ -17,7 +17,13 @@ public class ProjectDAO implements DAO<Project> {
 
     private static List<Project> projects;
 
-    public ProjectDAO() {
+    private static ProjectDAO projectDAO = new ProjectDAO();
+
+    public static ProjectDAO getInstance() {
+        return projectDAO;
+    }
+
+    private ProjectDAO() {
         connection = DatabaseConnection.getConnection();
         updateList();
     }

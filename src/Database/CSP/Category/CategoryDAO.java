@@ -5,7 +5,13 @@ import Database.CSP.CSPDAO;
 
 public class CategoryDAO extends CSPDAO {
 
-    public CategoryDAO() {
+    private static CategoryDAO categoryDAO = new CategoryDAO();
+
+    public static CategoryDAO getInstance() {
+        return categoryDAO;
+    }
+
+    private CategoryDAO() {
         super(Const.TABLE_CATEGORY);
     }
 }

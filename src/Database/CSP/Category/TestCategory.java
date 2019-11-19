@@ -7,7 +7,7 @@ import java.util.Optional;
 public class TestCategory {
 
     public TestCategory() {
-        CategoryDAO categoryDAO = new CategoryDAO();
+        CategoryDAO categoryDAO = CategoryDAO.getInstance();
 
 
         Category category = new Category("Web", "Red");

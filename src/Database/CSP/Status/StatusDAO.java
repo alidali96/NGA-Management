@@ -12,7 +12,13 @@ import java.util.Optional;
 
 public class StatusDAO extends CSPDAO {
 
-    public StatusDAO() {
+    private static StatusDAO statusDAO = new StatusDAO();
+
+    public static StatusDAO getInstance() {
+        return statusDAO;
+    }
+
+    private StatusDAO() {
         super(Const.TABLE_STATUS);
     }
 }

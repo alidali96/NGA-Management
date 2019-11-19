@@ -10,7 +10,7 @@ public class TestTask {
      * Include all tests in this class
      */
     public TestTask() {
-        TaskDAO taskDAO = new TaskDAO();
+        TaskDAO taskDAO = TaskDAO.getInstance();
 
 
         Task task = new Task("task1", "description1", 6, 1);
