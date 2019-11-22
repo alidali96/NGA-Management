@@ -9,6 +9,9 @@ public class PriorityDAO extends CSPDAO {
     private static PriorityDAO projectDAO = new PriorityDAO();
 
     public static PriorityDAO getInstance() {
+        if (projectDAO == null) {
+            projectDAO = new PriorityDAO();
+        }
         return projectDAO;
     }
 
