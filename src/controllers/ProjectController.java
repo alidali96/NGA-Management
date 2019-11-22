@@ -1,6 +1,9 @@
 package controllers;
 
 
+import Database.DatabaseConnection;
+import Database.Project.ProjectDAO;
+import Database.Task.TaskDAO;
 import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -46,10 +49,12 @@ public class ProjectController implements Initializable {
     JFXButton addProjectsBtn;
 
 
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-
+//        DatabaseConnection.getInstance();
         projectName.setCellValueFactory(new PropertyValueFactory<>("title"));
         category.setCellValueFactory(new PropertyValueFactory<>("category"));
         startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
@@ -68,11 +73,26 @@ public class ProjectController implements Initializable {
         Date date = new Date(System.currentTimeMillis());
         Date due = new Date(System.currentTimeMillis());
         due.setTime(System.currentTimeMillis() + 999999999);
-        projectModel1.add(new Project("Tower 1 Defense", "DESCRIPTION 1 ABOUT THE GAME", 66, 1, 1, date, due));
-        projectModel1.add(new Project("Tower 2 Defense", "DESCRIPTION 2 ABOUT THE GAME", 66, 1, 1, date, due));
-        projectModel1.add(new Project("Tower 3 Defense", "DESCRIPTION 3 ABOUT THE GAME", 66, 1, 1, date, due));
-        projectModel1.add(new Project("Tower 4 Defense", "DESCRIPTION 4 ABOUT THE GAME", 66, 1, 1, date, due));
-        projectModel1.add(new Project("Tower 5 Defense", "DESCRIPTION 5 ABOUT THE GAME", 66, 1, 1, date, due));
+        ProjectDAO projectDAO = ProjectDAO.getInstance();
+        projectDAO.testPrintAll();
+        for(int i=0;i<projectDAO.getAll().size();i++){
+            projectModel1.add(
+                    new Project(
+                            projectDAO.getAll().get(i).getTitle(),
+                            projectDAO.getAll().get(i).getDescription(),
+                            projectDAO.getAll().get(i).getStatus(),
+                            projectDAO.getAll().get(i).getCategory(),
+                            projectDAO.getAll().get(i).getPriority(),
+                            projectDAO.getAll().get(i).getStartDate(),
+                            projectDAO.getAll().get(i).getDueDate()
+                    )
+            );
+        }
+//        projectModel1.add(new Project("Tower 1 Defense", "DESCRIPTION 1 ABOUT THE GAME", 66, 1, 1, date, due));
+//        projectModel1.add(new Project("Tower 2 Defense", "DESCRIPTION 2 ABOUT THE GAME", 66, 1, 1, date, due));
+//        projectModel1.add(new Project("Tower 3 Defense", "DESCRIPTION 3 ABOUT THE GAME", 66, 1, 1, date, due));
+//        projectModel1.add(new Project("Tower 4 Defense", "DESCRIPTION 4 ABOUT THE GAME", 66, 1, 1, date, due));
+//        projectModel1.add(new Project("Tower 5 Defense", "DESCRIPTION 5 ABOUT THE GAME", 66, 1, 1, date, due));
 
         table.setItems(projectModel1);
     }

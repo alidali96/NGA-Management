@@ -17,9 +17,12 @@ public class TaskDAO implements DAO<Task> {
 
     private static List<Task> tasks;
 
-    private static TaskDAO taskDAO = new TaskDAO();
+    private static TaskDAO taskDAO;
 
     public static TaskDAO getInstance() {
+        if(taskDAO==null){
+            taskDAO = new TaskDAO();
+        }
         return taskDAO;
     }
 

@@ -15,6 +15,9 @@ public class StatusDAO extends CSPDAO {
     private static StatusDAO statusDAO = new StatusDAO();
 
     public static StatusDAO getInstance() {
+        if(statusDAO==null){
+            statusDAO = new StatusDAO();
+        }
         return statusDAO;
     }
 

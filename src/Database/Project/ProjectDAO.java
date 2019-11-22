@@ -20,12 +20,15 @@ public class ProjectDAO implements DAO<Project> {
     private static ProjectDAO projectDAO = new ProjectDAO();
 
     public static ProjectDAO getInstance() {
+//        if (projectDAO == null) {
+//            projectDAO = new ProjectDAO();
+//        }
         return projectDAO;
     }
 
     private ProjectDAO() {
         connection = DatabaseConnection.getConnection();
-        projects=new ArrayList<>();
+//        projects = new ArrayList<>();
         updateList();
     }
 
@@ -257,6 +260,11 @@ public class ProjectDAO implements DAO<Project> {
         Project project;
         try {
             String queryString = "SELECT * FROM `" + Const.TABLE_PROJECT + "`";
+            String joinString = "SELECT p.*, s.name AS statusname, c.name as catname, pr.name as priorityname" +
+                    "FROM `project` p" +
+                    "LEFT JOIN status s ON p.status=s.id" +
+                    "LEFT JOIN category c ON p.category=c.id" +
+                    "Left JOIN priority pr ON p.priority=pr.id";
             preparedStatement = connection.prepareStatement(queryString);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -275,7 +283,7 @@ public class ProjectDAO implements DAO<Project> {
                 projects.add(project);
             }
 
-            System.out.println("List Updated Project");
+            System.out.println("Project List Updated Project");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

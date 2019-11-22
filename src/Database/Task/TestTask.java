@@ -33,6 +33,6 @@ public class TestTask {
         taskDAO.update(new Task(1, "task111",9 ,1));
         taskDAO.update(new Task(2, "task222",9,0));
 
-        taskDAO.testPrintAll();
+//        taskDAO.testPrintAll();
     }
 }
