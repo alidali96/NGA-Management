@@ -48,17 +48,17 @@ public class DBLoginController implements Initializable {
 
     public void connect(ActionEvent actionEvent) {
         String host = dbHost.getText();
-        String name = dbName.getText();
+        String database = dbName.getText();
         String username = dbUsername.getText();
         String password = dbPassword.getText();
-        if (host.isEmpty() || name.isEmpty() || username.isEmpty() || password.isEmpty()) {
+        if (host.isEmpty() || database.isEmpty() || username.isEmpty() || password.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText("You must fill all fields!");
 
             String message = "";
             message += host.isEmpty() ? "Host is missing\n" : "";
-            message += name.isEmpty() ? "Name is missing\n" : "";
+            message += database.isEmpty() ? "Database is missing\n" : "";
             message += username.isEmpty() ? "Username is missing\n" : "";
             message += password.isEmpty() ? "Password is missing" : "";
 
@@ -67,7 +67,7 @@ public class DBLoginController implements Initializable {
             return;
         }
 
-        boolean connected = model.establishConnection(host, name, username, password);
+        boolean connected = model.establishConnection(host, database, username, password);
         if (connected) {
             try {
                 Pane pane = FXMLLoader.load(getClass().getResource("/Main/main.fxml"));

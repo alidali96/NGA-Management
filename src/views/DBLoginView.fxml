@@ -47,7 +47,7 @@
                 <Font name="Oriya MN" size="14.0" />
             </font>
         </JFXTextField>
-        <JFXTextField fx:id="dbName" focusColor="#eb2256" labelFloat="true" layoutX="210.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Name" styleClass="text-field" stylesheets="@../stylesheets/login_form.css" unFocusColor="#eeeeee">
+        <JFXTextField fx:id="dbName" focusColor="#eb2256" labelFloat="true" layoutX="210.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Database" styleClass="text-field" stylesheets="@../stylesheets/login_form.css" unFocusColor="#eeeeee">
             <padding>
                 <Insets bottom="4.0" left="5.0" right="5.0" top="4.0" />
             </padding>

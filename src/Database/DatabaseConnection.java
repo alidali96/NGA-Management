@@ -25,11 +25,11 @@ public class DatabaseConnection {
 
     }
 
-    public boolean createConnection(String host, String name, String user, String password) {
+    public boolean createConnection(String host, String database, String user, String password) {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://" + host + "/" + name, user, password);
+            connection = DriverManager.getConnection("jdbc:mysql://" + host + "/" + database, user, password);
 //                connection=DriverManager.getConnection("jdbc:mysql://php.scweb.ca/"+database+"?user="+user+"&password="+password);
 //                  connection=DriverManager.getConnection("jdbc:mysql://localhost/NGA_Management?user=root&password=webmaster&useSSL=false");
 

@@ -14,8 +14,8 @@ public class DBLoginModel {
 
     }
 
-    public boolean establishConnection(String host, String name, String username, String password) {
-        return DatabaseConnection.getInstance().createConnection(host, name, username, password);
+    public boolean establishConnection(String host, String database, String username, String password) {
+        return DatabaseConnection.getInstance().createConnection(host, database, username, password);
     }
 
     public String errorMessage() {
