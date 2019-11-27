@@ -305,6 +305,14 @@ public class CSPDAO implements DAO<CSP> {
         return !cspList.isEmpty() ? cspList.get(cspList.size() - 1).getId() : 0;
     }
 
+    public CSP getItemById(int id) {
+        for(CSP csp : cspList) {
+            if(csp.getId() == id)
+                return csp;
+        }
+        return null;
+    }
+
     public void testPrintAll() {
         for (CSP csp : cspList) {
             System.out.println(csp);

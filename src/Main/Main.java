@@ -24,7 +24,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("NGA Management");
         primaryStage.centerOnScreen();
-        primaryStage.initStyle(StageStyle.UNDECORATED);
+//        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setResizable(false);
         primaryStage.show();
