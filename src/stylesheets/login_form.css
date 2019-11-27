@@ -1,0 +1,17 @@
+.form_background {
+    -fx-background-color: #2f3338;
+}
+
+.text_field {
+    -fx-background-color: #3d4046;
+    -fx-text-inner-color: #dadada;
+    -fx-prompt-text-fill: #bababa;
+}
+
+.button {
+    -fx-background-color: #eb2256;
+}
+
+.drag {
+    -fx-cursor: closed_hand;
+}

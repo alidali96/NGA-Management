@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
@@ -19,7 +20,9 @@ public class Main extends Application {
         primaryStage.setTitle("NGA Management");
         primaryStage.setScene(new Scene(root));
         primaryStage.centerOnScreen();
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
+
     }
 
 
