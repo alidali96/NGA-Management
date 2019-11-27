@@ -13,7 +13,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         DatabaseConnection.getInstance();
         //run sucker
-        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/DBLoginView.fxml"));
         primaryStage.setTitle("NGA Management");
         primaryStage.setScene(new Scene(root));
         primaryStage.centerOnScreen();
