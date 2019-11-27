@@ -43,8 +43,6 @@ public class DBLoginController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
 
-
-
     }
 
 
@@ -54,6 +52,18 @@ public class DBLoginController implements Initializable {
         String username = dbUsername.getText();
         String password = dbPassword.getText();
         if (host.isEmpty() || name.isEmpty() || username.isEmpty() || password.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("You must fill all fields!");
+
+            String message = "";
+            message += host.isEmpty() ? "Host is missing\n" : "";
+            message += name.isEmpty() ? "Name is missing\n" : "";
+            message += username.isEmpty() ? "Username is missing\n" : "";
+            message += password.isEmpty() ? "Password is missing" : "";
+
+            alert.setContentText(message);
+            alert.show();
             return;
         }
 

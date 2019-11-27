@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="root" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0" styleClass="form_background" stylesheets="@../stylesheets/login_form.css" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DBLoginController">
+<VBox fx:id="root" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0" styleClass="form-background" stylesheets="@../stylesheets/login_form.css" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DBLoginController">
     <children>
-      <HBox alignment="TOP_RIGHT" onMouseDragged="#dragged" onMousePressed="#pressed" onMouseReleased="#released" style="-fx-background-color: #202326;">
+      <HBox alignment="TOP_RIGHT" onMouseDragged="#dragged" onMousePressed="#pressed" onMouseReleased="#released" styleClass="toolbar" stylesheets="@../stylesheets/login_form.css">
          <children>
-              <Label alignment="CENTER" onMouseClicked="#close" text="X" textFill="#eb2256">
+              <Label alignment="CENTER" onMouseClicked="#close" stylesheets="@../stylesheets/login_form.css" text="X" textFill="#eb2256">
                   <font>
                       <Font name="Arial" size="20.0" />
                   </font>
@@ -31,7 +31,7 @@
               </Label>
          </children>
       </HBox>
-        <Label text="Database Connection" textFill="#dadada">
+        <Label focusTraversable="true" text="Database Connection" textFill="#dadada">
             <font>
                 <Font name="Comic Sans MS" size="20.0" />
             </font>
@@ -39,7 +39,7 @@
                 <Insets bottom="25.0" />
             </VBox.margin>
         </Label>
-        <JFXTextField fx:id="dbHost" focusColor="#eb2256" focusTraversable="false" labelFloat="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Host" styleClass="text_field" stylesheets="@../stylesheets/login_form.css" text="php.scweb.ca" unFocusColor="#eeeeee">
+        <JFXTextField fx:id="dbHost" focusColor="#eb2256" labelFloat="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Host" styleClass="text-field" stylesheets="@../stylesheets/login_form.css" unFocusColor="#eeeeee">
             <padding>
                 <Insets bottom="4.0" left="5.0" right="5.0" top="4.0" />
             </padding>
@@ -47,7 +47,7 @@
                 <Font name="Oriya MN" size="14.0" />
             </font>
         </JFXTextField>
-        <JFXTextField fx:id="dbName" focusColor="#eb2256" focusTraversable="false" labelFloat="true" layoutX="210.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Name" styleClass="text_field" stylesheets="@../stylesheets/login_form.css" text="adalidb" unFocusColor="#eeeeee">
+        <JFXTextField fx:id="dbName" focusColor="#eb2256" labelFloat="true" layoutX="210.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Name" styleClass="text-field" stylesheets="@../stylesheets/login_form.css" unFocusColor="#eeeeee">
             <padding>
                 <Insets bottom="4.0" left="5.0" right="5.0" top="4.0" />
             </padding>
@@ -55,7 +55,7 @@
                 <Font name="Oriya MN" size="14.0" />
             </font>
         </JFXTextField>
-        <JFXTextField fx:id="dbUsername" focusColor="#eb2256" focusTraversable="false" labelFloat="true" layoutX="210.0" layoutY="223.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Username" styleClass="text_field" stylesheets="@../stylesheets/login_form.css" text="adali" unFocusColor="#eeeeee">
+        <JFXTextField fx:id="dbUsername" focusColor="#eb2256" labelFloat="true" layoutX="210.0" layoutY="223.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Username" styleClass="text-field" stylesheets="@../stylesheets/login_form.css" unFocusColor="#eeeeee">
             <padding>
                 <Insets bottom="4.0" left="5.0" right="5.0" top="4.0" />
             </padding>
@@ -63,7 +63,7 @@
                 <Font name="Oriya MN" size="14.0" />
             </font>
         </JFXTextField>
-        <JFXPasswordField fx:id="dbPassword" accessibleRole="PASSWORD_FIELD" focusColor="#eb2256" focusTraversable="false" labelFloat="true" layoutX="210.0" layoutY="249.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Password" styleClass="text_field" stylesheets="@../stylesheets/login_form.css" text="j54czj54czhm4v1hm4v1" unFocusColor="#eeeeee">
+        <JFXPasswordField fx:id="dbPassword" accessibleRole="PASSWORD_FIELD" focusColor="#eb2256" labelFloat="true" layoutX="210.0" layoutY="249.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Password" styleClass="text-field" stylesheets="@../stylesheets/login_form.css" unFocusColor="#eeeeee">
             <padding>
                 <Insets bottom="4.0" left="5.0" right="5.0" top="4.0" />
             </padding>
@@ -71,7 +71,7 @@
                 <Font name="Oriya MN" size="14.0" />
             </font>
         </JFXPasswordField>
-        <JFXButton buttonType="RAISED" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#connect" prefWidth="125.0" stylesheets="@../stylesheets/login_form.css" text="Connect" textFill="WHITE">
+        <JFXButton buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#connect" prefWidth="125.0" stylesheets="@../stylesheets/login_form.css" text="Connect" textFill="WHITE">
             <font>
                 <Font name="Beirut Regular" size="16.0" />
             </font>
