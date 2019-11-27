@@ -10,31 +10,40 @@ public class DatabaseConnection {
     private static DatabaseConnection databaseConnection = null;
     private static Connection connection = null;
 
-    public static DatabaseConnection getInstance() {
-        if (databaseConnection == null)
-            databaseConnection = new DatabaseConnection(Const.DB_NAME, Const.DB_USER, Const.DB_PASS);
+    private String error = "Unknown";
 
+    public static DatabaseConnection getInstance() {
+        if (databaseConnection == null) {
+            databaseConnection = new DatabaseConnection();
+            System.out.println("Connection Instance Created");
+        }
+        System.out.println("Connection returned");
         return databaseConnection;
     }
 
-    public DatabaseConnection(String database, String user, String password) {
+    private DatabaseConnection() {
 
-        if (connection == null) {
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                connection = DriverManager.getConnection("jdbc:mysql://php.scweb.ca/" + database, user, password);
+    }
+
+    public boolean createConnection(String host, String name, String user, String password) {
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://" + host + "/" + name, user, password);
 //                connection=DriverManager.getConnection("jdbc:mysql://php.scweb.ca/"+database+"?user="+user+"&password="+password);
 //                  connection=DriverManager.getConnection("jdbc:mysql://localhost/NGA_Management?user=root&password=webmaster&useSSL=false");
 
-
-                System.out.println("Database Connected");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            System.out.println("Database Connected");
+        } catch (Exception e) {
+//            e.printStackTrace();
+            System.out.println(e.getMessage());
+            error = e.getMessage();
+            System.out.println("Failed");
         }
+        return isConnected();
     }
 
-    public  void createTable() {
+    public void createTable() {
         if (connection != null) {
             try {
 //                Statement statement = connection.createStatement();
@@ -88,5 +97,13 @@ public class DatabaseConnection {
 
     public static Connection getConnection() {
         return connection;
+    }
+
+    public boolean isConnected() {
+        return connection != null;
+    }
+
+    public String getError() {
+        return error;
     }
 }

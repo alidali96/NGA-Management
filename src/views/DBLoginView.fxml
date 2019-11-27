@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: #2f3338;" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="root" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: #2f3338;" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DBLoginController">
     <children>
     <Label text="Database Connection" textFill="#dadada">
          <font>
@@ -18,14 +18,14 @@
          <VBox.margin>
             <Insets bottom="25.0" top="25.0" />
          </VBox.margin></Label>
-        <JFXTextField focusColor="#eb2256" focusTraversable="false" labelFloat="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="URL" style="-fx-background-color: #3d4046; -fx-text-inner-color: #dadada; -fx-prompt-text-fill: #bababa;" unFocusColor="#eeeeee">
+        <JFXTextField fx:id="dbHost" focusColor="#eb2256" focusTraversable="false" labelFloat="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Host" style="-fx-background-color: #3d4046; -fx-text-inner-color: #dadada; -fx-prompt-text-fill: #bababa;" text="php.scweb.ca" unFocusColor="#eeeeee">
          <padding>
             <Insets bottom="4.0" left="5.0" right="5.0" top="4.0" />
          </padding>
          <font>
             <Font name="Oriya MN" size="14.0" />
          </font></JFXTextField>
-      <JFXTextField focusColor="#eb2256" focusTraversable="false" labelFloat="true" layoutX="210.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Name" style="-fx-background-color: #3d4046; -fx-text-inner-color: #dadada; -fx-prompt-text-fill: #bababa;" unFocusColor="#eeeeee">
+      <JFXTextField fx:id="dbName" focusColor="#eb2256" focusTraversable="false" labelFloat="true" layoutX="210.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Name" style="-fx-background-color: #3d4046; -fx-text-inner-color: #dadada; -fx-prompt-text-fill: #bababa;" text="adalidb" unFocusColor="#eeeeee">
          <padding>
             <Insets bottom="4.0" left="5.0" right="5.0" top="4.0" />
          </padding>
@@ -33,7 +33,7 @@
             <Font name="Oriya MN" size="14.0" />
          </font>
       </JFXTextField>
-      <JFXTextField focusColor="#eb2256" focusTraversable="false" labelFloat="true" layoutX="210.0" layoutY="223.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Username" style="-fx-background-color: #3d4046; -fx-text-inner-color: #dadada; -fx-prompt-text-fill: #bababa;" unFocusColor="#eeeeee">
+      <JFXTextField fx:id="dbUsername" focusColor="#eb2256" focusTraversable="false" labelFloat="true" layoutX="210.0" layoutY="223.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Username" style="-fx-background-color: #3d4046; -fx-text-inner-color: #dadada; -fx-prompt-text-fill: #bababa;" text="adali" unFocusColor="#eeeeee">
          <padding>
             <Insets bottom="4.0" left="5.0" right="5.0" top="4.0" />
          </padding>
@@ -41,7 +41,7 @@
             <Font name="Oriya MN" size="14.0" />
          </font>
       </JFXTextField>
-      <JFXPasswordField accessibleRole="PASSWORD_FIELD" focusColor="#eb2256" focusTraversable="false" labelFloat="true" layoutX="210.0" layoutY="249.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Password" style="-fx-background-color: #3d4046; -fx-text-inner-color: #dadada; -fx-prompt-text-fill: #bababa;" unFocusColor="#eeeeee">
+      <JFXPasswordField fx:id="dbPassword" accessibleRole="PASSWORD_FIELD" focusColor="#eb2256" focusTraversable="false" labelFloat="true" layoutX="210.0" layoutY="249.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="Password" style="-fx-background-color: #3d4046; -fx-text-inner-color: #dadada; -fx-prompt-text-fill: #bababa;" text="j54czj54czhm4v1hm4v1" unFocusColor="#eeeeee">
          <padding>
             <Insets bottom="4.0" left="5.0" right="5.0" top="4.0" />
          </padding>
@@ -49,7 +49,7 @@
             <Font name="Oriya MN" size="14.0" />
          </font>
       </JFXPasswordField>
-        <JFXButton buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="125.0" style="-fx-background-color: #eb2256;" text="Connect" textFill="WHITE">
+        <JFXButton buttonType="RAISED" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#connect" prefWidth="125.0" style="-fx-background-color: #eb2256;" text="Connect" textFill="WHITE">
          <font>
             <Font name="Beirut Regular" size="16.0" />
          </font>

@@ -9,9 +9,11 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-        DatabaseConnection.getInstance();
+//        DatabaseConnection.getInstance();
         //run sucker
         Parent root = FXMLLoader.load(getClass().getResource("/views/DBLoginView.fxml"));
         primaryStage.setTitle("NGA Management");
