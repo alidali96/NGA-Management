@@ -13,9 +13,15 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Controller" stylesheets="@../stylesheets/style.css">
+    <padding>
+        <Insets bottom="20" left="5" right="5" top="20" />
+    </padding>
     <children>
-        <HBox  minHeight="700.0" prefWidth="1280.0">
-                <VBox minHeight="0.0" minWidth="0.0" prefHeight="700" prefWidth="100.0">
+        <GridPane  minHeight="700.0" prefWidth="1280.0" styleClass="mainPanel">
+            <VBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="menuPanel">
+                <padding>
+                    <Insets bottom="5" left="20" right="20" top="55" />
+                </padding>
                     <children>
                         <JFXButton styleClass="btnMenu" fx:id="projectsButton" layoutX="15.0" layoutY="94.0" mnemonicParsing="false" onAction="#switchTable" text="Projects" >
                                 <graphic>
@@ -34,17 +40,21 @@
                         </JFXButton>
                         <JFXButton styleClass="btnMenu" fx:id="prioritiesButton" layoutX="15.0" layoutY="225.0" mnemonicParsing="false" onAction="#switchTable" text="Priorities">
                             <graphic>
-                                <FontAwesomeIconView style="-fx-text-fill:white; -fx-fill:white;" glyphName="TH" glyphSize="15"></FontAwesomeIconView>
+                                <FontAwesomeIconView style="-fx-text-fill:white; -fx-fill:white;" glyphName="LIST_ALT" glyphSize="15"></FontAwesomeIconView>
                             </graphic>
                         </JFXButton>
-                        <JFXButton styleClass="btnMenu" fx:id="statusButton" layoutX="15.0" layoutY="270.0" mnemonicParsing="false" onAction="#switchTable" text="Status">
+                        <JFXButton styleClass="btnMenu" fx:id="statusButton" layoutX="15.0" layoutY="270.0" mnemonicParsing="false" onAction="#switchTable" text="Statuses">
                             <graphic>
-                                <FontAwesomeIconView style="-fx-text-fill:white; -fx-fill:white;" glyphName="TH" glyphSize="15"></FontAwesomeIconView>
+                                <FontAwesomeIconView style="-fx-text-fill:white; -fx-fill:white;" glyphName="CHECK" glyphSize="15"></FontAwesomeIconView>
                             </graphic>
                         </JFXButton>
                     </children>
                 </VBox>
-                <VBox fx:id="tableContainer" minHeight="0.0" minWidth="0.0" prefHeight="593.0" prefWidth="378.0" />
-        </HBox>
+            <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="tableContainer">
+                <padding>
+                    <Insets bottom="20" left="20" right="20" top="20" />
+                </padding>
+            </VBox>
+        </GridPane>
     </children>
 </Pane>

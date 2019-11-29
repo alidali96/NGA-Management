@@ -275,6 +275,7 @@ public class ProjectsFormController implements Initializable {
             if (result.get() == ButtonType.OK) {
                 projectTitle.setText("Closed!"); // test
                 // database query should go here!
+
             } else {
                 closeProject.setSelected(false);
             }

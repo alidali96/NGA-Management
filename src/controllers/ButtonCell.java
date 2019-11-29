@@ -17,8 +17,6 @@ public class ButtonCell<S, T> extends TableCell<S, T> {
     Pane replaceable;
     String form;
 
-
-
     public ButtonCell(Pane replaceable, String form) {
         this.replaceable = replaceable;
         this.form = form;

@@ -2,6 +2,8 @@ package controllers;
 
 
 import Database.CSP.Category.CategoryDAO;
+import Database.CSP.Priority.PriorityDAO;
+import Database.CSP.Status.StatusDAO;
 import Database.DatabaseConnection;
 import Database.Project.ProjectDAO;
 import Database.Task.TaskDAO;
@@ -57,46 +59,20 @@ public class ProjectController implements Initializable {
 
         ProjectDAO projectDAO = ProjectDAO.getInstance();
         CategoryDAO categoryDAO = CategoryDAO.getInstance();
+        StatusDAO statusDAO=StatusDAO.getInstance();
+        PriorityDAO priorityDAO=PriorityDAO.getInstance();
 
-
-//        DatabaseConnection.getInstance();
         projectName.setCellValueFactory(new PropertyValueFactory<>("title"));
         category.setCellValueFactory(e-> new SimpleStringProperty(categoryDAO.getItemById(e.getValue().getCategory()).getName()));
         startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
         dueDate.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
-        status.setCellValueFactory(new PropertyValueFactory<>("status"));
-        priority.setCellValueFactory(new PropertyValueFactory<>("priority"));
-
+        status.setCellValueFactory(e-> new SimpleStringProperty(statusDAO.getItemById(e.getValue().getStatus()).getName()));
+        priority.setCellValueFactory(e-> new SimpleStringProperty(priorityDAO.getItemById(e.getValue().getPriority()).getName()));
         replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Projects"));
-
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         edit.setCellFactory(param -> new ButtonCell(replaceable, "Projects"));
 
-
-        Date date = new Date(System.currentTimeMillis());
-        Date due = new Date(System.currentTimeMillis());
-        due.setTime(System.currentTimeMillis() + 999999999);
-
-        System.out.println(categoryDAO.getItemById(1));
-
         ObservableList<Project> projectModel1 = FXCollections.observableArrayList(projectDAO.getAll());
-
-
-//        for(int i=0;i<projectDAO.getAll().size();i++){
-//            int catId=projectDAO.getAll().get(i).getCategory();
-//            String catName=categoryDAO.getItemById(catId).getName();
-//            projectModel1.add(
-//                    new Project(
-//                            projectDAO.getAll().get(i).getTitle(),
-//                            projectDAO.getAll().get(i).getDescription(),
-//                            projectDAO.getAll().get(i).getStatus(),
-//                            projectDAO.getAll().get(i).getCategory(),
-//                            projectDAO.getAll().get(i).getPriority(),
-//                            projectDAO.getAll().get(i).getStartDate(),
-//                            projectDAO.getAll().get(i).getDueDate()
-//                    )
-//            );
-//        }
 
         table.setItems(projectModel1);
     }

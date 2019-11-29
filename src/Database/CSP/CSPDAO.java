@@ -6,6 +6,7 @@ import Database.CSP.Priority.Priority;
 import Database.CSP.Status.Status;
 import Database.DAO;
 import Database.DatabaseConnection;
+import Database.Project.Project;
 
 import java.sql.*;
 import java.util.ArrayList;

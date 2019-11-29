@@ -7,18 +7,22 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProjectController">
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProjectController">
     <children>
-        <VBox fx:id="replaceable" alignment="TOP_RIGHT" spacing="5">
+        <VBox fx:id="replaceable" styleClass="replaceable" alignment="TOP_RIGHT" spacing="5">
            <children>
-               <JFXButton fx:id="addProjectsBtn" buttonType="RAISED" style="-fx-background-color: #0275d8; -fx-text-fill: white;" text="[+] Add">
+               <JFXButton fx:id="addProjectsBtn" buttonType="RAISED" style="-fx-background-color: #0275d8; -fx-text-fill: white;" text="Add hi">
+                   <graphic>
+                       <FontAwesomeIconView style="-fx-text-fill:white; -fx-fill:white;" glyphName="BARS" glyphSize="15"></FontAwesomeIconView>
+                   </graphic>
                    <padding>
                   <Insets bottom="5" left="20" right="20" top="5" />
                </padding>
                </JFXButton>
-               <Pane>
+               <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
                   <children>
-                  <TableView fx:id="table" prefHeight="500.0" prefWidth="700.0">
+                  <TableView prefWidth="900" fx:id="table" prefHeight="600.0">
                       <columns>
                           <TableColumn fx:id="projectName" text="Project Name" />
                           <TableColumn fx:id="category" text="Category" />
