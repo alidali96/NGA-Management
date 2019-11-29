@@ -1,0 +1,9 @@
+.btnMenu{
+    -jfx-button-type: FLAT;
+    -fx-background-color: #d9534f;
+    -fx-text-fill: white;
+    -fx-pref-height:32;
+    -fx-pref-width:221;
+    -fx-alignment: center-left;
+    -fx-padding:0 0 0 20;
+}

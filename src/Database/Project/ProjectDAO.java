@@ -305,6 +305,7 @@ public class ProjectDAO implements DAO<Project> {
         return !projects.isEmpty() ? projects.get(projects.size() - 1).getId() : 0;
     }
 
+
     public void testPrintAll() {
         for (Project project : projects) {
             System.out.println(project);

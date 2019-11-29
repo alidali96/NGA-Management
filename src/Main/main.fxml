@@ -12,41 +12,39 @@
 <?import javafx.scene.control.Label?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Controller" stylesheets="@../stylesheets/style.css">
     <children>
-        <SplitPane dividerPositions="0.2222222222222222" prefHeight="800.0" prefWidth="1280.0">
-            <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+        <HBox  minHeight="700.0" prefWidth="1280.0">
+                <VBox minHeight="0.0" minWidth="0.0" prefHeight="700" prefWidth="100.0">
                     <children>
-                        <JFXButton style="-fx-background-color: #d9534f; -fx-text-fill: white;" buttonType="FLAT" fx:id="projectsButton" layoutX="15.0" layoutY="94.0" mnemonicParsing="false" onAction="#switchTable" prefHeight="32.0" prefWidth="221.0" text="Projects" >
+                        <JFXButton styleClass="btnMenu" fx:id="projectsButton" layoutX="15.0" layoutY="94.0" mnemonicParsing="false" onAction="#switchTable" text="Projects" >
                                 <graphic>
                                     <FontAwesomeIconView style="-fx-text-fill:white; -fx-fill:white;" glyphName="BRIEFCASE" glyphSize="15"></FontAwesomeIconView>
                                 </graphic>
                         </JFXButton>
-                        <JFXButton style="-fx-background-color: #d9534f; -fx-text-fill: white;" buttonType="FLAT" fx:id="tasksButton" layoutX="15.0" layoutY="135.0" mnemonicParsing="false" onAction="#switchTable" prefHeight="32.0" prefWidth="221.0" text="Tasks" >
+                        <JFXButton  styleClass="btnMenu" fx:id="tasksButton" layoutX="15.0" layoutY="135.0" mnemonicParsing="false" onAction="#switchTable" text="Tasks" >
                             <graphic>
                                 <FontAwesomeIconView style="-fx-text-fill:white; -fx-fill:white;" glyphName="BARS" glyphSize="15"></FontAwesomeIconView>
                             </graphic>
                         </JFXButton>
-                        <JFXButton style="-fx-background-color: #d9534f; -fx-text-fill: white; " buttonType="FLAT" fx:id="categoriesButton" layoutX="15.0" layoutY="180.0" mnemonicParsing="false" onAction="#switchTable" prefHeight="32.0" prefWidth="221.0" text="Categories">
+                        <JFXButton  styleClass="btnMenu" fx:id="categoriesButton" layoutX="15.0" layoutY="180.0" mnemonicParsing="false" onAction="#switchTable" text="Categories">
                             <graphic>
                                 <FontAwesomeIconView style="-fx-text-fill:white; -fx-fill:white;" glyphName="TH" glyphSize="15"></FontAwesomeIconView>
                             </graphic>
                         </JFXButton>
-                        <JFXButton style="-fx-background-color: #d9534f; -fx-text-fill: white; " buttonType="FLAT" fx:id="prioritiesButton" layoutX="15.0" layoutY="225.0" mnemonicParsing="false" onAction="#switchTable" prefHeight="32.0" prefWidth="221.0" text="Priorities">
+                        <JFXButton styleClass="btnMenu" fx:id="prioritiesButton" layoutX="15.0" layoutY="225.0" mnemonicParsing="false" onAction="#switchTable" text="Priorities">
                             <graphic>
                                 <FontAwesomeIconView style="-fx-text-fill:white; -fx-fill:white;" glyphName="TH" glyphSize="15"></FontAwesomeIconView>
                             </graphic>
                         </JFXButton>
-                        <JFXButton style="-fx-background-color: #d9534f; -fx-text-fill: white; " buttonType="FLAT" fx:id="statusButton" layoutX="15.0" layoutY="270.0" mnemonicParsing="false" onAction="#switchTable" prefHeight="32.0" prefWidth="221.0" text="Status">
+                        <JFXButton styleClass="btnMenu" fx:id="statusButton" layoutX="15.0" layoutY="270.0" mnemonicParsing="false" onAction="#switchTable" text="Status">
                             <graphic>
                                 <FontAwesomeIconView style="-fx-text-fill:white; -fx-fill:white;" glyphName="TH" glyphSize="15"></FontAwesomeIconView>
                             </graphic>
                         </JFXButton>
                     </children>
-                </AnchorPane>
-                <AnchorPane fx:id="tableContainer" minHeight="0.0" minWidth="0.0" prefHeight="593.0" prefWidth="378.0" />
-            </items>
-        </SplitPane>
+                </VBox>
+                <VBox fx:id="tableContainer" minHeight="0.0" minWidth="0.0" prefHeight="593.0" prefWidth="378.0" />
+        </HBox>
     </children>
 </Pane>
