@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.control.GlyphCheckBox?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -16,10 +18,33 @@
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
-                        <JFXButton style="-fx-background-color: #903; -fx-text-fill: white;" buttonType="RAISED" fx:id="projectsButton" layoutX="15.0" layoutY="94.0" mnemonicParsing="false" onAction="#switchTable" prefHeight="25.0" prefWidth="221.0" text="Projects" />
-                        <JFXButton style="-fx-background-color: #903; -fx-text-fill: white;" buttonType="FLAT" fx:id="tasksButton" layoutX="15.0" layoutY="135.0" mnemonicParsing="false" onAction="#switchTable" prefHeight="25.0" prefWidth="221.0" text="Tasks" />
-                        <JFXButton style="-fx-background-color: #903; -fx-text-fill: white;" buttonType="RAISED" fx:id="categoriesButton" layoutX="15.0" layoutY="180.0" mnemonicParsing="false" onAction="#switchTable" prefHeight="25.0" prefWidth="221.0" text="Categories" />
-                    </children></AnchorPane>
+                        <JFXButton style="-fx-background-color: #d9534f; -fx-text-fill: white;" buttonType="FLAT" fx:id="projectsButton" layoutX="15.0" layoutY="94.0" mnemonicParsing="false" onAction="#switchTable" prefHeight="32.0" prefWidth="221.0" text="Projects" >
+                                <graphic>
+                                    <FontAwesomeIconView style="-fx-text-fill:white; -fx-fill:white;" glyphName="BRIEFCASE" glyphSize="15"></FontAwesomeIconView>
+                                </graphic>
+                        </JFXButton>
+                        <JFXButton style="-fx-background-color: #d9534f; -fx-text-fill: white;" buttonType="FLAT" fx:id="tasksButton" layoutX="15.0" layoutY="135.0" mnemonicParsing="false" onAction="#switchTable" prefHeight="32.0" prefWidth="221.0" text="Tasks" >
+                            <graphic>
+                                <FontAwesomeIconView style="-fx-text-fill:white; -fx-fill:white;" glyphName="BARS" glyphSize="15"></FontAwesomeIconView>
+                            </graphic>
+                        </JFXButton>
+                        <JFXButton style="-fx-background-color: #d9534f; -fx-text-fill: white; " buttonType="FLAT" fx:id="categoriesButton" layoutX="15.0" layoutY="180.0" mnemonicParsing="false" onAction="#switchTable" prefHeight="32.0" prefWidth="221.0" text="Categories">
+                            <graphic>
+                                <FontAwesomeIconView style="-fx-text-fill:white; -fx-fill:white;" glyphName="TH" glyphSize="15"></FontAwesomeIconView>
+                            </graphic>
+                        </JFXButton>
+                        <JFXButton style="-fx-background-color: #d9534f; -fx-text-fill: white; " buttonType="FLAT" fx:id="prioritiesButton" layoutX="15.0" layoutY="225.0" mnemonicParsing="false" onAction="#switchTable" prefHeight="32.0" prefWidth="221.0" text="Priorities">
+                            <graphic>
+                                <FontAwesomeIconView style="-fx-text-fill:white; -fx-fill:white;" glyphName="TH" glyphSize="15"></FontAwesomeIconView>
+                            </graphic>
+                        </JFXButton>
+                        <JFXButton style="-fx-background-color: #d9534f; -fx-text-fill: white; " buttonType="FLAT" fx:id="statusButton" layoutX="15.0" layoutY="270.0" mnemonicParsing="false" onAction="#switchTable" prefHeight="32.0" prefWidth="221.0" text="Status">
+                            <graphic>
+                                <FontAwesomeIconView style="-fx-text-fill:white; -fx-fill:white;" glyphName="TH" glyphSize="15"></FontAwesomeIconView>
+                            </graphic>
+                        </JFXButton>
+                    </children>
+                </AnchorPane>
                 <AnchorPane fx:id="tableContainer" minHeight="0.0" minWidth="0.0" prefHeight="593.0" prefWidth="378.0" />
             </items>
         </SplitPane>
