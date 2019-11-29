@@ -9,7 +9,6 @@ public class DatabaseConnection {
 
     private static DatabaseConnection databaseConnection = null;
     private static Connection connection = null;
-    private static PreparedStatement preparedStatement = null;
 
     private String error = "Unknown";
 
@@ -35,15 +34,6 @@ public class DatabaseConnection {
 //                  connection=DriverManager.getConnection("jdbc:mysql://localhost/NGA_Management?user=root&password=webmaster&useSSL=false");
 
             System.out.println("Database Connected");
-
-            createTable(Const.CREATE_TABLE_PROJECT);
-            createTable(Const.CREATE_TABLE_TASKS);
-            createTable(Const.CREATE_TABLE_CATEGORY);
-            createTable(Const.CREATE_TABLE_STATUS);
-            createTable(Const.CREATE_TABLE_PRIORITY);
-
-            alterTables(Const.ALTER_TABLES_FOREIGN_KEYS);
-
         } catch (Exception e) {
 //            e.printStackTrace();
             System.out.println(e.getMessage());
@@ -53,47 +43,57 @@ public class DatabaseConnection {
         return isConnected();
     }
 
-    public void createTable(String sqlQuery) {
+    public void createTable() {
         if (connection != null) {
             try {
-                preparedStatement = connection.prepareStatement(sqlQuery);
-                preparedStatement.executeUpdate();
-                System.out.println(sqlQuery);
-            } catch (SQLException e) {
+//                Statement statement = connection.createStatement();
+//                String query = "";
+//
+//                statement.executeUpdate(query);
+//                System.out.println("Tables Created");
+            } catch (Exception e) {
                 e.printStackTrace();
-                error = e.getMessage();
-            } finally {
-                try {
-                    if (preparedStatement != null)
-                        preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
             }
         }
     }
 
-    public void alterTables(String[] sqlQueries) {
-        if (connection != null) {
-            try {
-                for(String sqlQuery: sqlQueries) {
-                    preparedStatement = connection.prepareStatement(sqlQuery);
-                    preparedStatement.executeUpdate();
-                    System.out.println(sqlQuery);
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-                error = e.getMessage();
-            } finally {
-                try {
-                    if (preparedStatement != null)
-                        preparedStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
+//    public  void insertRecord(String query, String... values) {
+//        if (connection != null) {
+//            try {
+//                PreparedStatement statement = connection.prepareStatement(query);
+//                for (int i = 0; i < values.length; i++) {
+//                    statement.setString(i + 1, values[i]);
+//                }
+//                statement.executeUpdate();
+//                System.out.println("Record Inserted");
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+
+//    public  ResultSet fetchRecords(String query) {
+//        if (connection != null) {
+//            try {
+//                Statement statement = connection.createStatement();
+//
+//                return statement.executeQuery(query);
+//
+////                while(result.next()) {
+////                    int id = result.getInt("id");
+////                    String title = result.getString("title");
+////                    String description = result.getString("description");
+////
+////                    System.out.println("ID:" + id + " - Title: " + title + " - Description: " + description);
+////
+////                }
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return null;
+//    }
 
     public static Connection getConnection() {
         return connection;
