@@ -1,89 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXToggleButton?>
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.*?>
 
+<?import javafx.collections.FXCollections?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTextArea?>
-<AnchorPane prefHeight="400.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.231" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Forms.ProjectsFormController">
-    <VBox fx:id="projectsFormGrid" xmlns:fx="http://javafx.com/fxml">
-        <padding>
-            <Insets bottom="25" left="25" right="25" top="25" />
-        </padding>
+<?import com.jfoenix.controls.JFXButton?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Forms.ProjectsFormController"
+            prefHeight="400.0" prefWidth="900.0">
+    <VBox xmlns:fx="http://javafx.com/fxml" fx:id="projectsFormGrid" >
+        <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+        <HBox><Label text="Add new Project"><font><Font name="Arial" size="25" ></Font></font></Label></HBox>
         <HBox>
-            <Label fx:id="projectTitle" text="Add new Project">
-                <font>
-                    <Font name="Arial" size="25" />
-                </font>
-            </Label>
-        </HBox>
-        <HBox>
-            <Label prefHeight="40" prefWidth="100" text="Project Name" />
-            <JFXTextField fx:id="projectName" prefHeight="40" prefWidth="300" />
-        </HBox>
-        <HBox>
-            <Label prefHeight="40" prefWidth="100" text="Project Description" />
-            <JFXTextArea fx:id="projectDescription" prefHeight="50" prefWidth="300" />
+            <Label text="Project Name" prefHeight="40" prefWidth="100"></Label>
+            <JFXTextField fx:id="nameField"  prefWidth="300" prefHeight="40" />
         </HBox>
         <VBox fx:id="TasksHBox">
             <HBox>
-                <Label fx:id="taskOneLabel" prefHeight="40" prefWidth="100" text="Tasks" />
-                <JFXTextField fx:id="task1" prefHeight="40" prefWidth="300" />
-                <JFXButton fx:id="addTask" alignment="BOTTOM_RIGHT" buttonType="FLAT" onAction="#addNewTask" prefHeight="25" prefWidth="25" style="-fx-background-color:transparent; -fx-text-fill:#5cb85c;" text="+">
+                <Label fx:id="taskOneLabel" text="Tasks" prefHeight="40" prefWidth="100"></Label>
+                <JFXTextField fx:id="task1" prefWidth="300" prefHeight="40"/>
+                <JFXButton buttonType="FLAT" onAction="#addNewTask" style="-fx-background-color:transparent; -fx-text-fill:#903;" text="+" fx:id="addTask" prefHeight="25" prefWidth="25" alignment="BOTTOM_RIGHT">
                 </JFXButton>
             </HBox>
         </VBox>
+
         <HBox>
-            <Label prefHeight="40" prefWidth="100" text="Category">
+            <Label text="Category" prefHeight="40" prefWidth="100">
             </Label>
-            <JFXComboBox fx:id="category" prefHeight="40" prefWidth="300" promptText="Select a category">
+            <JFXComboBox fx:id="category" promptText="Select a category" prefWidth="300" prefHeight="40" >
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Web" />
+                        <String fx:value="Print"/>
+                        <String fx:value="Mobile App"/>
+                        <String fx:value="Logo Design"/>
+                        <String fx:value="Video Editing"/>
+                        <String fx:value="Social Media"/>
+                    </FXCollections>
+                </items>
             </JFXComboBox>
         </HBox>
         <HBox>
-            <Label prefHeight="40" prefWidth="100" text="Priority" />
-            <JFXComboBox fx:id="priority" prefHeight="40" prefWidth="300" promptText="Select a Priority">
+            <Label text="Priority" prefHeight="40" prefWidth="100" ></Label>
+            <JFXComboBox fx:id="priority" promptText="Select a Priority" prefWidth="300" prefHeight="40">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Urgent"/>
+                        <String fx:value="High"/>
+                        <String fx:value="Medium"/>
+                        <String fx:value="Low"/>
+                    </FXCollections>
+                </items>
             </JFXComboBox>
         </HBox>
         <HBox>
-            <Label prefHeight="40" prefWidth="100" text="Status" />
-            <JFXComboBox fx:id="status" prefHeight="40" prefWidth="300" promptText="Select a Status">
+            <Label text="Status" prefHeight="40" prefWidth="100" ></Label>
+            <JFXComboBox fx:id="status" promptText="Select a Status" prefWidth="300" prefHeight="40">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Did not start yet"/>
+                        <String fx:value="Working on it"/>
+                        <String fx:value="Waiting from client"/>
+                        <String fx:value="Completed"/>
+                    </FXCollections>
+                </items>
             </JFXComboBox>
         </HBox>
         <HBox>
-            <Label prefHeight="40" prefWidth="100" text="Start Date" />
-            <JFXDatePicker fx:id="startDatePicker" prefHeight="40" prefWidth="300" />
+            <Label text="Start Date" prefHeight="40" prefWidth="100"></Label>
+            <JFXDatePicker fx:id="datePicker" prefWidth="300" prefHeight="40"/>
+
+            <Label text="Due Date" prefHeight="40" prefWidth="100"></Label>
+            <JFXDatePicker fx:id="dueDatePicker" prefWidth="300" prefHeight="40"/>
         </HBox>
         <HBox>
-            <Label prefHeight="40" prefWidth="100" text="Due Date" />
-            <JFXDatePicker fx:id="dueDatePicker" prefHeight="40" prefWidth="300" />
-        </HBox>
-        <HBox>
-            <JFXToggleButton fx:id="closeProject" size="12.0" text="Close Project" toggleColor="#fafafa" toggleLineColor="#d70505" unToggleLineColor="#08f21b" wrapText="true" onAction="#on"/>
-        </HBox>
-        <HBox>
-            <padding>
-                <Insets bottom="0" left="0" right="0" top="20" />
-            </padding>
             <!-- Add Submit Button -->
-            <JFXButton fx:id="submitButton" buttonType="FLAT" onAction="#processProjectsForm" prefHeight="40" prefWidth="200" style="-fx-background-color: #0275d8; -fx-text-fill: white;" text="Add Project">
-                <padding>
-                    <Insets bottom="8" left="20" right="20" top="8" />
-                </padding>
-            </JFXButton>
-
+            <Button fx:id="submitButton" text="Add Project" prefWidth="100" prefHeight="40" defaultButton="true">
+            </Button>
         </HBox>
-        <VBox fx:id="errorDisplay">
 
-        </VBox>
+
+
+
+
+
     </VBox>
+
 </AnchorPane>
