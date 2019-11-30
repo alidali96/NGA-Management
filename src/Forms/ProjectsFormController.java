@@ -1,7 +1,5 @@
 package Forms;
 
-import Const.Const;
-import Database.CSP.CSPDAO;
 import Database.CSP.Category.Category;
 import Database.CSP.Category.CategoryDAO;
 import Database.CSP.Priority.Priority;
@@ -13,9 +11,8 @@ import Database.Project.ProjectDAO;
 import Database.Task.Task;
 import Database.Task.TaskDAO;
 import com.jfoenix.controls.*;
-import controllers.AddProjectButton;
+import controllers.ButtonCell;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,11 +21,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import javafx.scene.text.Font;
-import models.ProjectFormModel;
-
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -43,6 +36,16 @@ public class ProjectsFormController implements Initializable {
     Label taskOneLabel;
     HBox vBox;
     private Object button;
+
+    public JFXTextField getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName.setText(projectName);
+    }
+
+
     @FXML
     private JFXTextField projectName;
     @FXML
@@ -68,7 +71,8 @@ public class ProjectsFormController implements Initializable {
     private int statusStr;
     private String startDateStr="";
     private String endDateStr="";
-    private HashMap<String,String> formFieldsArray =new HashMap<>();
+
+    public static Project editingProject;
 
     @FXML
     private Label projectTitle;
@@ -126,6 +130,7 @@ public class ProjectsFormController implements Initializable {
         LinkedList<String>tasksList=new LinkedList<>();
         LinkedList<String>errors=new LinkedList<>();
 
+
         //check each field if the data is entered
         if(projectName.getText().isEmpty() || projectName.getText().length()<10){
             errors.add("Project name should contain at least 10 letters");
@@ -134,7 +139,6 @@ public class ProjectsFormController implements Initializable {
             projectName.setStyle("-fx-border-color: none;");
             projectNameStr=projectName.getText();
         }
-
         if(projectDescription.getText().isEmpty() || projectDescription.getText().length()<20){
             errors.add("Project description should contain at least 10 letters");
             projectDescription.setStyle("-fx-border-color: red;");
@@ -142,7 +146,6 @@ public class ProjectsFormController implements Initializable {
             projectDescription.setStyle("-fx-border-color: none;");
             projectDescriptionStr=projectDescription.getText();
         }
-
         for (Node child : TasksHBox.getChildren()) {
             HBox box = (HBox) child;
             for (Node achild : box.getChildren()) {
@@ -207,15 +210,7 @@ public class ProjectsFormController implements Initializable {
             }
         }else{
             errorDisplay.getChildren().add(new Label("ALL SET"));
-            formFieldsArray.put("projectName",projectNameStr);
-                for(int i=0;i<tasksList.size();i++){
-                    formFieldsArray.put("task"+i,tasksList.get(i));
-                }
-            formFieldsArray.put("category",categoryStr+"");
-            formFieldsArray.put("priority",priorityStr+"");
-            formFieldsArray.put("status",statusStr+"");
-            formFieldsArray.put("startDate",startDateStr);
-            formFieldsArray.put("endDate",endDateStr);
+
             ProjectDAO projectDAO= ProjectDAO.getInstance();
             TaskDAO taskDAO = TaskDAO.getInstance();
 
@@ -227,7 +222,6 @@ public class ProjectsFormController implements Initializable {
                 int lastInsertedId=projectDAO.getAll().get(projectDAO.getAll().size()-1).getId();
 
             for(int i=0;i<tasksList.size();i++){
-                formFieldsArray.put("task"+i,tasksList.get(i));
                 Task task = new Task(tasksList.get(i), lastInsertedId, 1);
                 taskDAO.create(task);
             }
@@ -243,9 +237,6 @@ public class ProjectsFormController implements Initializable {
 
     }
 
-    public HashMap projectFormFields(){
-        return formFieldsArray;
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -255,17 +246,26 @@ public class ProjectsFormController implements Initializable {
         category.setItems(FXCollections.observableArrayList((ArrayList<Category>)categoryDAO.getAll()));
         priority.setItems(FXCollections.observableArrayList((ArrayList<Priority>)priorityDAO.getAll()));
         status.setItems(FXCollections.observableArrayList((ArrayList<Status>)statusDAO.getAll()));
-
+        System.out.println("here"+ButtonCell.getEditProject());
 
         if (updateForm) {
+            System.out.println("ktu"+editingProject);
+
             projectTitle.setText("Edit Project");
             submitButton.setText("Submit");
             closeProject.setStyle("visibility: visible;");
+//                System.out.println(ButtonCell.getEditProject());
+//                projectName.setText(ButtonCell.getEditProject().getTitle());
+//                projectDescription.setText(ButtonCell.getEditProject().getDescription());
+//                LocalDate date=new LocalDate(ButtonCell.getEditProject().getDueDate());
+//                dueDatePicker.setValue( ButtonCell.getEditProject().getDueDate());
+
         }
     }
 
 
-    public void on(ActionEvent actionEvent) {
+    public void closeTheProject(ActionEvent actionEvent) {
+        System.out.println("ktu"+editingProject);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Warning");
         alert.setHeaderText("Warning!");
@@ -275,6 +275,9 @@ public class ProjectsFormController implements Initializable {
             if (result.get() == ButtonType.OK) {
                 projectTitle.setText("Closed!"); // test
                 // database query should go here!
+
+//                category.setValue(new Category(ButtonCell.getEditProject().getCategory()));
+
 
             } else {
                 closeProject.setSelected(false);

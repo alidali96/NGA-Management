@@ -11,14 +11,15 @@ import javafx.scene.control.TableCell;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class ButtonCell<S, T> extends TableCell<S, T> {
 
+    private static Project editProject;
     JFXButton btn;
     Pane replaceable;
     String form;
-    ArrayList<Project> editProject;
 
     public ButtonCell(Pane replaceable, String form) {
         this.replaceable = replaceable;
@@ -29,7 +30,6 @@ public class ButtonCell<S, T> extends TableCell<S, T> {
     @Override
     public void updateItem(T object, boolean empty) {
         super.updateItem(object, empty);
-         editProject = new ArrayList<Project>((Integer) object);
         if (empty) {
             setGraphic(null);
             setText(null);
@@ -44,7 +44,9 @@ public class ButtonCell<S, T> extends TableCell<S, T> {
                 PrioritiesFormController.updateForm = true;
                 CategoriesFormController.updateForm = true;
                 editProject(event);
-                System.out.println(object);
+                editProject= (Project) object;
+                ProjectsFormController projectsFormController=new ProjectsFormController();
+                projectsFormController.editingProject=editProject;
             });
             setGraphic(btn);
             setText(null);
@@ -59,5 +61,13 @@ public class ButtonCell<S, T> extends TableCell<S, T> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Project getEditProject() {
+        return editProject;
+    }
+
+    public void setEditProject(Project editProject) {
+        this.editProject = editProject;
     }
 }

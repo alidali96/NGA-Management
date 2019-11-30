@@ -283,8 +283,7 @@ public class CSPDAO implements DAO<CSP> {
                 }
                 cspList.add(csp);
             }
-
-            System.out.println("List Updated CSPDAO");
+            System.out.println(this.getClass().getName()+" List Updated ");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
