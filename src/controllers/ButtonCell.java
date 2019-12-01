@@ -43,10 +43,9 @@ public class ButtonCell<S, T> extends TableCell<S, T> {
                 TaskFormController.updateForm = true;
                 PrioritiesFormController.updateForm = true;
                 CategoriesFormController.updateForm = true;
+                editProject = (Project) object;
+                ProjectsFormController.editingProject = editProject;
                 editProject(event);
-                editProject= (Project) object;
-                ProjectsFormController projectsFormController=new ProjectsFormController();
-                projectsFormController.editingProject=editProject;
             });
             setGraphic(btn);
             setText(null);

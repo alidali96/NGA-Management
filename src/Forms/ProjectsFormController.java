@@ -243,12 +243,10 @@ public class ProjectsFormController implements Initializable {
         category.setItems(FXCollections.observableArrayList((ArrayList<Category>)categoryDAO.getAll()));
         priority.setItems(FXCollections.observableArrayList((ArrayList<Priority>)priorityDAO.getAll()));
         status.setItems(FXCollections.observableArrayList((ArrayList<Status>)statusDAO.getAll()));
-        System.out.println("here"+ButtonCell.getEditProject());
 
         if (updateForm) {
-            System.out.println("ktu"+editingProject);
-
-            projectTitle.setText("Edit Project");
+            System.out.println(editingProject);
+            projectTitle.setText("Edit " + editingProject.getTitle());
             submitButton.setText("Submit");
             closeProject.setStyle("visibility: visible;");
 //                System.out.println(ButtonCell.getEditProject());
