@@ -35,7 +35,7 @@ public class TaskDAO implements DAO<Task> {
     public Optional<? extends Task> get(int taskID) {
         Task task = null;
         try {
-            String queryString = "SELECT * FROM `" + Const.TABLE_TASK + "` WHERE id=? LIMIT 1";
+            String queryString = "SELECT * FROM `" + Const.TABLE_TASKS + "` WHERE " + Const.TASK_COLUMN_ID + " = ? LIMIT 1";
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setInt(1, taskID);
             resultSet = preparedStatement.executeQuery();
@@ -43,7 +43,7 @@ public class TaskDAO implements DAO<Task> {
                 int id = resultSet.getInt(Const.TASK_COLUMN_ID);
                 String name = resultSet.getString(Const.TASK_COLUMN_NAME);
                 int project = resultSet.getInt(Const.TASK_COLUMN_PROJECT);
-                int open = resultSet.getInt(Const.TASK_COLUMN_OPEN);
+                byte open = resultSet.getByte(Const.TASK_COLUMN_OPEN);
 
                 task = new Task(id, name, project, open);
                 System.out.println(task.getName() + " Retrieved");
@@ -72,7 +72,7 @@ public class TaskDAO implements DAO<Task> {
     public Optional<? extends Task> get(String taskName) {
         Task task = null;
         try {
-            String queryString = "SELECT * FROM `" + Const.TABLE_TASK + "` WHERE " + Const.TASK_COLUMN_NAME + " = ? LIMIT 1";
+            String queryString = "SELECT * FROM `" + Const.TABLE_TASKS + "` WHERE " + Const.TASK_COLUMN_NAME + " = ? LIMIT 1";
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setString(1, taskName);
             resultSet = preparedStatement.executeQuery();
@@ -81,7 +81,7 @@ public class TaskDAO implements DAO<Task> {
                 int id = resultSet.getInt(Const.TASK_COLUMN_ID);
                 String name = resultSet.getString(Const.TASK_COLUMN_NAME);
                 int project = resultSet.getInt(Const.TASK_COLUMN_PROJECT);
-                int open = resultSet.getInt(Const.TASK_COLUMN_OPEN);
+                byte open = resultSet.getByte(Const.TASK_COLUMN_OPEN);
 
                 task = new Task(id, name, project, open);
                 System.out.println(task.getName() + " Retrieved");
@@ -114,11 +114,11 @@ public class TaskDAO implements DAO<Task> {
     public int create(Task task) {
         int result;
         try {
-            String queryString = "INSERT INTO `" + Const.TABLE_TASK + "` VALUES(0,?,?,?)";
+            String queryString = "INSERT INTO `" + Const.TABLE_TASKS + "` VALUES(0,?,?,?)";
             preparedStatement = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, task.getName());
             preparedStatement.setInt(2, task.getProject());
-            preparedStatement.setInt(3, task.getOpen());
+            preparedStatement.setByte(3, task.getOpen());
 
             System.out.println(preparedStatement);
 
@@ -155,11 +155,11 @@ public class TaskDAO implements DAO<Task> {
     public int update(Task task) {
         int result;
         try {
-            String queryString = String.format("UPDATE `%s` SET %s=?, %s=?, %s=? WHERE %s=?", Const.TABLE_TASK, Const.TASK_COLUMN_NAME, Const.TASK_COLUMN_PROJECT, Const.TASK_COLUMN_OPEN, Const.TASK_COLUMN_ID);
+            String queryString = String.format("UPDATE `%s` SET %s=?, %s=?, %s=? WHERE %s=?", Const.TABLE_TASKS, Const.TASK_COLUMN_NAME, Const.TASK_COLUMN_PROJECT, Const.TASK_COLUMN_OPEN, Const.TASK_COLUMN_ID);
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setString(1, task.getName());
             preparedStatement.setInt(2, task.getProject());
-            preparedStatement.setInt(3, task.getOpen());
+            preparedStatement.setByte(3, task.getOpen());
             preparedStatement.setInt(4, task.getId());
             System.out.println(preparedStatement);
 
@@ -236,14 +236,14 @@ public class TaskDAO implements DAO<Task> {
         tasks = new ArrayList<>();
         Task task = null;
         try {
-            String queryString = "SELECT * FROM `" + Const.TABLE_TASK + "`";
+            String queryString = "SELECT * FROM `" + Const.TABLE_TASKS + "`";
             preparedStatement = connection.prepareStatement(queryString);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt(Const.TASK_COLUMN_ID);
                 String name = resultSet.getString(Const.TASK_COLUMN_NAME);
                 int project = resultSet.getInt(Const.TASK_COLUMN_PROJECT);
-                int open = resultSet.getInt(Const.TASK_COLUMN_OPEN);
+                byte open = resultSet.getByte(Const.TASK_COLUMN_OPEN);
 
                 task = new Task(id, name, project, open);
                 tasks.add(task);
