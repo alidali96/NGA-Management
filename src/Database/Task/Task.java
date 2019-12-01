@@ -5,16 +5,16 @@ public class Task {
     private int id;
     private String name;
     private int project;
-    private int open;
+    private byte open;
 
 
-    public Task(String name, int project, int open) {
+    public Task(String name, int project, byte open) {
         this.name = name;
         this.project = project;
         this.open = open;
     }
 
-    public Task(int id, String name, int project, int open) {
+    public Task(int id, String name, int project, byte open) {
         this.id = id;
         this.name = name;
         this.project = project;
@@ -25,33 +25,36 @@ public class Task {
         return id;
     }
 
-    public void setId(int id) {
+    public Task setId(int id) {
         this.id = id;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Task setName(String name) {
         this.name = name;
+        return this;
     }
-
 
     public int getProject() {
         return project;
     }
 
-    public void setProject(int project) {
+    public Task setProject(int project) {
         this.project = project;
+        return this;
     }
 
-    public int getOpen() {
+    public byte getOpen() {
         return open;
     }
 
-    public void setOpen(int open) {
+    public Task setOpen(byte open) {
         this.open = open;
+        return this;
     }
 
     @Override

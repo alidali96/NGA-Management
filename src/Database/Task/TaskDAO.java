@@ -35,7 +35,7 @@ public class TaskDAO implements DAO<Task> {
     public Optional<? extends Task> get(int taskID) {
         Task task = null;
         try {
-            String queryString = "SELECT * FROM `" + Const.TABLE_TASKS + "` WHERE id=? LIMIT 1";
+            String queryString = "SELECT * FROM `" + Const.TABLE_TASKS + "` WHERE " + Const.TASK_COLUMN_ID + " = ? LIMIT 1";
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setInt(1, taskID);
             resultSet = preparedStatement.executeQuery();
@@ -43,7 +43,7 @@ public class TaskDAO implements DAO<Task> {
                 int id = resultSet.getInt(Const.TASK_COLUMN_ID);
                 String name = resultSet.getString(Const.TASK_COLUMN_NAME);
                 int project = resultSet.getInt(Const.TASK_COLUMN_PROJECT);
-                int open = resultSet.getInt(Const.TASK_COLUMN_OPEN);
+                byte open = resultSet.getByte(Const.TASK_COLUMN_OPEN);
 
                 task = new Task(id, name, project, open);
                 System.out.println(task.getName() + " Retrieved");
@@ -81,7 +81,7 @@ public class TaskDAO implements DAO<Task> {
                 int id = resultSet.getInt(Const.TASK_COLUMN_ID);
                 String name = resultSet.getString(Const.TASK_COLUMN_NAME);
                 int project = resultSet.getInt(Const.TASK_COLUMN_PROJECT);
-                int open = resultSet.getInt(Const.TASK_COLUMN_OPEN);
+                byte open = resultSet.getByte(Const.TASK_COLUMN_OPEN);
 
                 task = new Task(id, name, project, open);
                 System.out.println(task.getName() + " Retrieved");
@@ -118,7 +118,7 @@ public class TaskDAO implements DAO<Task> {
             preparedStatement = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, task.getName());
             preparedStatement.setInt(2, task.getProject());
-            preparedStatement.setInt(3, task.getOpen());
+            preparedStatement.setByte(3, task.getOpen());
 
             System.out.println(preparedStatement);
 
@@ -159,7 +159,7 @@ public class TaskDAO implements DAO<Task> {
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setString(1, task.getName());
             preparedStatement.setInt(2, task.getProject());
-            preparedStatement.setInt(3, task.getOpen());
+            preparedStatement.setByte(3, task.getOpen());
             preparedStatement.setInt(4, task.getId());
             System.out.println(preparedStatement);
 
@@ -243,7 +243,7 @@ public class TaskDAO implements DAO<Task> {
                 int id = resultSet.getInt(Const.TASK_COLUMN_ID);
                 String name = resultSet.getString(Const.TASK_COLUMN_NAME);
                 int project = resultSet.getInt(Const.TASK_COLUMN_PROJECT);
-                int open = resultSet.getInt(Const.TASK_COLUMN_OPEN);
+                byte open = resultSet.getByte(Const.TASK_COLUMN_OPEN);
 
                 task = new Task(id, name, project, open);
                 tasks.add(task);

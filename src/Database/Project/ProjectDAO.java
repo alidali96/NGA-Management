@@ -50,8 +50,9 @@ public class ProjectDAO implements DAO<Project> {
                 int priority = resultSet.getInt(Const.PROJECT_COLUMN_PRIORITY);
                 Date startDate = resultSet.getDate(Const.PROJECT_COLUMN_START_DATE);
                 Date dueDate = resultSet.getDate(Const.PROJECT_COLUMN_DUE_DATE);
+                byte open = resultSet.getByte(Const.PROJECT_COLUMN_OPEN);
 
-                project = new Project(id, title, description, status, category, priority, startDate, dueDate);
+                project = new Project(id, title, description, status, category, priority, startDate, dueDate, open);
                 System.out.println(project.getTitle() + " Retrieved");
             } else {
                 System.out.println(projectID + " id was not found");
@@ -91,8 +92,9 @@ public class ProjectDAO implements DAO<Project> {
                 int priority = resultSet.getInt(Const.PROJECT_COLUMN_PRIORITY);
                 Date startDate = resultSet.getDate(Const.PROJECT_COLUMN_START_DATE);
                 Date dueDate = resultSet.getDate(Const.PROJECT_COLUMN_DUE_DATE);
+                byte open = resultSet.getByte(Const.PROJECT_COLUMN_OPEN);
 
-                project = new Project(id, title, description, status, category, priority, startDate, dueDate);
+                project = new Project(id, title, description, status, category, priority, startDate, dueDate, open);
                 System.out.println(project.getTitle() + " Retrieved");
             } else {
                 System.out.println(projectTitle + " was not found");
@@ -123,7 +125,7 @@ public class ProjectDAO implements DAO<Project> {
     public int create(Project project) {
         int result;
         try {
-            String queryString = "INSERT INTO `" + Const.TABLE_PROJECT + "` VALUES(0,?,?,?,?,?,?,?)";
+            String queryString = "INSERT INTO `" + Const.TABLE_PROJECT + "` VALUES(0,?,?,?,?,?,?,?,?)";
             preparedStatement = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, project.getTitle());
             preparedStatement.setString(2, project.getDescription());
@@ -132,7 +134,7 @@ public class ProjectDAO implements DAO<Project> {
             preparedStatement.setInt(5, project.getPriority());
             preparedStatement.setDate(6, project.getStartDate());
             preparedStatement.setDate(7, project.getDueDate());
-
+            preparedStatement.setByte(8, project.getOpen());
 //            System.out.println(preparedStatement);
 
             preparedStatement.executeUpdate();
@@ -169,7 +171,7 @@ public class ProjectDAO implements DAO<Project> {
     public int update(Project project) {
         int result;
         try {
-            String queryString = String.format("UPDATE `%s` SET %s=?, %s=?, %s=?, %s=?, %s=?, %s=?, %s=? WHERE %s=?", Const.TABLE_PROJECT, Const.PROJECT_COLUMN_TITLE, Const.PROJECT_COLUMN_DESCRIPTION, Const.PROJECT_COLUMN_STATUS, Const.PROJECT_COLUMN_CATEGORY, Const.PROJECT_COLUMN_PRIORITY, Const.PROJECT_COLUMN_START_DATE, Const.PROJECT_COLUMN_DUE_DATE, Const.PROJECT_COLUMN_ID);
+            String queryString = String.format("UPDATE `%s` SET %s=?, %s=?, %s=?, %s=?, %s=?, %s=?, %s=?, %s=? WHERE %s=?", Const.TABLE_PROJECT, Const.PROJECT_COLUMN_TITLE, Const.PROJECT_COLUMN_DESCRIPTION, Const.PROJECT_COLUMN_STATUS, Const.PROJECT_COLUMN_CATEGORY, Const.PROJECT_COLUMN_PRIORITY, Const.PROJECT_COLUMN_START_DATE, Const.PROJECT_COLUMN_DUE_DATE, Const.PROJECT_COLUMN_OPEN, Const.PROJECT_COLUMN_ID);
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setString(1, project.getTitle());
             preparedStatement.setString(2, project.getDescription());
@@ -178,7 +180,8 @@ public class ProjectDAO implements DAO<Project> {
             preparedStatement.setInt(5, project.getPriority());
             preparedStatement.setDate(6, project.getStartDate());
             preparedStatement.setDate(7, project.getDueDate());
-            preparedStatement.setInt(8, project.getId());
+            preparedStatement.setByte(8, project.getOpen());
+            preparedStatement.setInt(9, project.getId());
 
             System.out.println(preparedStatement);
 
@@ -194,6 +197,7 @@ public class ProjectDAO implements DAO<Project> {
                     p.setPriority(project.getPriority());
                     p.setStartDate(project.getStartDate());
                     p.setDueDate(project.getDueDate());
+                    p.setOpen(project.getOpen());
                     break;
                 }
             }
@@ -260,11 +264,7 @@ public class ProjectDAO implements DAO<Project> {
         Project project;
         try {
             String queryString = "SELECT * FROM `" + Const.TABLE_PROJECT + "`";
-            String joinString = "SELECT p.*, s.name AS statusname, c.name as catname, pr.name as priorityname" +
-                    "FROM `project` p" +
-                    "LEFT JOIN status s ON p.status=s.id" +
-                    "LEFT JOIN category c ON p.category=c.id" +
-                    "Left JOIN priority pr ON p.priority=pr.id";
+
             preparedStatement = connection.prepareStatement(queryString);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -276,9 +276,9 @@ public class ProjectDAO implements DAO<Project> {
                 int priority = resultSet.getInt(Const.PROJECT_COLUMN_PRIORITY);
                 Date startDate = resultSet.getDate(Const.PROJECT_COLUMN_START_DATE);
                 Date dueDate = resultSet.getDate(Const.PROJECT_COLUMN_DUE_DATE);
+                byte open = resultSet.getByte(Const.PROJECT_COLUMN_OPEN);
 
-
-                project = new Project(id, title, description, status, category, priority, startDate, dueDate);
+                project = new Project(id, title, description, status, category, priority, startDate, dueDate, open);
 
                 projects.add(project);
             }

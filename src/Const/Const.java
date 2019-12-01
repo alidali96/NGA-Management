@@ -8,8 +8,8 @@ public class Const {
     public static final String DB_PASS = "j54czj54czhm4v1hm4v1";
 
 
-    public static final int CLOSED = 0;
-    public static final int OPEN = 1;
+    public static final byte CLOSED = 0;
+    public static final byte OPEN = 1;
 
     public static final int SUCCESS = 1;
     public static final int EXIST = 0;
@@ -18,11 +18,11 @@ public class Const {
 
 
     // TABLES NAMES
-    public static final String TABLE_PROJECT = "project";
+    public static final String TABLE_PROJECT = "projects";
     public static final String TABLE_TASKS = "tasks";
     public static final String TABLE_STATUS = "status";
-    public static final String TABLE_CATEGORY = "category";
-    public static final String TABLE_PRIORITY = "priority";
+    public static final String TABLE_CATEGORY = "categories";
+    public static final String TABLE_PRIORITY = "priorities";
 
 
     // TABLE PROJECT
