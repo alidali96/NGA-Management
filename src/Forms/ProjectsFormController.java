@@ -41,9 +41,6 @@ public class ProjectsFormController implements Initializable {
         return projectName;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName.setText(projectName);
-    }
 
 
     @FXML

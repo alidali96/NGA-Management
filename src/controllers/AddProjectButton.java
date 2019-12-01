@@ -51,8 +51,6 @@ public class AddProjectButton extends JFXButton{
 //                ProjectsFormController.projectName.setText("ckemii");
                 ProjectsFormController customControl = new ProjectsFormController();
 //                customControl.setText("Hello!");
-                customControl.setProjectName("hii");
-
                 replaceable.getChildren().retainAll();
                 replaceable.getChildren().add(pane);
                 this.setStyle("visibility: hidden;");
