@@ -11,7 +11,7 @@
     <children>
         <VBox fx:id="replaceable" spacing="5" alignment="TOP_RIGHT">
             <JFXButton fx:id="addProjectsBtn" style="-fx-background-color: #0275d8; -fx-text-fill: white;"
-                       buttonType="RAISED" text="[+] Add">
+                       buttonType="RAISED" text="[+] Add -">
                 <padding>
                     <Insets top="5" right="20" bottom="5" left="20"/>
                 </padding>

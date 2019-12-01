@@ -1,5 +1,7 @@
 package Const;
 
+import javafx.scene.paint.Color;
+
 public class Const {
 
     public static final String DB_HOST = "php.scweb.ca";
@@ -56,7 +58,7 @@ public class Const {
             "  `" + PROJECT_COLUMN_STATUS + "` INT NOT NULL,\n" +
             "  `" + PROJECT_COLUMN_CATEGORY + "` INT NOT NULL,\n" +
             "  `" + PROJECT_COLUMN_PRIORITY + "` INT NOT NULL,\n" +
-            "  `" + PROJECT_COLUMN_START_DATE + "` DATE NOT NULL DEFAULT CURRENT_DATE,\n" +
+            "  `" + PROJECT_COLUMN_START_DATE + "` DATE NOT NULL,\n" +
             "  `" + PROJECT_COLUMN_DUE_DATE + "` DATE NOT NULL\n," +
             "  `" + PROJECT_COLUMN_OPEN + "` TINYINT NOT NULL DEFAULT 1\n" +
             ");";
@@ -105,6 +107,13 @@ public class Const {
             "ALTER TABLE `" + TABLE_TASKS + "` ADD FOREIGN KEY (`" + TASK_COLUMN_PROJECT + "`) REFERENCES `" + TABLE_PROJECT + "` (`" + PROJECT_COLUMN_ID + "`);"
 
     };
+
+    public static String toRGBCode(Color color) {
+        return String.format("#%02X%02X%02X",
+                (int) (color.getRed() * 255),
+                (int) (color.getGreen() * 255),
+                (int) (color.getBlue() * 255));
+    }
 
 
 }

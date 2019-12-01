@@ -1,5 +1,6 @@
 package controllers;
 
+import Database.Project.Project;
 import Forms.*;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.GlyphsDude;
@@ -10,14 +11,15 @@ import javafx.scene.control.TableCell;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.ArrayList;
 
 public class ButtonCell<S, T> extends TableCell<S, T> {
 
+    private static Project editProject;
     JFXButton btn;
     Pane replaceable;
     String form;
-
-
 
     public ButtonCell(Pane replaceable, String form) {
         this.replaceable = replaceable;
@@ -28,7 +30,6 @@ public class ButtonCell<S, T> extends TableCell<S, T> {
     @Override
     public void updateItem(T object, boolean empty) {
         super.updateItem(object, empty);
-
         if (empty) {
             setGraphic(null);
             setText(null);
@@ -42,6 +43,10 @@ public class ButtonCell<S, T> extends TableCell<S, T> {
                 TaskFormController.updateForm = true;
                 PrioritiesFormController.updateForm = true;
                 CategoriesFormController.updateForm = true;
+
+                editProject = (Project) object;
+                ProjectsFormController.editingProject = editProject;
+
                 editProject(event);
             });
             setGraphic(btn);
@@ -57,5 +62,13 @@ public class ButtonCell<S, T> extends TableCell<S, T> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Project getEditProject() {
+        return editProject;
+    }
+
+    public void setEditProject(Project editProject) {
+        this.editProject = editProject;
     }
 }

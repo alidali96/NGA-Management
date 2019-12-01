@@ -19,7 +19,6 @@
             <TableView fx:id="taskTable" prefHeight="500.0" prefWidth="700.0">
                 <columns>
                     <TableColumn fx:id="name" text="Name"/>
-                    <TableColumn fx:id="description" text="Description"/>
                     <TableColumn fx:id="project" text="Project"/>
                     <TableColumn fx:id="open" text="Open"/>
                     <TableColumn fx:id="edit" text="Edit"/>

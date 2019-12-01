@@ -1,0 +1,32 @@
+.btnMenu{
+    -jfx-button-type: FLAT;
+    -fx-background-color: #d9534f;
+    -fx-text-fill: white;
+    -fx-pref-height:32;
+    -fx-pref-width:221;
+    -fx-alignment: center-left;
+    -fx-padding:0 0 0 20;
+}
+.menuPanel{
+
+}
+.replaceable{
+    -fx-pref-width:900px;
+    -fx-pref-height:100%;
+     -fx-max-width:900px;
+     -fx-min-width:100%;
+     -fx-max-height:100%;
+      -fx-min-height:100%;
+}
+JFXColorPicker{
+    -fx-margin:20px;
+}
+.removeTaskBtn{
+    -fx-min-width: 10px;
+     -fx-background-radius: 5em;
+     -fx-min-height: 30px;
+     -fx-max-width: 30px;
+     -fx-border-color: #d9534f;
+     -fx-text-fill: #903;
+     -fx-max-height: 30px;
+}

@@ -1,7 +1,5 @@
 package Forms;
 
-import Const.Const;
-import Database.CSP.CSPDAO;
 import Database.CSP.Category.Category;
 import Database.CSP.Category.CategoryDAO;
 import Database.CSP.Priority.Priority;
@@ -13,9 +11,8 @@ import Database.Project.ProjectDAO;
 import Database.Task.Task;
 import Database.Task.TaskDAO;
 import com.jfoenix.controls.*;
-import controllers.AddProjectButton;
+import controllers.ButtonCell;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,11 +21,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import javafx.scene.text.Font;
-import models.ProjectFormModel;
-
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -42,17 +35,18 @@ public class ProjectsFormController implements Initializable {
     @FXML
     Label taskOneLabel;
     HBox vBox;
-    private Object button;
+    @FXML
+    JFXTextField task1;
     @FXML
     private JFXTextField projectName;
     @FXML
     private JFXTextArea projectDescription;
     @FXML
-     JFXComboBox<Category> category;
+    JFXComboBox<Category> category;
     @FXML
-     JFXComboBox<Priority> priority;
+    JFXComboBox<Priority> priority;
     @FXML
-     JFXComboBox<Status> status;
+    JFXComboBox<Status> status;
     @FXML
     private JFXDatePicker startDatePicker;
     @FXML
@@ -61,14 +55,15 @@ public class ProjectsFormController implements Initializable {
     @FXML
     private VBox errorDisplay;
 
-    private String projectNameStr="";
-    private String projectDescriptionStr="";
+    private String projectNameStr = "";
+    private String projectDescriptionStr = "";
     private int categoryStr;
     private int priorityStr;
     private int statusStr;
-    private String startDateStr="";
-    private String endDateStr="";
-    private HashMap<String,String> formFieldsArray =new HashMap<>();
+    private String startDateStr = "";
+    private String endDateStr = "";
+
+    public static Project editingProject;
 
     @FXML
     private Label projectTitle;
@@ -81,203 +76,234 @@ public class ProjectsFormController implements Initializable {
     public static boolean updateForm = false;
     CategoryDAO categoryDAO = CategoryDAO.getInstance();
     PriorityDAO priorityDAO = PriorityDAO.getInstance();
-    StatusDAO statusDAO =  StatusDAO.getInstance();
+    StatusDAO statusDAO = StatusDAO.getInstance();
 
 
-    public void addNewTask(ActionEvent actionEvent) {
-
-        vBox = new HBox();
-        JFXTextField newTask = new JFXTextField();
-        JFXButton remove = new JFXButton();
-        remove.setText("-");
-        remove.setStyle("-fx-min-width: 10px; " +
-                "-fx-background-radius: 5em; " +
-                "-fx-min-height: 30px; " +
-                "-fx-max-width: 30px; " +
-                "-fx-border-color: #d9534f; " +
-                "-fx-text-fill: #903; " +
-                "-fx-max-height: 30px;");
-        /**
-         * Remove the task row,when - clicked
-         */
-        remove.setOnAction(event -> {
-
-            HBox thisParent= (HBox) remove.getParent();
-            TasksHBox.getChildren().remove(thisParent);
-            HBox parent = (HBox) remove.getParent();
-            TasksHBox.getChildren().remove(parent);
-        });
-        taskOneLabel.setText("Task #1");
-        Label label = new Label("Task #" + (TasksHBox.getChildren().size() + 1));
-        label.setMinHeight(40);
-        label.setMinWidth(100);
-        newTask.setMinWidth(300);
-        newTask.setMinHeight(40);
-
-        vBox.getChildren().addAll(label,newTask,remove);
-        if(TasksHBox.getChildren().size()<6){
-            TasksHBox.getChildren().add(vBox);
-        }
+    public void addNewTask() {
+        newTask(null);
     }
 
 
     public void processProjectsForm(ActionEvent actionEvent) {
 
-        LinkedList<String>tasksList=new LinkedList<>();
-        LinkedList<String>errors=new LinkedList<>();
+        LinkedList<String> tasksList = new LinkedList<>();
+        LinkedList<String> errors = new LinkedList<>();
+
 
         //check each field if the data is entered
-        if(projectName.getText().isEmpty() || projectName.getText().length()<10){
+        if (projectName.getText().isEmpty() || projectName.getText().length() < 10) {
             errors.add("Project name should contain at least 10 letters");
             projectName.setStyle("-fx-border-color: red;");
-        }else{
+        } else {
             projectName.setStyle("-fx-border-color: none;");
-            projectNameStr=projectName.getText();
+            projectNameStr = projectName.getText();
         }
-
-        if(projectDescription.getText().isEmpty() || projectDescription.getText().length()<20){
+        if (projectDescription.getText().isEmpty() || projectDescription.getText().length() < 20) {
             errors.add("Project description should contain at least 10 letters");
             projectDescription.setStyle("-fx-border-color: red;");
-        }else{
+        } else {
             projectDescription.setStyle("-fx-border-color: none;");
-            projectDescriptionStr=projectDescription.getText();
+            projectDescriptionStr = projectDescription.getText();
         }
-
         for (Node child : TasksHBox.getChildren()) {
             HBox box = (HBox) child;
             for (Node achild : box.getChildren()) {
                 if (achild instanceof TextField) {
-                    if(((TextField) achild).getText().isEmpty() || ((TextField) achild).getText().length()<10){
+                    if (((TextField) achild).getText().isEmpty() || ((TextField) achild).getText().length() < 10) {
                         errors.add("Each Task should contain at least 10 letters");
                         achild.setStyle("-fx-border-color: red;");
-                    }else{
+                    } else {
                         achild.setStyle("-fx-border-color: none;");
                         tasksList.add(((TextField) achild).getText());
                     }
                 }
             }
         }
-        if(category.getValue()==null){
+        if (category.getValue() == null) {
             errors.add("Select a Category");
-            HBox catParent= (HBox) category.getParent();
+            HBox catParent = (HBox) category.getParent();
             catParent.getChildren().add(new Label("Select a Category"));
             category.setStyle("-fx-border-color: red;");
-        }else{
+        } else {
             category.setStyle("-fx-border-color: none;");
-            categoryStr=category.getSelectionModel().getSelectedItem().getId();
+            categoryStr = category.getSelectionModel().getSelectedItem().getId();
         }
-        if(priority.getValue()==null){
+        if (priority.getValue() == null) {
             errors.add("Select a Priority");
             priority.setStyle("-fx-border-color: red;");
-        }else{
+        } else {
             priority.setStyle("-fx-border-color: none;");
-            priorityStr=priority.getSelectionModel().getSelectedItem().getId();
+            priorityStr = priority.getSelectionModel().getSelectedItem().getId();
         }
 
 
-        if(status.getValue()==null){
+        if (status.getValue() == null) {
             errors.add("Select a Status");
             status.setStyle("-fx-border-color: red;");
-        }else{
+        } else {
             status.setStyle("-fx-border-color: none;");
-            statusStr=status.getSelectionModel().getSelectedItem().getId();
+            statusStr = status.getSelectionModel().getSelectedItem().getId();
         }
-        if(startDatePicker.getValue()==null){
+        if (startDatePicker.getValue() == null) {
             errors.add("Select a Start Date for your project");
             startDatePicker.setStyle("-fx-border-color: red;");
-        }else{
+        } else {
             startDatePicker.setStyle("-fx-border-color: none;");
-            startDateStr=startDatePicker.getValue().toString();
+            startDateStr = startDatePicker.getValue().toString();
         }
-        if(dueDatePicker.getValue()==null){
+        if (dueDatePicker.getValue() == null) {
             errors.add("Select a Start Date for your project");
             dueDatePicker.setStyle("-fx-border-color: red;");
-        }else{
+        } else {
             dueDatePicker.setStyle("-fx-border-color: none;");
-            endDateStr=dueDatePicker.getValue().toString();
+            endDateStr = dueDatePicker.getValue().toString();
         }
 
 
         //cleaning the Error container each click to remove old cache
         errorDisplay.getChildren().clear();
-        if(errors.size()>0){
-            for(int i=0;i<errors.size();i++){
-                Label errorLabel=new Label(errors.get(i));
+        if (errors.size() > 0) {
+            for (int i = 0; i < errors.size(); i++) {
+                Label errorLabel = new Label(errors.get(i));
                 errorDisplay.getChildren().add(errorLabel);
             }
-        }else{
+        } else {
             errorDisplay.getChildren().add(new Label("ALL SET"));
-            formFieldsArray.put("projectName",projectNameStr);
-                for(int i=0;i<tasksList.size();i++){
-                    formFieldsArray.put("task"+i,tasksList.get(i));
-                }
-            formFieldsArray.put("category",categoryStr+"");
-            formFieldsArray.put("priority",priorityStr+"");
-            formFieldsArray.put("status",statusStr+"");
-            formFieldsArray.put("startDate",startDateStr);
-            formFieldsArray.put("endDate",endDateStr);
-            ProjectDAO projectDAO= ProjectDAO.getInstance();
+
+            ProjectDAO projectDAO = ProjectDAO.getInstance();
             TaskDAO taskDAO = TaskDAO.getInstance();
 
-                Date startdate= Date.valueOf(startDateStr);
-                Date duedate= Date.valueOf(endDateStr);
+            Date startdate = Date.valueOf(startDateStr);
+            Date duedate = Date.valueOf(endDateStr);
 
-                Project project = new Project(projectNameStr, projectDescriptionStr, statusStr, categoryStr, priorityStr, startdate, duedate);
+            if (updateForm) {
+                editingProject.setTitle(projectNameStr);
+                editingProject.setDescription(projectDescription.toString());
+                editingProject.setStatus(statusStr);
+                editingProject.setCategory(categoryStr);
+                editingProject.setPriority(priorityStr);
+                editingProject.setStartDate(startdate);
+                editingProject.setDueDate(duedate);
+                projectDAO.update(editingProject);
+            } else {
+                Project project = new Project(projectNameStr, projectDescriptionStr, statusStr, categoryStr, priorityStr, startdate, duedate, (byte) 1);
                 projectDAO.create(project);
-                int lastInsertedId=projectDAO.getAll().get(projectDAO.getAll().size()-1).getId();
 
-            for(int i=0;i<tasksList.size();i++){
-                formFieldsArray.put("task"+i,tasksList.get(i));
-                Task task = new Task(tasksList.get(i), lastInsertedId, 1);
-                taskDAO.create(task);
+                int lastInsertedId = projectDAO.getAll().get(projectDAO.getAll().size() - 1).getId();
+
+                for (int i = 0; i < tasksList.size(); i++) {
+                    Task task = new Task(tasksList.get(i), lastInsertedId, (byte) 1);
+                    taskDAO.create(task);
+                }
             }
 
 
         }
         category.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
-                //TODO change me to something please
+                    //TODO change me to something please
                 }
         );
 
 
     }
 
-    public HashMap projectFormFields(){
-        return formFieldsArray;
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         closeProject.setStyle("visibility: hidden;");
 
         //populate the combobox from database
-        category.setItems(FXCollections.observableArrayList((ArrayList<Category>)categoryDAO.getAll()));
-        priority.setItems(FXCollections.observableArrayList((ArrayList<Priority>)priorityDAO.getAll()));
-        status.setItems(FXCollections.observableArrayList((ArrayList<Status>)statusDAO.getAll()));
-
+        category.setItems(FXCollections.observableArrayList((ArrayList<Category>) categoryDAO.getAll()));
+        priority.setItems(FXCollections.observableArrayList((ArrayList<Priority>) priorityDAO.getAll()));
+        status.setItems(FXCollections.observableArrayList((ArrayList<Status>) statusDAO.getAll()));
 
         if (updateForm) {
-            projectTitle.setText("Edit Project");
-            submitButton.setText("Submit");
-            closeProject.setStyle("visibility: visible;");
-        }
-    }
+            TaskDAO taskDAO = TaskDAO.getInstance();
+            projectName.setText(editingProject.getTitle());
+            projectDescription.setText(editingProject.getDescription());
+            newTask(taskDAO.getTasksByPojectID(editingProject.getId()));
+            category.getSelectionModel().select(editingProject.getCategory() - 1);
+            priority.getSelectionModel().select(editingProject.getPriority() - 1);
+            status.getSelectionModel().select(editingProject.getStatus() - 1);
+            dueDatePicker.setValue(editingProject.getDueDate().toLocalDate());
+            startDatePicker.setValue(editingProject.getStartDate().toLocalDate());
+//            category.setValue( editingProject.getCategory());
+//            projectName.setText(editingProject.getTitle());
 
+            projectTitle.setText("Editing Project: " + editingProject.getTitle());
 
-    public void on(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Warning");
-        alert.setHeaderText("Warning!");
-        alert.setContentText("Are you sure you want to close the project?");
-        if (closeProject.isSelected()) {
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK) {
-                projectTitle.setText("Closed!"); // test
-                // database query should go here!
-            } else {
-                closeProject.setSelected(false);
+            category.setItems(FXCollections.observableArrayList((ArrayList<Category>) categoryDAO.getAll()));
+            priority.setItems(FXCollections.observableArrayList((ArrayList<Priority>) priorityDAO.getAll()));
+            status.setItems(FXCollections.observableArrayList((ArrayList<Status>) statusDAO.getAll()));
+
+            if (updateForm) {
+                System.out.println(editingProject);
+                projectTitle.setText("Edit " + editingProject.getTitle());
+                submitButton.setText("Submit");
+                closeProject.setStyle("visibility: visible;");
+                closeProject.setSelected(true);
             }
         }
     }
-}
+
+        public void closeTheProject (ActionEvent actionEvent){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Warning!");
+            alert.setContentText("Are you sure you want to close the project?");
+            if (closeProject.isSelected()) {
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    projectTitle.setText("Closed!"); // test
+                    // database query should go here!
+
+
+                } else {
+                    closeProject.setSelected(false);
+                }
+            }
+        }
+
+        public void newTask (ArrayList < Task > tasks) {
+            int loopSize;
+            if (tasks == null) {
+                loopSize = 2;
+            } else {
+                task1.setText(tasks.get(0).getName());
+                loopSize = tasks.size();
+            }
+            for (int i = 1; i < loopSize; i++) {
+                vBox = new HBox();
+                JFXTextField newTask = new JFXTextField();
+                if (tasks != null) {
+                    newTask.setText(tasks.get(i).getName());
+                }
+                JFXButton remove = new JFXButton();
+                remove.setText("-");
+                remove.getStyleClass().add("removeTaskBtn");
+                /**
+                 * Remove the task row,when - clicked
+                 */
+                remove.setOnAction(event -> {
+                    HBox thisParent = (HBox) remove.getParent();
+                    TasksHBox.getChildren().remove(thisParent);
+                    HBox parent = (HBox) remove.getParent();
+                    TasksHBox.getChildren().remove(parent);
+                });
+                taskOneLabel.setText("Task #1");
+                Label label = new Label("Task #" + (TasksHBox.getChildren().size() + 1));
+                label.setMinHeight(40);
+                label.setMinWidth(100);
+                newTask.setMinWidth(300);
+                newTask.setMinHeight(40);
+
+                vBox.getChildren().addAll(label, newTask, remove);
+                if (TasksHBox.getChildren().size() < 6) {
+                    TasksHBox.getChildren().add(vBox);
+                }
+            }
+
+        }
+    }
+

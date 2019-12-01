@@ -1,6 +1,7 @@
 package controllers;
 
 import Database.CSP.Category.Category;
+import Database.CSP.Category.CategoryDAO;
 import Database.Project.Project;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -13,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CategoriesContoller implements Initializable {
@@ -39,14 +41,9 @@ public class CategoriesContoller implements Initializable {
 
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         edit.setCellFactory(param -> new ButtonCell(replaceable, "Categories"));
+        CategoryDAO categoryDAO=CategoryDAO.getInstance();
 
-        ObservableList<Category> catlist = FXCollections.observableArrayList();
-        catlist.add(new Category("name", "red"));
-        catlist.add(new Category("name", "red"));
-        catlist.add(new Category("name", "red"));
-        catlist.add(new Category("name", "red"));
-        catlist.add(new Category("name", "red"));
+        categoriesTable.setItems(FXCollections.observableArrayList((ArrayList<Category>)categoryDAO.getAll()));
 
-        categoriesTable.setItems(catlist);
     }
 }

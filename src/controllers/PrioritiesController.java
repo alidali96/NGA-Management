@@ -1,6 +1,8 @@
 package controllers;
 
+import Database.CSP.Category.Category;
 import Database.CSP.Priority.Priority;
+import Database.CSP.Priority.PriorityDAO;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +18,7 @@ import Database.Project.Project;
 
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class PrioritiesController implements Initializable {
@@ -46,14 +49,9 @@ public class PrioritiesController implements Initializable {
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         edit.setCellFactory(param -> new ButtonCell(replaceable, "Priorities"));
 
-        ObservableList<Priority> priolist = FXCollections.observableArrayList();
-        priolist.add(new Priority("name", "REd"));
-        priolist.add(new Priority("name", "REd"));
-        priolist.add(new Priority("name", "REd"));
-        priolist.add(new Priority("name", "REd"));
-        priolist.add(new Priority("name", "REd"));
+        PriorityDAO priorityDAO=PriorityDAO.getInstance();
 
+        prioritiesTable.setItems(FXCollections.observableArrayList((ArrayList<Priority>)priorityDAO.getAll()));
 
-        prioritiesTable.setItems(priolist);
     }
 }

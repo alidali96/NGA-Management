@@ -6,6 +6,7 @@ import Database.CSP.Priority.Priority;
 import Database.CSP.Status.Status;
 import Database.DAO;
 import Database.DatabaseConnection;
+import Database.Project.Project;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -282,8 +283,7 @@ public class CSPDAO implements DAO<CSP> {
                 }
                 cspList.add(csp);
             }
-
-            System.out.println("List Updated CSPDAO");
+            System.out.println(this.getClass().getName()+" List Updated ");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

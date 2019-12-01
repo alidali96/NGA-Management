@@ -11,6 +11,7 @@ import Database.CSP.Status.TestStatus;
 import Database.Project.TestProject;
 import Database.Task.TestTask;
 import com.jfoenix.controls.JFXButton;
+import controllers.ToolBarController;
 import de.jensd.fx.glyphs.GlyphIcons;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -20,8 +21,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,15 +36,13 @@ import static de.jensd.fx.glyphs.GlyphsDude.createIconLabel;
 
 public class Controller implements Initializable {
     @FXML
-    AnchorPane tableContainer;
+    VBox tableContainer;
 
     @FXML
     JFXButton projectsButton;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         changeTable("Projects");
         // Create Database Connection
 //        DatabaseConnection.getInstance();
