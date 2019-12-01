@@ -271,6 +271,15 @@ public class TaskDAO implements DAO<Task> {
         return !tasks.isEmpty() ? tasks.get(tasks.size() - 1).getId() : 0;
     }
 
+
+    public ArrayList<Task> getTasksByPojectID(int projectID) {
+        ArrayList<Task> list = new ArrayList<>();
+        for(Task task: tasks) {
+            if (task.getProject() == projectID)
+                list.add(task);
+        }
+        return list;
+    }
     public void testPrintAll() {
         for (Task task : tasks) {
             System.out.println(task);
