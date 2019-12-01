@@ -105,4 +105,6 @@ public class Controller implements Initializable {
     }
 
 
+    public void settings(ActionEvent actionEvent) {
+    }
 }
