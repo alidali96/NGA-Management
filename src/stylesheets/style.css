@@ -30,3 +30,13 @@ JFXColorPicker{
      -fx-text-fill: #903;
      -fx-max-height: 30px;
 }
+
+.root {
+    -fx-background-color: transparent;
+}
+
+.background {
+    -fx-background-color: #2f3338;
+    -fx-background-radius: 10 0;
+
+}

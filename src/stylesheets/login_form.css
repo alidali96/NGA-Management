@@ -1,6 +1,7 @@
 .toolbar {
     -fx-background-color: #202326;
     -fx-background-radius: 10 0 10 0;
+    -fx-effect: dropshadow(three-pass-box, #eb2256, 10, 0, 2, 0);
 }
 
 .form-background {
