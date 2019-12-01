@@ -1,5 +1,6 @@
 package controllers;
 
+import Const.Const;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
@@ -18,8 +19,10 @@ import models.DBLoginModel;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 
-public class DBLoginController  {
+public class DBLoginController implements Initializable {
 
     DBLoginModel model = DBLoginModel.getInstance();
 
@@ -34,6 +37,26 @@ public class DBLoginController  {
 
     @FXML
     VBox root;
+
+
+    private Preferences preferences;
+    boolean remember = false;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        preferences = Preferences.userRoot();
+
+        String host = preferences.get(Const.DB_HOST, "");
+        String database = preferences.get(Const.DB_NAME, "");
+        String username = preferences.get(Const.DB_USER, "");
+        String password = preferences.get(Const.DB_PASS, "");
+
+        dbHost.setText(host);
+        dbName.setText(database);
+        dbUsername.setText(username);
+        dbPassword.setText(password);
+    }
 
     public void connect(ActionEvent actionEvent) {
         String host = dbHost.getText();
@@ -59,6 +82,12 @@ public class DBLoginController  {
         boolean connected = model.establishConnection(host, database, username, password);
         if (connected) {
             try {
+
+                if (remember)
+                    saveCredentials();
+                else
+                    clearCredentials();
+
                 Pane pane = FXMLLoader.load(getClass().getResource("/Main/main.fxml"));
                 Scene scene = new Scene(pane);
 
@@ -77,5 +106,24 @@ public class DBLoginController  {
         }
     }
 
+    public void rememberMe(ActionEvent actionEvent) {
+        remember = !remember;
+    }
+
+    private void saveCredentials() {
+        preferences.put(Const.DB_HOST, dbHost.getText());
+        preferences.put(Const.DB_NAME, dbName.getText());
+        preferences.put(Const.DB_USER, dbUsername.getText());
+        preferences.put(Const.DB_PASS, dbPassword.getText());
+    }
+
+
+    private void clearCredentials() {
+        try {
+            preferences.clear();
+        } catch (BackingStoreException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

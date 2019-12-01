@@ -4,10 +4,15 @@ import javafx.scene.paint.Color;
 
 public class Const {
 
-    public static final String DB_HOST = "php.scweb.ca";
-    public static final String DB_NAME = "adalidb";
-    public static final String DB_USER = "adali";
-    public static final String DB_PASS = "j54czj54czhm4v1hm4v1";
+//    public static final String DB_HOST = "php.scweb.ca";
+//    public static final String DB_NAME = "adalidb";
+//    public static final String DB_USER = "adali";
+//    public static final String DB_PASS = "j54czj54czhm4v1hm4v1";
+
+    public static final String DB_HOST = "host";
+    public static final String DB_NAME = "database";
+    public static final String DB_USER = "username";
+    public static final String DB_PASS = "password";
 
 
     public static final byte CLOSED = 0;
