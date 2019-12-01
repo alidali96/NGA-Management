@@ -58,7 +58,7 @@ public class Const {
             "  `" + PROJECT_COLUMN_STATUS + "` INT NOT NULL,\n" +
             "  `" + PROJECT_COLUMN_CATEGORY + "` INT NOT NULL,\n" +
             "  `" + PROJECT_COLUMN_PRIORITY + "` INT NOT NULL,\n" +
-            "  `" + PROJECT_COLUMN_START_DATE + "` DATE NOT NULL DEFAULT CURRENT_DATE,\n" +
+            "  `" + PROJECT_COLUMN_START_DATE + "` DATE NOT NULL,\n" +
             "  `" + PROJECT_COLUMN_DUE_DATE + "` DATE NOT NULL\n," +
             "  `" + PROJECT_COLUMN_OPEN + "` TINYINT NOT NULL DEFAULT 1\n" +
             ");";

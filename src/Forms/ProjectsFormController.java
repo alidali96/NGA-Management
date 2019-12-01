@@ -214,12 +214,12 @@ public class ProjectsFormController implements Initializable {
                 Date startdate= Date.valueOf(startDateStr);
                 Date duedate= Date.valueOf(endDateStr);
 
-                Project project = new Project(projectNameStr, projectDescriptionStr, statusStr, categoryStr, priorityStr, startdate, duedate);
+                Project project = new Project(projectNameStr, projectDescriptionStr, statusStr, categoryStr, priorityStr, startdate, duedate,(byte) 1);
                 projectDAO.create(project);
                 int lastInsertedId=projectDAO.getAll().get(projectDAO.getAll().size()-1).getId();
 
             for(int i=0;i<tasksList.size();i++){
-                Task task = new Task(tasksList.get(i), lastInsertedId, 1);
+                Task task = new Task(tasksList.get(i), lastInsertedId, (byte)1);
                 taskDAO.create(task);
             }
 
