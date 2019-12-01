@@ -1,6 +1,7 @@
 package controllers;
 
 import Const.Const;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
@@ -9,11 +10,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import models.DBLoginModel;
 
 import java.io.IOException;
@@ -34,13 +34,16 @@ public class DBLoginController implements Initializable {
     JFXTextField dbUsername;
     @FXML
     JFXPasswordField dbPassword;
+    @FXML
+    JFXCheckBox checkBox;
+
 
     @FXML
     VBox root;
 
 
     private Preferences preferences;
-    boolean remember = false;
+    boolean rememberMe = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -51,11 +54,13 @@ public class DBLoginController implements Initializable {
         String database = preferences.get(Const.DB_NAME, "");
         String username = preferences.get(Const.DB_USER, "");
         String password = preferences.get(Const.DB_PASS, "");
+        rememberMe = preferences.getBoolean("remember", false);
 
         dbHost.setText(host);
         dbName.setText(database);
         dbUsername.setText(username);
         dbPassword.setText(password);
+        checkBox.setSelected(rememberMe);
     }
 
     public void connect(ActionEvent actionEvent) {
@@ -83,14 +88,14 @@ public class DBLoginController implements Initializable {
         if (connected) {
             try {
 
-                if (remember)
+                if (rememberMe)
                     saveCredentials();
                 else
                     clearCredentials();
 
                 Pane pane = FXMLLoader.load(getClass().getResource("/Main/main.fxml"));
                 Scene scene = new Scene(pane);
-
+                scene.setFill(Color.TRANSPARENT);
                 Stage stage = (Stage) root.getScene().getWindow();
                 stage.setScene(scene);
                 stage.centerOnScreen();
@@ -107,7 +112,7 @@ public class DBLoginController implements Initializable {
     }
 
     public void rememberMe(ActionEvent actionEvent) {
-        remember = !remember;
+        rememberMe = !rememberMe;
     }
 
     private void saveCredentials() {
@@ -115,6 +120,7 @@ public class DBLoginController implements Initializable {
         preferences.put(Const.DB_NAME, dbName.getText());
         preferences.put(Const.DB_USER, dbUsername.getText());
         preferences.put(Const.DB_PASS, dbPassword.getText());
+        preferences.putBoolean("remember", true);
     }
 
 

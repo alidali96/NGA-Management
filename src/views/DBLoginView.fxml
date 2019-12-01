@@ -53,7 +53,7 @@
                 <Font name="Oriya MN" size="14.0" />
             </font>
         </JFXPasswordField>
-      <JFXCheckBox checkedColor="#eb2256" mnemonicParsing="false" onAction="#rememberMe" text="Remeber me" textFill="#eeeeee">
+      <JFXCheckBox fx:id="checkBox" checkedColor="#eb2256" mnemonicParsing="false" onAction="#rememberMe" text="Remeber me" textFill="#eeeeee">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

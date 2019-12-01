@@ -103,6 +103,10 @@ public class DatabaseConnection {
         return connection != null;
     }
 
+    public void closeConnection() throws SQLException {
+        connection.close();
+    }
+
     public String getError() {
         return error;
     }
