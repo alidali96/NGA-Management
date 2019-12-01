@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class DBLoginController implements Initializable {
+public class DBLoginController  {
 
     DBLoginModel model = DBLoginModel.getInstance();
 
@@ -34,17 +34,6 @@ public class DBLoginController implements Initializable {
 
     @FXML
     VBox root;
-
-    Stage stage;
-    double deltaX;
-    double deltaY;
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-
-    }
-
 
     public void connect(ActionEvent actionEvent) {
         String host = dbHost.getText();
@@ -72,7 +61,8 @@ public class DBLoginController implements Initializable {
             try {
                 Pane pane = FXMLLoader.load(getClass().getResource("/Main/main.fxml"));
                 Scene scene = new Scene(pane);
-                stage = (Stage) root.getScene().getWindow();
+
+                Stage stage = (Stage) root.getScene().getWindow();
                 stage.setScene(scene);
                 stage.centerOnScreen();
             } catch (IOException e) {
@@ -87,26 +77,5 @@ public class DBLoginController implements Initializable {
         }
     }
 
-    public void close(MouseEvent mouseEvent) {
-        System.exit(0);
-    }
-
-    public void dragged(MouseEvent mouseEvent) {
-        stage.setX(mouseEvent.getScreenX() + deltaX);
-        stage.setY(mouseEvent.getScreenY() + deltaY);
-    }
-
-    public void pressed(MouseEvent mouseEvent) {
-        if(stage == null)
-            stage = (Stage) root.getScene().getWindow();
-
-        root.getStyleClass().add("drag");
-        deltaX = stage.getX() - mouseEvent.getScreenX();
-        deltaY = stage.getY() - mouseEvent.getScreenY();
-    }
-
-    public void released(MouseEvent mouseEvent) {
-        root.getStyleClass().remove("drag");
-    }
 
 }

@@ -31,7 +31,7 @@ public class DatabaseConnection {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://" + host + "/" + database, user, password);
-//                connection=DriverManager.getConnection("jdbc:mysql://php.scweb.ca/"+database+"?user="+user+"&password="+password);
+//                connection=DriverManager.getConnection("jdbc:mysql://php.scweb.ca/"+Const.DB_NAME+"?user="+Const.DB_USER+"&password="+Const.DB_PASS);
 //                  connection=DriverManager.getConnection("jdbc:mysql://localhost/NGA_Management?user=root&password=webmaster&useSSL=false");
 
             System.out.println("Database Connected");

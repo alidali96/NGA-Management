@@ -171,12 +171,12 @@ public class ProjectsFormController implements Initializable {
             errorDisplay.getChildren().add(new Label("ALL SET"));
 
             ProjectDAO projectDAO = ProjectDAO.getInstance();
-            TaskDAO taskDAO=TaskDAO.getInstance();
+            TaskDAO taskDAO = TaskDAO.getInstance();
 
             Date startdate = Date.valueOf(startDateStr);
             Date duedate = Date.valueOf(endDateStr);
 
-            if(updateForm){
+            if (updateForm) {
                 editingProject.setTitle(projectNameStr);
                 editingProject.setDescription(projectDescription.toString());
                 editingProject.setStatus(statusStr);
@@ -185,7 +185,7 @@ public class ProjectsFormController implements Initializable {
                 editingProject.setStartDate(startdate);
                 editingProject.setDueDate(duedate);
                 projectDAO.update(editingProject);
-            }else{
+            } else {
                 Project project = new Project(projectNameStr, projectDescriptionStr, statusStr, categoryStr, priorityStr, startdate, duedate, (byte) 1);
                 projectDAO.create(project);
 
@@ -196,9 +196,6 @@ public class ProjectsFormController implements Initializable {
                     taskDAO.create(task);
                 }
             }
-
-
-
 
 
         }
@@ -226,82 +223,87 @@ public class ProjectsFormController implements Initializable {
             projectName.setText(editingProject.getTitle());
             projectDescription.setText(editingProject.getDescription());
             newTask(taskDAO.getTasksByPojectID(editingProject.getId()));
-            category.getSelectionModel().select(editingProject.getCategory()-1);
-            priority.getSelectionModel().select(editingProject.getPriority()-1);
-            status.getSelectionModel().select(editingProject.getStatus()-1);
+            category.getSelectionModel().select(editingProject.getCategory() - 1);
+            priority.getSelectionModel().select(editingProject.getPriority() - 1);
+            status.getSelectionModel().select(editingProject.getStatus() - 1);
             dueDatePicker.setValue(editingProject.getDueDate().toLocalDate());
             startDatePicker.setValue(editingProject.getStartDate().toLocalDate());
 //            category.setValue( editingProject.getCategory());
 //            projectName.setText(editingProject.getTitle());
 
-            projectTitle.setText("Editing Project: "+editingProject.getTitle());
-            submitButton.setText("Submit");
-            closeProject.setStyle("visibility: visible;");
-            closeProject.setSelected(true);
+            projectTitle.setText("Editing Project: " + editingProject.getTitle());
 
+            category.setItems(FXCollections.observableArrayList((ArrayList<Category>) categoryDAO.getAll()));
+            priority.setItems(FXCollections.observableArrayList((ArrayList<Priority>) priorityDAO.getAll()));
+            status.setItems(FXCollections.observableArrayList((ArrayList<Status>) statusDAO.getAll()));
 
-
-
+            if (updateForm) {
+                System.out.println(editingProject);
+                projectTitle.setText("Edit " + editingProject.getTitle());
+                submitButton.setText("Submit");
+                closeProject.setStyle("visibility: visible;");
+                closeProject.setSelected(true);
+            }
         }
     }
 
+        public void closeTheProject (ActionEvent actionEvent){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Warning!");
+            alert.setContentText("Are you sure you want to close the project?");
+            if (closeProject.isSelected()) {
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    projectTitle.setText("Closed!"); // test
+                    // database query should go here!
 
-    public void closeTheProject(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Warning");
-        alert.setHeaderText("Warning!");
-        alert.setContentText("Are you sure you want to close the project?");
-        if (closeProject.isSelected()) {
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK) {
-                projectTitle.setText("Closed!"); // test
-                // database query should go here!
 
+                } else {
+                    closeProject.setSelected(false);
+                }
+            }
+        }
 
+        public void newTask (ArrayList < Task > tasks) {
+            int loopSize;
+            if (tasks == null) {
+                loopSize = 2;
             } else {
-                closeProject.setSelected(false);
+                task1.setText(tasks.get(0).getName());
+                loopSize = tasks.size();
             }
+            for (int i = 1; i < loopSize; i++) {
+                vBox = new HBox();
+                JFXTextField newTask = new JFXTextField();
+                if (tasks != null) {
+                    newTask.setText(tasks.get(i).getName());
+                }
+                JFXButton remove = new JFXButton();
+                remove.setText("-");
+                remove.getStyleClass().add("removeTaskBtn");
+                /**
+                 * Remove the task row,when - clicked
+                 */
+                remove.setOnAction(event -> {
+                    HBox thisParent = (HBox) remove.getParent();
+                    TasksHBox.getChildren().remove(thisParent);
+                    HBox parent = (HBox) remove.getParent();
+                    TasksHBox.getChildren().remove(parent);
+                });
+                taskOneLabel.setText("Task #1");
+                Label label = new Label("Task #" + (TasksHBox.getChildren().size() + 1));
+                label.setMinHeight(40);
+                label.setMinWidth(100);
+                newTask.setMinWidth(300);
+                newTask.setMinHeight(40);
+
+                vBox.getChildren().addAll(label, newTask, remove);
+                if (TasksHBox.getChildren().size() < 6) {
+                    TasksHBox.getChildren().add(vBox);
+                }
+            }
+
         }
     }
 
-    public void newTask(ArrayList<Task> tasks) {
-        int loopSize;
-        if (tasks == null) {
-            loopSize = 2;
-        } else {
-            task1.setText(tasks.get(0).getName());
-            loopSize = tasks.size();
-        }
-        for (int i = 1; i < loopSize; i++) {
-            vBox = new HBox();
-            JFXTextField newTask = new JFXTextField();
-            if (tasks != null) {
-                newTask.setText(tasks.get(i).getName());
-            }
-            JFXButton remove = new JFXButton();
-            remove.setText("-");
-            remove.getStyleClass().add("removeTaskBtn");
-            /**
-             * Remove the task row,when - clicked
-             */
-            remove.setOnAction(event -> {
-                HBox thisParent = (HBox) remove.getParent();
-                TasksHBox.getChildren().remove(thisParent);
-                HBox parent = (HBox) remove.getParent();
-                TasksHBox.getChildren().remove(parent);
-            });
-            taskOneLabel.setText("Task #1");
-            Label label = new Label("Task #" + (TasksHBox.getChildren().size() + 1));
-            label.setMinHeight(40);
-            label.setMinWidth(100);
-            newTask.setMinWidth(300);
-            newTask.setMinHeight(40);
-
-            vBox.getChildren().addAll(label, newTask, remove);
-            if (TasksHBox.getChildren().size() < 6) {
-                TasksHBox.getChildren().add(vBox);
-            }
-        }
-
-    }
-}
