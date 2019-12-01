@@ -35,8 +35,10 @@ JFXColorPicker{
     -fx-background-color: transparent;
 }
 
+
+/*     -fx-background-color: #2f3338; */
 .background {
-    -fx-background-color: #2f3338;
+    -fx-background-color: grey;
     -fx-background-radius: 10 0;
 
 }

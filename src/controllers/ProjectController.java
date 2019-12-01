@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -71,6 +72,18 @@ public class ProjectController implements Initializable {
         replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Projects"));
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         edit.setCellFactory(param -> new ButtonCell(replaceable, "Projects"));
+
+//        category.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+//        category.setCellFactory(param -> new TableCell<Project, Project>() {
+//            @Override
+//            public void updateItem(Project project, boolean empty) {
+//                super.updateItem(project, empty);
+//                if (!empty) {
+//                    setStyle("-fx-text-fill: white; -fx-background-color: " + categoryDAO.getItemById(project.getId()).getColor());
+//                    setText(categoryDAO.getItemById(project.getId()).getName());
+//                }
+//            }
+//        });
 
         ObservableList<Project> projectModel1 = FXCollections.observableArrayList(projectDAO.getAll());
 
