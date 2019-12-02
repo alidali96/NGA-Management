@@ -87,6 +87,8 @@ public class Controller implements Initializable {
             case "prioritiesButton":
                 changeTable("Priorities");
                 break;
+            case "statisticButton":
+                changeTable("Statistic");
             default:
                 System.out.println("ID not found");
         }
