@@ -1,6 +1,8 @@
 package controllers;
 
+import Database.CSP.Priority.Priority;
 import Database.CSP.Status.Status;
+import Database.CSP.Status.StatusDAO;
 import Database.Project.Project;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -13,6 +15,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class StatusContrller implements Initializable {
@@ -37,19 +41,17 @@ public class StatusContrller implements Initializable {
 
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         color.setCellValueFactory(new PropertyValueFactory<>("color"));
+        Random r=new Random();
+        if(r.nextInt()%2==0){
+            color.setStyle("-fx-background-color:orange;");
+        }
 
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         edit.setCellFactory(param -> new ButtonCell(replaceable, "Status"));
 
-        ObservableList<Status> statuslist = FXCollections.observableArrayList();
-        statuslist.add(new Status("name", "color"));
-        statuslist.add(new Status("name", "color"));
-        statuslist.add(new Status("name", "color"));
-        statuslist.add(new Status("name", "color"));
-        statuslist.add(new Status("name", "color"));
-        statuslist.add(new Status("name", "color"));
+        StatusDAO statusDAO=StatusDAO.getInstance();
 
+        statusTable.setItems(FXCollections.observableArrayList((ArrayList<Status>)statusDAO.getAll()));
 
-        statusTable.setItems(statuslist);
     }
 }

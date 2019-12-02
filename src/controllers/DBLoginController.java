@@ -1,5 +1,7 @@
 package controllers;
 
+import Const.Const;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
@@ -8,16 +10,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import models.DBLoginModel;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 
 public class DBLoginController implements Initializable {
 
@@ -31,20 +34,34 @@ public class DBLoginController implements Initializable {
     JFXTextField dbUsername;
     @FXML
     JFXPasswordField dbPassword;
+    @FXML
+    JFXCheckBox checkBox;
+
 
     @FXML
     VBox root;
 
-    Stage stage;
-    double deltaX;
-    double deltaY;
+
+    private Preferences preferences;
+    boolean rememberMe = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        preferences = Preferences.userRoot();
 
+        String host = preferences.get(Const.DB_HOST, "");
+        String database = preferences.get(Const.DB_NAME, "");
+        String username = preferences.get(Const.DB_USER, "");
+        String password = preferences.get(Const.DB_PASS, "");
+        rememberMe = preferences.getBoolean("remember", false);
+
+        dbHost.setText(host);
+        dbName.setText(database);
+        dbUsername.setText(username);
+        dbPassword.setText(password);
+        checkBox.setSelected(rememberMe);
     }
-
 
     public void connect(ActionEvent actionEvent) {
         String host = dbHost.getText();
@@ -70,9 +87,16 @@ public class DBLoginController implements Initializable {
         boolean connected = model.establishConnection(host, database, username, password);
         if (connected) {
             try {
+
+                if (rememberMe)
+                    saveCredentials();
+                else
+                    clearCredentials();
+
                 Pane pane = FXMLLoader.load(getClass().getResource("/Main/main.fxml"));
                 Scene scene = new Scene(pane);
-                stage = (Stage) root.getScene().getWindow();
+                scene.setFill(Color.TRANSPARENT);
+                Stage stage = (Stage) root.getScene().getWindow();
                 stage.setScene(scene);
                 stage.centerOnScreen();
             } catch (IOException e) {
@@ -87,26 +111,25 @@ public class DBLoginController implements Initializable {
         }
     }
 
-    public void close(MouseEvent mouseEvent) {
-        System.exit(0);
+    public void rememberMe(ActionEvent actionEvent) {
+        rememberMe = !rememberMe;
     }
 
-    public void dragged(MouseEvent mouseEvent) {
-        stage.setX(mouseEvent.getScreenX() + deltaX);
-        stage.setY(mouseEvent.getScreenY() + deltaY);
+    private void saveCredentials() {
+        preferences.put(Const.DB_HOST, dbHost.getText());
+        preferences.put(Const.DB_NAME, dbName.getText());
+        preferences.put(Const.DB_USER, dbUsername.getText());
+        preferences.put(Const.DB_PASS, dbPassword.getText());
+        preferences.putBoolean("remember", true);
     }
 
-    public void pressed(MouseEvent mouseEvent) {
-        if(stage == null)
-            stage = (Stage) root.getScene().getWindow();
 
-        root.getStyleClass().add("drag");
-        deltaX = stage.getX() - mouseEvent.getScreenX();
-        deltaY = stage.getY() - mouseEvent.getScreenY();
-    }
-
-    public void released(MouseEvent mouseEvent) {
-        root.getStyleClass().remove("drag");
+    private void clearCredentials() {
+        try {
+            preferences.clear();
+        } catch (BackingStoreException e) {
+            e.printStackTrace();
+        }
     }
 
 }

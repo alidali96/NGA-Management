@@ -12,8 +12,9 @@ public class Project {
     private int priority;
     private Date startDate;
     private Date dueDate;
+    private byte open;
 
-    public Project(String title, String description, int status, int category, int priority, Date startDate, Date dueDate) {
+    public Project(String title, String description, int status, int category, int priority, Date startDate, Date dueDate, byte open) {
         this.title = title;
         this.description = description;
         this.status = status;
@@ -21,9 +22,10 @@ public class Project {
         this.priority = priority;
         this.startDate = startDate;
         this.dueDate = dueDate;
+        this.open = open;
     }
 
-    public Project(int id, String title, String description, int status, int category, int priority, Date startDate, Date dueDate) {
+    public Project(int id, String title, String description, int status, int category, int priority, Date startDate, Date dueDate, byte open) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -32,6 +34,7 @@ public class Project {
         this.priority = priority;
         this.startDate = startDate;
         this.dueDate = dueDate;
+        this.open = open;
     }
 
     public int getId() {
@@ -103,6 +106,15 @@ public class Project {
 
     public Project setDueDate(Date dueDate) {
         this.dueDate = dueDate;
+        return this;
+    }
+
+    public byte getOpen() {
+        return open;
+    }
+
+    public Project setOpen(byte open) {
+        this.open = open;
         return this;
     }
 

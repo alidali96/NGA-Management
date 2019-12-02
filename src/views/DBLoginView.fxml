@@ -1,36 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <VBox fx:id="root" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0" styleClass="form-background" stylesheets="@../stylesheets/login_form.css" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DBLoginController">
     <children>
-      <HBox alignment="TOP_RIGHT" onMouseDragged="#dragged" onMousePressed="#pressed" onMouseReleased="#released" styleClass="toolbar" stylesheets="@../stylesheets/login_form.css">
-         <children>
-              <Label alignment="CENTER" onMouseClicked="#close" stylesheets="@../stylesheets/login_form.css" text="X" textFill="#eb2256">
-                  <font>
-                      <Font name="Arial" size="20.0" />
-                  </font>
-               <HBox.margin>
-                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-               </HBox.margin>
-               <effect>
-                  <DropShadow blurType="GAUSSIAN" color="#eb2256" spread="0.11" />
-               </effect>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-              </Label>
-         </children>
-      </HBox>
+      <fx:include source="ToolBarView.fxml" />
         <Label focusTraversable="true" text="Database Connection" textFill="#dadada">
             <font>
                 <Font name="Comic Sans MS" size="20.0" />
@@ -71,6 +53,14 @@
                 <Font name="Oriya MN" size="14.0" />
             </font>
         </JFXPasswordField>
+      <JFXCheckBox fx:id="checkBox" checkedColor="#eb2256" mnemonicParsing="false" onAction="#rememberMe" text="Remeber me" textFill="#eeeeee">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Beirut Regular" size="14.0" />
+         </font>
+      </JFXCheckBox>
         <JFXButton buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#connect" prefWidth="125.0" stylesheets="@../stylesheets/login_form.css" text="Connect" textFill="WHITE">
             <font>
                 <Font name="Beirut Regular" size="16.0" />

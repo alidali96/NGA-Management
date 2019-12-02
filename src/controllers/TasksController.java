@@ -1,6 +1,8 @@
 package controllers;
 
+import Database.CSP.Status.Status;
 import Database.Task.Task;
+import Database.Task.TaskDAO;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
@@ -22,8 +25,6 @@ public class TasksController implements Initializable {
 
     @FXML
     private TableColumn<Task, String> name;
-    @FXML
-    private TableColumn<Task, String> description;
     @FXML
     private TableColumn<Task, Integer> project;
     @FXML
@@ -40,22 +41,15 @@ public class TasksController implements Initializable {
         replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Task"));
 
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        description.setCellValueFactory(new PropertyValueFactory<>("description"));
         project.setCellValueFactory(new PropertyValueFactory<>("project"));
         open.setCellValueFactory(new PropertyValueFactory<>("open"));
 
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         edit.setCellFactory(param -> new ButtonCell(replaceable, "Task"));
 
-        ObservableList<Task> tasklist = FXCollections.observableArrayList();
-        tasklist.add(new Task("name",  6, 0));
-        tasklist.add(new Task("name",  6, 0));
-        tasklist.add(new Task("name", 6, 0));
-        tasklist.add(new Task("name",  6, 0));
-        tasklist.add(new Task("name", 6, 0));
-        tasklist.add(new Task("name",  6, 0));
 
+        TaskDAO taskDAO=TaskDAO.getInstance();
+        taskTable.setItems(FXCollections.observableArrayList((ArrayList<Task>)taskDAO.getAll()));
 
-        taskTable.setItems(tasklist);
     }
 }

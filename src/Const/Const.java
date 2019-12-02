@@ -1,15 +1,22 @@
 package Const;
 
+import javafx.scene.paint.Color;
+
 public class Const {
 
-    public static final String DB_HOST = "php.scweb.ca";
-    public static final String DB_NAME = "adalidb";
-    public static final String DB_USER = "adali";
-    public static final String DB_PASS = "j54czj54czhm4v1hm4v1";
+//    public static final String DB_HOST = "php.scweb.ca";
+//    public static final String DB_NAME = "adalidb";
+//    public static final String DB_USER = "adali";
+//    public static final String DB_PASS = "j54czj54czhm4v1hm4v1";
+
+    public static final String DB_HOST = "host";
+    public static final String DB_NAME = "database";
+    public static final String DB_USER = "username";
+    public static final String DB_PASS = "password";
 
 
-    public static final int CLOSED = 0;
-    public static final int OPEN = 1;
+    public static final byte CLOSED = 0;
+    public static final byte OPEN = 1;
 
     public static final int SUCCESS = 1;
     public static final int EXIST = 0;
@@ -18,11 +25,11 @@ public class Const {
 
 
     // TABLES NAMES
-    public static final String TABLE_PROJECT = "project";
+    public static final String TABLE_PROJECT = "projects";
     public static final String TABLE_TASKS = "tasks";
     public static final String TABLE_STATUS = "status";
-    public static final String TABLE_CATEGORY = "category";
-    public static final String TABLE_PRIORITY = "priority";
+    public static final String TABLE_CATEGORY = "categories";
+    public static final String TABLE_PRIORITY = "priorities";
 
 
     // TABLE PROJECT
@@ -56,7 +63,7 @@ public class Const {
             "  `" + PROJECT_COLUMN_STATUS + "` INT NOT NULL,\n" +
             "  `" + PROJECT_COLUMN_CATEGORY + "` INT NOT NULL,\n" +
             "  `" + PROJECT_COLUMN_PRIORITY + "` INT NOT NULL,\n" +
-            "  `" + PROJECT_COLUMN_START_DATE + "` DATE NOT NULL DEFAULT CURRENT_DATE,\n" +
+            "  `" + PROJECT_COLUMN_START_DATE + "` DATE NOT NULL,\n" +
             "  `" + PROJECT_COLUMN_DUE_DATE + "` DATE NOT NULL\n," +
             "  `" + PROJECT_COLUMN_OPEN + "` TINYINT NOT NULL DEFAULT 1\n" +
             ");";
@@ -105,6 +112,13 @@ public class Const {
             "ALTER TABLE `" + TABLE_TASKS + "` ADD FOREIGN KEY (`" + TASK_COLUMN_PROJECT + "`) REFERENCES `" + TABLE_PROJECT + "` (`" + PROJECT_COLUMN_ID + "`);"
 
     };
+
+    public static String toRGBCode(Color color) {
+        return String.format("#%02X%02X%02X",
+                (int) (color.getRed() * 255),
+                (int) (color.getGreen() * 255),
+                (int) (color.getBlue() * 255));
+    }
 
 
 }

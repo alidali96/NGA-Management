@@ -68,7 +68,7 @@
             <JFXDatePicker fx:id="dueDatePicker" prefHeight="40" prefWidth="300" />
         </HBox>
         <HBox>
-            <JFXToggleButton fx:id="closeProject" size="12.0" text="Close Project" toggleColor="#fafafa" toggleLineColor="#d70505" unToggleLineColor="#08f21b" wrapText="true" onAction="#on"/>
+            <JFXToggleButton fx:id="closeProject" size="12.0" text="Close Project" toggleColor="#fafafa" toggleLineColor="#d70505" unToggleLineColor="#08f21b" wrapText="true" onAction="#closeTheProject"/>
         </HBox>
         <HBox>
             <padding>

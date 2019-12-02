@@ -7,6 +7,7 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.JFXColorPicker?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="Forms.PrioritiesFormController"
@@ -25,8 +26,11 @@
             <JFXTextField fx:id="name" prefWidth="300" prefHeight="40"/>
         </HBox>
         <HBox>
+            <padding>
+                <Insets top="20" right="0" bottom="0" left="0"/>
+            </padding>
             <Label text="Color" prefHeight="40" prefWidth="100"></Label>
-            <JFXTextField fx:id="color" prefWidth="300" prefHeight="40"/>
+            <JFXColorPicker fx:id="color" prefWidth="300" prefHeight="40"/>
         </HBox>
         <padding>
             <Insets top="20" right="0" bottom="0" left="0"/>
@@ -37,5 +41,6 @@
                 <Insets top="8" right="20" bottom="8" left="20"/>
             </padding>
         </JFXButton>
+        <VBox fx:id="errorDisplay"/>
     </VBox>
 </AnchorPane>
