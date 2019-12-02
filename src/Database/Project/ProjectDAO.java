@@ -305,6 +305,30 @@ public class ProjectDAO implements DAO<Project> {
         return !projects.isEmpty() ? projects.get(projects.size() - 1).getId() : 0;
     }
 
+    public int getProjectsCountByStatus(int statusID) {
+        int count = 0;
+        for(Project project: projects) {
+            if (project.getStatus() == statusID) count++;
+        }
+        return count;
+    }
+
+    public int getProjectsCountByCategory(int categoryID) {
+        int count = 0;
+        for(Project project: projects) {
+            if (project.getCategory() == categoryID) count++;
+        }
+        return count;
+    }
+
+    public ArrayList<Project> getFilteredProjects(int filter) {
+        ArrayList<Project> list = new ArrayList<>();
+        for(Project project: projects) {
+            if (project.getOpen() == filter)
+                list.add(project);
+        }
+        return list;
+    }
 
     public void testPrintAll() {
         for (Project project : projects) {
