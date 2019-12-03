@@ -29,26 +29,26 @@
             <JFXTextField fx:id="name" prefWidth="300" prefHeight="40"/>
         </HBox>
         <HBox>
-            <Label text="Description" prefHeight="40" prefWidth="100"></Label>
-            <JFXTextField fx:id="description" prefWidth="300" prefHeight="40"/>
+            <Label text="Project" prefHeight="40" prefWidth="100"></Label>
+            <JFXTextField fx:id="project" text="Project 1" disable="true" prefWidth="300" prefHeight="40"/>
         </HBox>
         <HBox>
             <Label text="Open" prefHeight="40" prefWidth="100"></Label>
-            <JFXTextField fx:id="open" prefWidth="300" prefHeight="40"/>
+            <JFXToggleButton fx:id="closeTask" size="12.0" toggleColor="#fafafa" toggleLineColor="#d70505" unToggleLineColor="#08f21b" wrapText="true" onAction="#on"/>
         </HBox>
         <HBox>
-            <JFXToggleButton fx:id="closeTask" size="12.0" text="Close Task" toggleColor="#fafafa" toggleLineColor="#d70505" unToggleLineColor="#08f21b" wrapText="true" onAction="#on"/>
         </HBox>
 
         <padding>
             <Insets top="20" right="0" bottom="0" left="0"/>
         </padding>
-        <JFXButton onAction="#processForm" fx:id="submitButton" text="Add Task" buttonType="FLAT" prefWidth="200"
+        <JFXButton onAction="#processForm" fx:id="submitButton" text="Update Task" buttonType="FLAT" prefWidth="200"
                    prefHeight="40" style="-fx-background-color: #0275d8; -fx-text-fill: white;">
             <padding>
                 <Insets top="8" right="20" bottom="8" left="20"/>
             </padding>
         </JFXButton>
     </VBox>
+    <VBox fx:id="errorDisplay"/>
 
 </AnchorPane>

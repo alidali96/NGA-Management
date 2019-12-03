@@ -25,6 +25,7 @@
                   <TableView prefWidth="900" fx:id="table" prefHeight="600.0">
                       <columns>
                           <TableColumn fx:id="projectName" text="Project Name" />
+                          <TableColumn fx:id="description" text="Description" maxWidth="200"/>
                           <TableColumn fx:id="category" text="Category" />
                           <TableColumn fx:id="startDate" text="Start Date" />
                           <TableColumn fx:id="dueDate" text="Due Date" />

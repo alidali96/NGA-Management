@@ -72,18 +72,17 @@
         </HBox>
         <HBox>
             <padding>
-                <Insets bottom="0" left="0" right="0" top="20" />
+                <Insets bottom="0" left="0" right="0" top="0" />
             </padding>
             <!-- Add Submit Button -->
             <JFXButton fx:id="submitButton" buttonType="FLAT" onAction="#processProjectsForm" prefHeight="40" prefWidth="200" style="-fx-background-color: #0275d8; -fx-text-fill: white;" text="Add Project">
                 <padding>
-                    <Insets bottom="8" left="20" right="20" top="8" />
+                    <Insets bottom="8" left="20" right="20" top="0" />
                 </padding>
             </JFXButton>
 
         </HBox>
         <VBox fx:id="errorDisplay">
-
         </VBox>
     </VBox>
 </AnchorPane>
