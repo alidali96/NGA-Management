@@ -45,11 +45,8 @@ public class TasksController implements Initializable {
         replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Task"));
 
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
-//        project.setCellValueFactory(new PropertyValueFactory<>("project"));
 
         project.setCellValueFactory(e->new SimpleStringProperty(projectDAO.get(e.getValue().getProject()).get().getTitle()));
-//        project.setCellValueFactory(e->new SimpleStringProperty(projectDAO.get(e.getValue().getTitle()).get().getTitle()));
-//        category.setCellValueFactory(e-> new SimpleStringProperty(categoryDAO.getItemById(e.getValue().getCategory()).getName()));
 
         open.setCellValueFactory(new PropertyValueFactory<>("open"));
 
