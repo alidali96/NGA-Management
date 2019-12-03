@@ -13,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -38,7 +39,6 @@ public class StatusContrller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Status","Status"));
-
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         color.setCellValueFactory(new PropertyValueFactory<>("color"));
         Random r=new Random();

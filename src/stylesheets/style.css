@@ -13,10 +13,10 @@
 .replaceable{
     -fx-pref-width:950px;
     -fx-pref-height:100%;
-     -fx-max-width:950px;
-     -fx-min-width:100%;
-     -fx-max-height:100%;
-      -fx-min-height:100%;
+    -fx-max-width:950px;
+    -fx-min-width:100%;
+    -fx-max-height:100%;
+    -fx-min-height:100%;
 }
 JFXColorPicker{
     -fx-margin:20px;
@@ -42,4 +42,9 @@ JFXColorPicker{
 }
 .projectsTable .table-row-cell {
     -fx-cell-size: 50px;
+}
+.viewTitle{
+    -fx-margin-top:60;
+    -fx-font-size: 30;
+    -fx-fill: #903;
 }

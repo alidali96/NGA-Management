@@ -17,7 +17,7 @@
       <VBox prefHeight="720.0" prefWidth="1280.0" styleClass="background">
          <children>
               <fx:include source="../views/ToolBarView.fxml" />
-      
+
               <HBox minHeight="700.0" prefWidth="1280.0" styleClass="mainPanel">
                   <VBox spacing="10" styleClass="menuPanel" GridPane.columnIndex="0" GridPane.rowIndex="0">
                       <padding>

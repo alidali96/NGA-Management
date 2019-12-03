@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -46,7 +47,8 @@ public class AddProjectButton extends JFXButton{
                 Pane pane = FXMLLoader.load(getClass().getResource("../Forms/" + form + "FormView.fxml"));
                 replaceable.getChildren().retainAll();
                 replaceable.getChildren().add(pane);
-                this.setStyle("visibility: hidden;");
+                replaceable.getChildren().add(new Label("Provaaa"));
+//                this.setStyle("visibility: hidden;");
             } catch (IOException er) {
                 er.printStackTrace();
             }
