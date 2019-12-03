@@ -41,7 +41,7 @@ public class PrioritiesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Priorities"));
+        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Priorities","Priority"));
 
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         color.setCellValueFactory(new PropertyValueFactory<>("color"));

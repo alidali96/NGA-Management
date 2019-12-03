@@ -1,5 +1,8 @@
 package controllers;
 
+import Const.Const;
+import Database.CSP.Category.Category;
+import Database.CSP.Category.CategoryDAO;
 import Database.CSP.Status.Status;
 import Database.CSP.Status.StatusDAO;
 import Database.Project.Project;
@@ -20,58 +23,32 @@ public class StatisticController implements Initializable {
     private PieChart piechart;
     ProjectDAO projectDAO;
     StatusDAO statusDAO;
+    CategoryDAO categoryDAO;
 
-    HashMap<String, Integer> dataList = new HashMap<String, Integer>();
     @FXML
     private void handleButton1Action(ActionEvent event) {
-
+        HashMap<String, Integer> projectList = new HashMap<String, Integer>();
+        int totalProjects = projectDAO.getAll().size();
         for (Status status : (ArrayList<Status>) statusDAO.getAll()) {
-            dataList.put(status.getName(), projectDAO.getProjectsCountByStatus(status.getId()));
+            projectList.put(status.getName(), projectDAO.getProjectsCountByStatus(status.getId()));
         }
-
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-//                new PieChart.Data("January", 100),
-//                new PieChart.Data("February", 200),
-//                new PieChart.Data("March", 50),
-//                new PieChart.Data("April", 75),
-//                new PieChart.Data("May", 110),
-//                new PieChart.Data("June", 300),
-//                new PieChart.Data("July", 111),
-//                new PieChart.Data("August", 30),
-//                new PieChart.Data("September", 75),
-//                new PieChart.Data("October", 55),
-//                new PieChart.Data("November", 225),
-//                new PieChart.Data("December", 99));
-
-
-        for(Map.Entry<String, Integer> data : dataList.entrySet()) {
-            pieChartData.add(new PieChart.Data(data.getKey(), data.getValue()));
+        for (Map.Entry<String, Integer> data : projectList.entrySet()) {
+            double parentage = 100.0 * data.getValue() / totalProjects;
+            pieChartData.add(new PieChart.Data(data.getKey() + " %" + String.format("%.2f", parentage), data.getValue()));
         }
-
-        piechart.setTitle("Monthly Record");
+        piechart.setTitle("Project Statistic");
         piechart.setData(pieChartData);
     }
 
     @FXML
     private void handleButton2Action(ActionEvent event) {
-        ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList(
-                        new PieChart.Data("Sunday", 30),
-                        new PieChart.Data("Monday", 45),
-                        new PieChart.Data("Tuesday", 70),
-                        new PieChart.Data("Wednesday", 97),
-                        new PieChart.Data("Thursday", 100),
-                        new PieChart.Data("Friday", 80),
-                        new PieChart.Data("Saturday", 10));
 
-        piechart.setTitle("Weekly Record");
-        piechart.setData(pieChartData);
     }
 
     @FXML
     private void handleButtonClearAction(ActionEvent event) {
-        ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList();
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
         piechart.setTitle("");
         piechart.setData(pieChartData);
     }
@@ -81,5 +58,6 @@ public class StatisticController implements Initializable {
         // TODO
         projectDAO = ProjectDAO.getInstance();
         statusDAO = StatusDAO.getInstance();
+        categoryDAO = CategoryDAO.getInstance();
     }
 }

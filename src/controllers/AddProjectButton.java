@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -25,10 +26,10 @@ public class AddProjectButton extends JFXButton{
     @FXML
     private JFXTextField projectName;
 
-    public AddProjectButton(Pane replaceable, String form) {
+    public AddProjectButton(Pane replaceable, String form, String type) {
         this.replaceable = replaceable;
         this.form = form;
-        this.setText("Add");
+        this.setText("Add "+type);
         this.setStyle("-fx-background-color: #903; -fx-text-fill: white;");
         this.setButtonType(ButtonType.RAISED);
         Text plus=GlyphsDude.createIcon(FontAwesomeIcon.PLUS);
@@ -43,17 +44,11 @@ public class AddProjectButton extends JFXButton{
                 TaskFormController.updateForm = false;
                 PrioritiesFormController.updateForm = false;
                 CategoriesFormController.updateForm = false;
-//                FXMLLoader loader = new FXMLLoader(getClass().getResource("../Forms/" + form + "FormView.fxml"));
                 Pane pane = FXMLLoader.load(getClass().getResource("../Forms/" + form + "FormView.fxml"));
-//                Pane pane = (Pane) loader.load();
-//                controller = loader.getController();
-//                System.out.println((char[]) loader.getController());
-//                ProjectsFormController.projectName.setText("ckemii");
-                ProjectsFormController customControl = new ProjectsFormController();
-//                customControl.setText("Hello!");
                 replaceable.getChildren().retainAll();
                 replaceable.getChildren().add(pane);
-                this.setStyle("visibility: hidden;");
+                replaceable.getChildren().add(new Label("Provaaa"));
+//                this.setStyle("visibility: hidden;");
             } catch (IOException er) {
                 er.printStackTrace();
             }

@@ -5,17 +5,19 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0"
       prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controllers.StatisticController">
     <children>
-        <Button id="button1" layoutX="10" layoutY="10" text="Click to load PieChart 1" onAction="#handleButton1Action"
-                fx:id="button1"/>
-        <Button id="button2" layoutX="10" layoutY="40" text="Click to load PieChart 2" onAction="#handleButton2Action"
-                fx:id="button2"/>
-        <Button id="buttonclear" layoutX="10" layoutY="70" text="Clear PieChart" onAction="#handleButtonClearAction"
-                fx:id="buttonclear"/>
+        <JFXButton id="button1" layoutX="10" layoutY="10" text="Project Statistic" onAction="#handleButton1Action"
+                   fx:id="button1" styleClass="btnMenu"/>
+        <JFXButton id="button2" layoutX="10" layoutY="40" text="Categories Statistic"
+                   onAction="#handleButton2Action"
+                   fx:id="button2" styleClass="btnMenu"/>
 
+        <JFXButton id="buttonclear" layoutX="10" layoutY="70" text="Clear PieChart" onAction="#handleButtonClearAction"
+                   fx:id="buttonclear" styleClass="btnMenu"/>
         <PieChart id="piechart" fx:id="piechart" layoutX="10" layoutY="110"/>
 
     </children>

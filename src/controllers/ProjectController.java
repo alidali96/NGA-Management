@@ -35,6 +35,8 @@ public class ProjectController implements Initializable {
     @FXML
     TableColumn<Project, String> projectName;
     @FXML
+    TableColumn<Project, String> description;
+    @FXML
     TableColumn<Project, String> category;
     @FXML
     TableColumn<Project, String> startDate;
@@ -63,17 +65,17 @@ public class ProjectController implements Initializable {
         PriorityDAO priorityDAO=PriorityDAO.getInstance();
 
         projectName.setCellValueFactory(new PropertyValueFactory<>("title"));
+        description.setCellValueFactory(new PropertyValueFactory<>("description"));
         category.setCellValueFactory(e-> new SimpleStringProperty(categoryDAO.getItemById(e.getValue().getCategory()).getName()));
         startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
         dueDate.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
         status.setCellValueFactory(e-> new SimpleStringProperty(statusDAO.getItemById(e.getValue().getStatus()).getName()));
         priority.setCellValueFactory(e-> new SimpleStringProperty(priorityDAO.getItemById(e.getValue().getPriority()).getName()));
-        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Projects"));
+        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Projects","Project"));
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         edit.setCellFactory(param -> new ButtonCell(replaceable, "Projects"));
 
         ObservableList<Project> projectModel1 = FXCollections.observableArrayList(projectDAO.getAll());
-
         table.setItems(projectModel1);
     }
 }

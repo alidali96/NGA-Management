@@ -8,8 +8,10 @@
 <?import javafx.geometry.Insets?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.text.Text?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProjectController">
     <children>
+        <Text layoutX="50.0" layoutY="30.0" id="viewTitle" styleClass="viewTitle" text="Projects"/>
         <VBox fx:id="replaceable" styleClass="replaceable" alignment="TOP_RIGHT" spacing="5">
            <children>
                <JFXButton fx:id="addProjectsBtn" buttonType="RAISED" style="-fx-background-color: #0275d8; -fx-text-fill: white;" text="Add hi">
@@ -22,9 +24,10 @@
                </JFXButton>
                <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
                   <children>
-                  <TableView prefWidth="900" fx:id="table" prefHeight="600.0">
+                  <TableView prefWidth="900" fx:id="table" prefHeight="600.0" styleClass="projectsTable">
                       <columns>
                           <TableColumn fx:id="projectName" text="Project Name" />
+                          <TableColumn fx:id="description" text="Description" maxWidth="200"/>
                           <TableColumn fx:id="category" text="Category" />
                           <TableColumn fx:id="startDate" text="Start Date" />
                           <TableColumn fx:id="dueDate" text="Due Date" />

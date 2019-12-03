@@ -1,6 +1,7 @@
 package controllers;
 
 import Database.Project.Project;
+import Database.Task.Task;
 import Forms.*;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.GlyphsDude;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 
 public class ButtonCell<S, T> extends TableCell<S, T> {
 
-    private static Project editProject;
+
     JFXButton btn;
     Pane replaceable;
     String form;
@@ -43,9 +44,13 @@ public class ButtonCell<S, T> extends TableCell<S, T> {
                 TaskFormController.updateForm = true;
                 PrioritiesFormController.updateForm = true;
                 CategoriesFormController.updateForm = true;
+                if(object instanceof Project){
+                    ProjectsFormController.editingProject = (Project) object;
+                }else  if(object instanceof Task){
+                    TaskFormController.editingTask = (Task) object;
+                }
 
-                editProject = (Project) object;
-                ProjectsFormController.editingProject = editProject;
+
 
                 editProject(event);
             });
@@ -64,11 +69,4 @@ public class ButtonCell<S, T> extends TableCell<S, T> {
         }
     }
 
-    public static Project getEditProject() {
-        return editProject;
-    }
-
-    public void setEditProject(Project editProject) {
-        this.editProject = editProject;
-    }
 }
