@@ -40,3 +40,6 @@ JFXColorPicker{
     -fx-background-radius: 10 0;
 
 }
+.projectsTable .table-row-cell {
+    -fx-cell-size: 50px;
+}

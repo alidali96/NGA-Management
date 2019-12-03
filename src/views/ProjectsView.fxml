@@ -22,7 +22,7 @@
                </JFXButton>
                <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
                   <children>
-                  <TableView prefWidth="900" fx:id="table" prefHeight="600.0">
+                  <TableView prefWidth="900" fx:id="table" prefHeight="600.0" styleClass="projectsTable">
                       <columns>
                           <TableColumn fx:id="projectName" text="Project Name" />
                           <TableColumn fx:id="description" text="Description" maxWidth="200"/>

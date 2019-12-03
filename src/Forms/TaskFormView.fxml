@@ -11,6 +11,7 @@
 <?import javafx.geometry.Insets?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXToggleButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="Forms.TaskFormController"
@@ -30,25 +31,23 @@
         </HBox>
         <HBox>
             <Label text="Project" prefHeight="40" prefWidth="100"></Label>
-            <JFXTextField fx:id="project" text="Project 1" disable="true" prefWidth="300" prefHeight="40"/>
+            <JFXComboBox fx:id="project" prefHeight="40" prefWidth="300" promptText="Select a Project">
+            </JFXComboBox>
         </HBox>
-        <HBox>
+        <HBox fx:id="closeHBox">
             <Label text="Open" prefHeight="40" prefWidth="100"></Label>
             <JFXToggleButton fx:id="closeTask" size="12.0" toggleColor="#fafafa" toggleLineColor="#d70505" unToggleLineColor="#08f21b" wrapText="true" onAction="#on"/>
         </HBox>
-        <HBox>
-        </HBox>
-
         <padding>
             <Insets top="20" right="0" bottom="0" left="0"/>
         </padding>
-        <JFXButton onAction="#processForm" fx:id="submitButton" text="Update Task" buttonType="FLAT" prefWidth="200"
+        <JFXButton onAction="#processForm" fx:id="submitButton" text="Create Task" buttonType="FLAT" prefWidth="200"
                    prefHeight="40" style="-fx-background-color: #0275d8; -fx-text-fill: white;">
             <padding>
                 <Insets top="8" right="20" bottom="8" left="20"/>
             </padding>
         </JFXButton>
+        <VBox fx:id="errorDisplay"/>
     </VBox>
-    <VBox fx:id="errorDisplay"/>
 
 </AnchorPane>

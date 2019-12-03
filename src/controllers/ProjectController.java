@@ -71,12 +71,11 @@ public class ProjectController implements Initializable {
         dueDate.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
         status.setCellValueFactory(e-> new SimpleStringProperty(statusDAO.getItemById(e.getValue().getStatus()).getName()));
         priority.setCellValueFactory(e-> new SimpleStringProperty(priorityDAO.getItemById(e.getValue().getPriority()).getName()));
-        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Projects"));
+        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Projects","Project"));
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         edit.setCellFactory(param -> new ButtonCell(replaceable, "Projects"));
 
         ObservableList<Project> projectModel1 = FXCollections.observableArrayList(projectDAO.getAll());
-        table.setStyle("pref-height:300px;");
         table.setItems(projectModel1);
     }
 }

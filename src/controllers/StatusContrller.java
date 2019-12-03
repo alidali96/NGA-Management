@@ -37,7 +37,7 @@ public class StatusContrller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Status"));
+        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Status","Status"));
 
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         color.setCellValueFactory(new PropertyValueFactory<>("color"));

@@ -1,11 +1,14 @@
 package Forms;
 
+import Database.CSP.Category.Category;
 import Database.Project.Project;
 import Database.Project.ProjectDAO;
 import Database.Task.Task;
 import Database.Task.TaskDAO;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,9 +16,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -32,9 +37,11 @@ public class TaskFormController implements Initializable {
     @FXML
     JFXTextField name;
     @FXML
-    JFXTextField project;
+    JFXComboBox<Project> project;
     @FXML
     VBox errorDisplay;
+    @FXML
+    HBox closeHBox;
 
 
 
@@ -44,7 +51,6 @@ public class TaskFormController implements Initializable {
 
     TaskDAO taskDAO=TaskDAO.getInstance();
     ProjectDAO projectDAO=ProjectDAO.getInstance();
-    Project thisTasksProject=projectDAO.get(editingTask.getProject()).get();
 
     public void processForm(ActionEvent actionEvent) {
         LinkedList<String> errors = new LinkedList<>();
@@ -54,7 +60,7 @@ public class TaskFormController implements Initializable {
         } else {
             name.setStyle("-fx-border-color: none;");
         }
-
+        System.out.println("proj: "+project.getSelectionModel().getSelectedItem());
         errorDisplay.getChildren().clear();
         if (errors.size() > 0) {
             for (int i = 0; i < errors.size(); i++) {
@@ -68,19 +74,24 @@ public class TaskFormController implements Initializable {
             if(closeTask.isSelected()){
                 taskOpen=0;
             }
+
             editingTask.setOpen(taskOpen);
-            taskDAO.update(editingTask);
+//            taskDAO.update(editingTask);
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        closeTask.setStyle("visibility: hidden;");
-        project.setText(thisTasksProject.getTitle());
-        name.setText(editingTask.getName());
+        closeHBox.setStyle("visibility: hidden;");
+        project.setItems(FXCollections.observableArrayList((ArrayList<Project>) projectDAO.getAll()));
+
+//
         if (updateForm) {
             title.setText("Edit Task");
-            submitButton.setText("Submit");
+            name.setText(editingTask.getName());
+            project.getSelectionModel().select(editingTask.getProject() - 1);
+
+            submitButton.setText("Update Task");
             closeTask.setStyle("visibility: visible;");
         }
     }
