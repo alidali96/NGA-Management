@@ -35,6 +35,8 @@ public class ProjectController implements Initializable {
     @FXML
     TableColumn<Project, String> projectName;
     @FXML
+    TableColumn<Project, String> description;
+    @FXML
     TableColumn<Project, String> category;
     @FXML
     TableColumn<Project, String> startDate;
@@ -63,6 +65,7 @@ public class ProjectController implements Initializable {
         PriorityDAO priorityDAO=PriorityDAO.getInstance();
 
         projectName.setCellValueFactory(new PropertyValueFactory<>("title"));
+        description.setCellValueFactory(new PropertyValueFactory<>("description"));
         category.setCellValueFactory(e-> new SimpleStringProperty(categoryDAO.getItemById(e.getValue().getCategory()).getName()));
         startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
         dueDate.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
@@ -73,7 +76,7 @@ public class ProjectController implements Initializable {
         edit.setCellFactory(param -> new ButtonCell(replaceable, "Projects"));
 
         ObservableList<Project> projectModel1 = FXCollections.observableArrayList(projectDAO.getAll());
-
+        table.setStyle("pref-height:300px;");
         table.setItems(projectModel1);
     }
 }
