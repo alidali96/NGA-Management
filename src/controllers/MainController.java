@@ -1,4 +1,4 @@
-package Main;
+package controllers;
 
 
 import Database.CSP.CSPDAO;
@@ -37,7 +37,7 @@ import java.util.ResourceBundle;
 import static de.jensd.fx.glyphs.GlyphsDude.createIcon;
 import static de.jensd.fx.glyphs.GlyphsDude.createIconLabel;
 
-public class Controller implements Initializable {
+public class MainController implements Initializable {
     @FXML
     VBox tableContainer;
 
@@ -49,7 +49,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        changeTable("Projects");
+        changeTable("Project");
         // Create Database Connection
 //        DatabaseConnection.getInstance();
 
@@ -81,19 +81,19 @@ public class Controller implements Initializable {
 
         switch (button.getId()) {
             case "projectsButton":
-                changeTable("Projects");
+                changeTable("Project");
                 break;
             case "tasksButton":
-                changeTable("Tasks");
+                changeTable("Task");
                 break;
             case "categoriesButton":
-                changeTable("Categories");
+                changeTable("Category");
                 break;
             case "statusButton":
                 changeTable("Status");
                 break;
             case "prioritiesButton":
-                changeTable("Priorities");
+                changeTable("Priority");
                 break;
             case "settingsButton":
                 changeTable("Settings");

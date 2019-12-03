@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Text?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Forms.CategoriesFormController"
+            fx:controller="controllers.forms.CategoriesFormController"
             prefHeight="400.0" prefWidth="600.0">
     <Text layoutX="50.0" layoutY="30.0" id="viewTitle" styleClass="viewTitle" text="Tasks"/>
 
