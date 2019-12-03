@@ -8,12 +8,14 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import com.jfoenix.controls.JFXColorPicker?>
-<?import com.jfoenix.skins.JFXColorPalette.JFXColorGrid?>
 <?import com.jfoenix.skins.JFXColorPickerUI?>
+<?import javafx.scene.text.Text?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="Forms.CategoriesFormController"
             prefHeight="400.0" prefWidth="600.0">
+    <Text layoutX="50.0" layoutY="30.0" id="viewTitle" styleClass="viewTitle" text="Tasks"/>
+
     <VBox xmlns:fx="http://javafx.com/fxml" fx:id="categoryFormGrid">
 
         <HBox>

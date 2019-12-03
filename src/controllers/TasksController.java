@@ -42,7 +42,7 @@ public class TasksController implements Initializable {
     ProjectDAO projectDAO=ProjectDAO.getInstance();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Task"));
+        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Task","Task"));
 
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
 

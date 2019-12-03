@@ -35,7 +35,7 @@ public class CategoriesContoller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Categories"));
+        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Categories","Category"));
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         color.setCellValueFactory(new PropertyValueFactory<>("color"));
 
