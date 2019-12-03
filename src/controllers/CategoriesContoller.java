@@ -12,6 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,9 +30,10 @@ public class CategoriesContoller implements Initializable {
     private TableColumn<Category, String> color;
     @FXML
     private TableColumn<Category, Category> edit;
-
     @FXML
     private VBox replaceable;
+    @FXML
+    public static Text categoryTitle;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

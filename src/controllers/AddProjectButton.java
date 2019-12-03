@@ -47,7 +47,6 @@ public class AddProjectButton extends JFXButton{
                 Pane pane = FXMLLoader.load(getClass().getResource("../Forms/" + form + "FormView.fxml"));
                 replaceable.getChildren().retainAll();
                 replaceable.getChildren().add(pane);
-                replaceable.getChildren().add(new Label("Provaaa"));
 //                this.setStyle("visibility: hidden;");
             } catch (IOException er) {
                 er.printStackTrace();

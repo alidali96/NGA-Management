@@ -10,8 +10,7 @@
       prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controllers.PrioritiesController">
     <children>
-        <Text layoutX="50.0" layoutY="30.0" id="viewTitle" styleClass="viewTitle" text="Priorities"/>
-
+        <Text layoutX="0.0" layoutY="30.0" id="viewTitle" styleClass="viewTitle" text="Priorities"/>
         <VBox fx:id="replaceable" spacing="5" alignment="TOP_RIGHT">
             <JFXButton fx:id="addProjectsBtn" style="-fx-background-color: #0275d8; -fx-text-fill: white;"
                        buttonType="RAISED" text="[+] Add -">
@@ -19,7 +18,7 @@
                     <Insets top="5" right="20" bottom="5" left="20"/>
                 </padding>
             </JFXButton>
-            <TableView fx:id="prioritiesTable" prefHeight="500.0" prefWidth="700.0">
+            <TableView fx:id="prioritiesTable" prefHeight="500.0" prefWidth="950.0">
                 <columns>
                     <TableColumn fx:id="name" text="Name"></TableColumn>
                     <TableColumn fx:id="color" text="Color"></TableColumn>
