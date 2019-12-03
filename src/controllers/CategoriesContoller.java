@@ -2,11 +2,8 @@ package controllers;
 
 import Database.CSP.Category.Category;
 import Database.CSP.Category.CategoryDAO;
-import Database.CSP.Status.Status;
-import Database.Project.Project;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableCell;
@@ -33,21 +30,22 @@ public class CategoriesContoller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Categories"));
+        replaceable.getChildren().set(0, new AddButton(replaceable, "Category"));
         name.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         name.setCellFactory(param -> new TableCell<Category, Category>() {
             @Override
             public void updateItem(Category category, boolean empty) {
                 super.updateItem(category, empty);
                 if (!empty) {
-                    setStyle("-fx-text-fill: white; -fx-background-color: " + category.getColor());
+                    setStyle("-fx-background-color: " + category.getColor());
                     setText(category.getName());
                 }
             }
         });
 
+
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        edit.setCellFactory(param -> new ButtonCell(replaceable, "Categories"));
+        edit.setCellFactory(param -> new EditButton(replaceable, "Category"));
         CategoryDAO categoryDAO=CategoryDAO.getInstance();
 
         categoriesTable.setItems(FXCollections.observableArrayList((ArrayList<Category>)categoryDAO.getAll()));

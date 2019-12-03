@@ -1,11 +1,11 @@
 package controllers;
 
-import Database.CSP.Status.Status;
+import Database.Project.ProjectDAO;
 import Database.Task.Task;
 import Database.Task.TaskDAO;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -26,7 +26,7 @@ public class TasksController implements Initializable {
     @FXML
     private TableColumn<Task, String> name;
     @FXML
-    private TableColumn<Task, Integer> project;
+    private TableColumn<Task, String> project;
     @FXML
     private TableColumn<Task, Integer> open;
     @FXML
@@ -36,16 +36,19 @@ public class TasksController implements Initializable {
     private VBox replaceable;
 
 
+    ProjectDAO projectDAO=ProjectDAO.getInstance();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Task"));
+        replaceable.getChildren().set(0, new AddButton(replaceable, "Task"));
 
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        project.setCellValueFactory(new PropertyValueFactory<>("project"));
+
+        project.setCellValueFactory(e->new SimpleStringProperty(projectDAO.get(e.getValue().getProject()).get().getTitle()));
+
         open.setCellValueFactory(new PropertyValueFactory<>("open"));
 
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        edit.setCellFactory(param -> new ButtonCell(replaceable, "Task"));
+        edit.setCellFactory(param -> new EditButton(replaceable, "Task"));
 
 
         TaskDAO taskDAO=TaskDAO.getInstance();

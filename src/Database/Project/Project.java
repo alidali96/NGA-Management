@@ -120,6 +120,6 @@ public class Project {
 
     @Override
     public String toString() {
-        return "Title: " + getTitle() + " Description: " + getDescription() + " Priority: " + getPriority() + " Start Date: " + getStartDate() + " Due Date: " + getDueDate();
+        return this.getTitle();
     }
 }

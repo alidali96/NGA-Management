@@ -1,30 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProjectController">
     <children>
         <VBox fx:id="replaceable" alignment="TOP_RIGHT" spacing="5" styleClass="replaceable">
            <children>
-               <JFXButton fx:id="addProjectsBtn" buttonType="RAISED" style="-fx-background-color: #0275d8; -fx-text-fill: white;" text="Add hi">
-                   <graphic>
-                       <FontAwesomeIconView glyphName="BARS" glyphSize="15" style="-fx-text-fill:white; -fx-fill:white;" />
-                   </graphic>
-                   <padding>
-                  <Insets bottom="5" left="20" right="20" top="5" />
-               </padding>
-               </JFXButton>
+            <HBox fx:id="topBar" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                    <Text fx:id="viewTitle" styleClass="viewTitle" text="Projects" />
+               </children>
+            </HBox>
                <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
                   <children>
-                  <TableView fx:id="table" prefHeight="600.0" prefWidth="900">
+                  <TableView fx:id="table" prefHeight="600.0" prefWidth="900" styleClass="projectsTable">
                       <columns>
                           <TableColumn fx:id="projectName" text="Project Name" />
+                          <TableColumn fx:id="description" maxWidth="200" text="Description" />
                           <TableColumn fx:id="category" text="Category" />
                           <TableColumn fx:id="status" text="Status" />
                           <TableColumn fx:id="priority" text="Priority" />

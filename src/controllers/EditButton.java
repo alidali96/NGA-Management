@@ -1,8 +1,9 @@
 package controllers;
 
 import Database.Project.Project;
-import Forms.*;
+import Database.Task.Task;
 import com.jfoenix.controls.JFXButton;
+import controllers.forms.*;
 import de.jensd.fx.glyphs.GlyphsDude;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.event.ActionEvent;
@@ -11,17 +12,15 @@ import javafx.scene.control.TableCell;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.util.ArrayList;
 
-public class ButtonCell<S, T> extends TableCell<S, T> {
+public class EditButton<S, T> extends TableCell<S, T> {
 
-    private static Project editProject;
+
     JFXButton btn;
     Pane replaceable;
     String form;
 
-    public ButtonCell(Pane replaceable, String form) {
+    public EditButton(Pane replaceable, String form) {
         this.replaceable = replaceable;
         this.form = form;
         btn = new JFXButton();
@@ -43,9 +42,13 @@ public class ButtonCell<S, T> extends TableCell<S, T> {
                 TaskFormController.updateForm = true;
                 PrioritiesFormController.updateForm = true;
                 CategoriesFormController.updateForm = true;
+                if(object instanceof Project){
+                    ProjectsFormController.editingProject = (Project) object;
+                }else  if(object instanceof Task){
+                    TaskFormController.editingTask = (Task) object;
+                }
 
-                editProject = (Project) object;
-                ProjectsFormController.editingProject = editProject;
+
 
                 editProject(event);
             });
@@ -56,7 +59,7 @@ public class ButtonCell<S, T> extends TableCell<S, T> {
 
     public void editProject(ActionEvent actionEvent) {
         try {
-            Pane pane = FXMLLoader.load(getClass().getResource("../Forms/" + form + "FormView.fxml"));
+            Pane pane = FXMLLoader.load(getClass().getResource("../views/forms/" + form + "FormView.fxml"));
             replaceable.getChildren().retainAll();
             replaceable.getChildren().add(pane);
         } catch (IOException e) {
@@ -64,11 +67,4 @@ public class ButtonCell<S, T> extends TableCell<S, T> {
         }
     }
 
-    public static Project getEditProject() {
-        return editProject;
-    }
-
-    public void setEditProject(Project editProject) {
-        this.editProject = editProject;
-    }
 }

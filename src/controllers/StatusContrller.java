@@ -1,16 +1,9 @@
 package controllers;
 
-import Database.CSP.Priority.Priority;
 import Database.CSP.Status.Status;
 import Database.CSP.Status.StatusDAO;
-import Database.Project.Project;
-import Forms.*;
-import com.jfoenix.controls.JFXButton;
-import de.jensd.fx.glyphs.GlyphsDude;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableCell;
@@ -38,7 +31,7 @@ public class StatusContrller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        replaceable.getChildren().set(0, new AddProjectButton(replaceable, "Status"));
+        replaceable.getChildren().set(0, new AddButton(replaceable, "Status"));
 
         name.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         name.setCellFactory(param -> new TableCell<Status, Status>() {
@@ -46,14 +39,14 @@ public class StatusContrller implements Initializable {
             public void updateItem(Status status, boolean empty) {
                 super.updateItem(status, empty);
                 if (!empty) {
-                    setStyle("-fx-text-fill: white; -fx-background-color: " + status.getColor());
+                    setStyle("-fx-background-color: " + status.getColor());
                     setText(status.getName());
                 }
             }
         });
 
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        edit.setCellFactory(param -> new ButtonCell(replaceable, "Status"));
+        edit.setCellFactory(param -> new EditButton(replaceable, "Status"));
 
         StatusDAO statusDAO = StatusDAO.getInstance();
 

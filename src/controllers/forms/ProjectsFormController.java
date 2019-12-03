@@ -1,4 +1,4 @@
-package Forms;
+package controllers.forms;
 
 import Database.CSP.Category.Category;
 import Database.CSP.Category.CategoryDAO;
@@ -11,7 +11,6 @@ import Database.Project.ProjectDAO;
 import Database.Task.Task;
 import Database.Task.TaskDAO;
 import com.jfoenix.controls.*;
-import controllers.ButtonCell;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -83,10 +82,10 @@ public class ProjectsFormController implements Initializable {
         newTask(null);
     }
 
+    LinkedList<String> tasksList = new LinkedList<>();
 
     public void processProjectsForm(ActionEvent actionEvent) {
 
-        LinkedList<String> tasksList = new LinkedList<>();
         LinkedList<String> errors = new LinkedList<>();
 
 
@@ -98,7 +97,7 @@ public class ProjectsFormController implements Initializable {
             projectName.setStyle("-fx-border-color: none;");
             projectNameStr = projectName.getText();
         }
-        if (projectDescription.getText().isEmpty() || projectDescription.getText().length() < 20) {
+        if (projectDescription.getText().isEmpty() || projectDescription.getText().length() < 10) {
             errors.add("Project description should contain at least 10 letters");
             projectDescription.setStyle("-fx-border-color: red;");
         } else {
@@ -178,19 +177,59 @@ public class ProjectsFormController implements Initializable {
 
             if (updateForm) {
                 editingProject.setTitle(projectNameStr);
-                editingProject.setDescription(projectDescription.toString());
+                editingProject.setDescription(projectDescription.getText());
                 editingProject.setStatus(statusStr);
                 editingProject.setCategory(categoryStr);
                 editingProject.setPriority(priorityStr);
                 editingProject.setStartDate(startdate);
                 editingProject.setDueDate(duedate);
+                byte open=1;
+                if(closeProject.isSelected()){
+                    open=0;
+                }
+                editingProject.setOpen(open);
                 projectDAO.update(editingProject);
+
+                //if the number of tasks of the project from database is same as the number of task in the form(the user didn\t delete or add a task)
+                //update all of the DB task with those in form
+                if(tasksList.size()==taskDAO.getTasksByPojectID(editingProject.getId()).size()){
+                    for (int i = 0; i < tasksList.size(); i++) {
+                        Task updateTask=new Task(taskDAO.getTasksByPojectID(editingProject.getId()).get(i).getId(),tasksList.get(i),editingProject.getId(),(byte)1);
+                        taskDAO.update(updateTask);
+                    }
+                }else if(tasksList.size()<taskDAO.getTasksByPojectID(editingProject.getId()).size()){
+                    //if the form size is less than db size (user deleted a task from the form)
+                    //firstly update those who exists in both places
+                    for (int i = 0; i < tasksList.size(); i++) {
+                        Task updateTask=new Task(taskDAO.getTasksByPojectID(editingProject.getId()).get(i).getId(),tasksList.get(i),editingProject.getId(),(byte)1);
+                        taskDAO.update(updateTask);
+                    }
+                    //then delete the tasks who was deleted from form
+                    for (int i = taskDAO.getTasksByPojectID(editingProject.getId()).size(); i > tasksList.size(); i--) {
+                            Optional<Task> deleteTask = (Optional<Task>) taskDAO.get(taskDAO.getTasksByPojectID(editingProject.getId()).get(i-1).getId());
+                        if (deleteTask.isPresent())
+                            taskDAO.delete(deleteTask.get());
+                    }
+                }else if(tasksList.size()>taskDAO.getTasksByPojectID(editingProject.getId()).size()){
+                    //if form has more tasks than database (user added task while editing project)
+                    //firstly update those who are in db with those who are in form
+                    for (int i = 0; i < taskDAO.getTasksByPojectID(editingProject.getId()).size(); i++) {
+                        Task updateTask=new Task(taskDAO.getTasksByPojectID(editingProject.getId()).get(i).getId(),tasksList.get(i),editingProject.getId(),(byte)1);
+                        taskDAO.update(updateTask);
+                    }
+                    //then perform an insert for new tasks
+                    for (int i = taskDAO.getTasksByPojectID(editingProject.getId()).size(); i < tasksList.size(); i++) {
+                        Task insertTask = new Task(tasksList.get(i), editingProject.getId(), (byte) 1);
+                        taskDAO.create(insertTask);
+                    }
+                }
+
             } else {
                 Project project = new Project(projectNameStr, projectDescriptionStr, statusStr, categoryStr, priorityStr, startdate, duedate, (byte) 1);
                 projectDAO.create(project);
 
                 int lastInsertedId = projectDAO.getAll().get(projectDAO.getAll().size() - 1).getId();
-
+                System.out.println("Last inserted id " + lastInsertedId);
                 for (int i = 0; i < tasksList.size(); i++) {
                     Task task = new Task(tasksList.get(i), lastInsertedId, (byte) 1);
                     taskDAO.create(task);
@@ -228,8 +267,7 @@ public class ProjectsFormController implements Initializable {
             status.getSelectionModel().select(editingProject.getStatus() - 1);
             dueDatePicker.setValue(editingProject.getDueDate().toLocalDate());
             startDatePicker.setValue(editingProject.getStartDate().toLocalDate());
-//            category.setValue( editingProject.getCategory());
-//            projectName.setText(editingProject.getTitle());
+
 
             projectTitle.setText("Editing Project: " + editingProject.getTitle());
 
@@ -238,11 +276,10 @@ public class ProjectsFormController implements Initializable {
             status.setItems(FXCollections.observableArrayList((ArrayList<Status>) statusDAO.getAll()));
 
             if (updateForm) {
-                System.out.println(editingProject);
                 projectTitle.setText("Edit " + editingProject.getTitle());
                 submitButton.setText("Submit");
                 closeProject.setStyle("visibility: visible;");
-                closeProject.setSelected(true);
+
             }
         }
     }
@@ -266,12 +303,15 @@ public class ProjectsFormController implements Initializable {
         }
 
         public void newTask (ArrayList < Task > tasks) {
-            int loopSize;
+            int loopSize=0;
             if (tasks == null) {
                 loopSize = 2;
             } else {
-                task1.setText(tasks.get(0).getName());
-                loopSize = tasks.size();
+                if(tasks.size()!=0){
+                    task1.setText(tasks.get(0).getName());
+                    loopSize = tasks.size();
+                }
+
             }
             for (int i = 1; i < loopSize; i++) {
                 vBox = new HBox();
