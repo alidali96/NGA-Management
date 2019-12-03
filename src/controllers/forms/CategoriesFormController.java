@@ -1,27 +1,27 @@
-package Forms;
+package controllers.forms;
 
-
-import Database.CSP.Priority.Priority;
-import Database.CSP.Priority.PriorityDAO;
+import Database.CSP.Category.Category;
+import Database.CSP.Category.CategoryDAO;
+import Database.Project.Project;
 import com.jfoenix.controls.JFXColorPicker;
 import com.jfoenix.controls.JFXTextField;
+import controllers.CategoriesContoller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static Const.Const.toRGBCode;
 
-public class PrioritiesFormController implements Initializable {
+public class CategoriesFormController implements Initializable {
 
     @FXML
     Button submitButton;
@@ -36,28 +36,30 @@ public class PrioritiesFormController implements Initializable {
 
     @FXML
     VBox errorDisplay;
+
+
+    String categoryNameStr;
+    String colorNameStr;
+
     public static boolean updateForm = false;
 
-    String colorNameStr;
-    String priorityNameStr;
 
-
-    public void processForm(ActionEvent actionEvent) {
+    public void processCategoryForm(ActionEvent actionEvent) {
         LinkedList<String> errors = new LinkedList<>();
         colorNameStr = toRGBCode(color.getValue());
-        PriorityDAO priorityDAO=PriorityDAO.getInstance();
-        List<String> strings = priorityDAO.getAll().stream()
+        CategoryDAO categoryDAO=CategoryDAO.getInstance();
+        List<String> strings = categoryDAO.getAll().stream()
                 .map(object -> Objects.toString(object.toString().toLowerCase(), null))
                 .collect(Collectors.toList());
         if(strings.contains(name.getText().toLowerCase())){
             errors.add(name.getText()+" Already exists. Try to edit it or add another one with different name.");
             name.setStyle("-fx-border-color: red;");
         }else if(name.getText().isEmpty() || name.getText().length() < 3) {
-            errors.add("Priority should contain 2 or more letters");
+            errors.add("Category should contain 2 or more letters");
             name.setStyle("-fx-border-color: red;");
         } else {
             name.setStyle("-fx-border-color: none;");
-            priorityNameStr = name.getText();
+            categoryNameStr = name.getText();
         }
 
         if(colorNameStr.isEmpty() || colorNameStr.equals("#FFFFFF")){
@@ -74,20 +76,21 @@ public class PrioritiesFormController implements Initializable {
                 errorDisplay.getChildren().add(errorLabel);
             }
         }else{
-            Priority priority = new Priority(priorityNameStr,colorNameStr);
-            if(priorityDAO.create(priority)==1){
-                errorDisplay.getChildren().add(new Label(priorityNameStr+" added successfully."));
+            Category category = new Category(categoryNameStr,colorNameStr);
+            if(categoryDAO.create(category)==1){
+                errorDisplay.getChildren().add(new Label(categoryNameStr+" added successfully."));
             }
         }
-
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (updateForm) {
-            title.setText("Edit Priority");
+            CategoriesContoller.categoryTitle.setVisible(false);
+            title.setText("Edit Category");
             submitButton.setText("Submit");
         }
     }
-}
 
+
+}

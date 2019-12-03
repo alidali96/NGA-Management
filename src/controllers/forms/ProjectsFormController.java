@@ -1,4 +1,4 @@
-package Forms;
+package controllers.forms;
 
 import Database.CSP.Category.Category;
 import Database.CSP.Category.CategoryDAO;
@@ -11,7 +11,6 @@ import Database.Project.ProjectDAO;
 import Database.Task.Task;
 import Database.Task.TaskDAO;
 import com.jfoenix.controls.*;
-import controllers.ButtonCell;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -98,7 +97,7 @@ public class ProjectsFormController implements Initializable {
             projectName.setStyle("-fx-border-color: none;");
             projectNameStr = projectName.getText();
         }
-        if (projectDescription.getText().isEmpty() || projectDescription.getText().length() < 20) {
+        if (projectDescription.getText().isEmpty() || projectDescription.getText().length() < 10) {
             errors.add("Project description should contain at least 10 letters");
             projectDescription.setStyle("-fx-border-color: red;");
         } else {
@@ -230,7 +229,7 @@ public class ProjectsFormController implements Initializable {
                 projectDAO.create(project);
 
                 int lastInsertedId = projectDAO.getAll().get(projectDAO.getAll().size() - 1).getId();
-
+                System.out.println("Last inserted id " + lastInsertedId);
                 for (int i = 0; i < tasksList.size(); i++) {
                     Task task = new Task(tasksList.get(i), lastInsertedId, (byte) 1);
                     taskDAO.create(task);

@@ -1,4 +1,4 @@
-package Forms;
+package controllers.forms;
 
 import Database.CSP.Category.Category;
 import Database.Project.Project;

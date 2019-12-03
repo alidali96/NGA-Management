@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import com.jfoenix.controls.JFXTextArea?>
-<AnchorPane prefHeight="400.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.231" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Forms.ProjectsFormController">
+<AnchorPane prefHeight="400.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.231" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.forms.ProjectsFormController">
     <VBox fx:id="projectsFormGrid" xmlns:fx="http://javafx.com/fxml">
         <padding>
             <Insets bottom="25" left="25" right="25" top="25" />

@@ -93,7 +93,7 @@ public class DBLoginController implements Initializable {
                 else
                     clearCredentials();
 
-                Pane pane = FXMLLoader.load(getClass().getResource("/Main/main.fxml"));
+                Pane pane = FXMLLoader.load(getClass().getResource("/views/MainView.fxml"));
                 Scene scene = new Scene(pane);
                 scene.setFill(Color.TRANSPARENT);
                 Stage stage = (Stage) root.getScene().getWindow();

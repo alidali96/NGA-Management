@@ -35,10 +35,11 @@ JFXColorPicker{
     -fx-background-color: transparent;
 }
 
+
+/*     -fx-background-color: #2f3338; */
 .background {
     -fx-background-color: #fefefe;
     -fx-background-radius: 10 0;
-
 }
 .projectsTable .table-row-cell {
     -fx-cell-size: 50px;

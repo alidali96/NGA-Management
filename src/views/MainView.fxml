@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1280.0" styleClass="root" stylesheets="@../stylesheets/style.css" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Controller">
+<Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1280.0" styleClass="root" stylesheets="@../stylesheets/style.css" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
     <padding>
         <Insets bottom="20" left="5" right="5" top="20" />
     </padding>
     <children>
       <VBox prefHeight="720.0" prefWidth="1280.0" styleClass="background">
          <children>
-              <fx:include source="../views/ToolBarView.fxml" />
+              <fx:include source="ToolBarView.fxml" />
 
               <HBox minHeight="700.0" prefWidth="1280.0" styleClass="mainPanel">
                   <VBox spacing="10" styleClass="menuPanel" GridPane.columnIndex="0" GridPane.rowIndex="0">
