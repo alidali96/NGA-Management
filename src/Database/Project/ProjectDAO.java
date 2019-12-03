@@ -305,7 +305,7 @@ public class ProjectDAO implements DAO<Project> {
         return !projects.isEmpty() ? projects.get(projects.size() - 1).getId() : 0;
     }
 
-    public int getProjectsCountByStatus(int statusID) {
+    public int getProjectsCountByStatus(ArrayList<Project> projects, int statusID) {
         int count = 0;
         for(Project project: projects) {
             if (project.getStatus() == statusID) count++;
@@ -313,10 +313,18 @@ public class ProjectDAO implements DAO<Project> {
         return count;
     }
 
-    public int getProjectsCountByCategory(int categoryID) {
+    public int getProjectsCountByCategory(ArrayList<Project> projects, int categoryID) {
         int count = 0;
         for(Project project: projects) {
             if (project.getCategory() == categoryID) count++;
+        }
+        return count;
+    }
+
+    public int getProjectsCountByPriority(ArrayList<Project> projects, int priorityID) {
+        int count = 0;
+        for(Project project: projects) {
+            if (project.getPriority() == priorityID) count++;
         }
         return count;
     }
