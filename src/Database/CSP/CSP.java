@@ -1,5 +1,9 @@
 package Database.CSP;
 
+/**
+ * This is a parent class of (category, status, priority)
+ * @author Ali Dali
+ */
 public abstract class CSP  {
 
     private int id = 0;

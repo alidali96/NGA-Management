@@ -1,5 +1,9 @@
 package Database.Task;
 
+/**
+ * This class represent task record in database
+ * @author Ali Dali
+ */
 public class Task {
 
     private int id;
@@ -9,14 +13,14 @@ public class Task {
 
 
     public Task(String name, int project, byte open) {
-        this.name = name;
+        this.name = name.trim();
         this.project = project;
         this.open = open;
     }
 
     public Task(int id, String name, int project, byte open) {
         this.id = id;
-        this.name = name;
+        this.name = name.trim();
         this.project = project;
         this.open = open;
     }

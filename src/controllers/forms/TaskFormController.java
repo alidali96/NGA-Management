@@ -1,7 +1,6 @@
 package controllers.forms;
 
 import Const.Const;
-import Database.CSP.Category.Category;
 import Database.Project.Project;
 import Database.Project.ProjectDAO;
 import Database.Task.Task;
@@ -26,6 +25,10 @@ import java.util.LinkedList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * * @author Ghaith Darwish
+ * * Creating the TaskFormController that handles the Task form for add  and update
+ */
 public class TaskFormController implements Initializable {
 
     @FXML
@@ -34,7 +37,6 @@ public class TaskFormController implements Initializable {
     private Button submitButton;
     @FXML
     private JFXToggleButton closeTask;
-
     @FXML
     JFXTextField name;
     @FXML
@@ -43,11 +45,9 @@ public class TaskFormController implements Initializable {
     VBox errorDisplay;
     @FXML
     HBox closeHBox;
-
-
     public static Task editingTask;
-
     public static boolean updateForm = false;
+    // setting the Update form to false to get the Add form when clicked on the add button
 
     TaskDAO taskDAO = TaskDAO.getInstance();
     ProjectDAO projectDAO = ProjectDAO.getInstance();
@@ -55,23 +55,24 @@ public class TaskFormController implements Initializable {
     public void processForm(ActionEvent actionEvent) {
         LinkedList<String> errors = new LinkedList<>();
         //if selected project has less than 6 tasks
-        if (taskDAO.getTasksByPojectID(project.getSelectionModel().getSelectedItem().getId()).size() < 6) {
-            if (name.getText().isEmpty() || name.getText().length() < 10) {
-                errors.add("Task name should contain at least 10 letters");
-                name.setStyle("-fx-border-color: red;");
+        if (!updateForm) {
+            if (taskDAO.getTasksByPojectID(project.getSelectionModel().getSelectedItem().getId()).size() < 5) {
+                if (name.getText().isEmpty() || name.getText().length() < 10) {
+                    errors.add("Task name should contain at least 10 letters");
+                    name.setStyle("-fx-border-color: red;");
+                } else {
+                    name.setStyle("-fx-border-color: none;");
+                }
+                if (project.getValue() == null) {
+                    errors.add("Select a Project");
+                    project.setStyle("-fx-border-color: red;");
+                } else {
+                    project.setStyle("-fx-border-color: none;");
+                }
             } else {
-                name.setStyle("-fx-border-color: none;");
-            }
-
-            if (project.getValue() == null) {
-                errors.add("Select a Project");
+                errors.add("Selected project has already the minimum number of tasks");
                 project.setStyle("-fx-border-color: red;");
-            } else {
-                project.setStyle("-fx-border-color: none;");
             }
-        } else {
-            errors.add("Selected project has already the minimum number of tasks");
-            project.setStyle("-fx-border-color: red;");
         }
 
         errorDisplay.getChildren().clear();
@@ -96,10 +97,7 @@ public class TaskFormController implements Initializable {
                 if (taskDAO.create(task) == Const.SUCCESS) {
                     errorDisplay.getChildren().add(new Label("Task Created"));
                 }
-
             }
-
-
         }
     }
 
@@ -108,13 +106,11 @@ public class TaskFormController implements Initializable {
         closeHBox.setStyle("visibility: hidden;");
         project.setItems(FXCollections.observableArrayList((ArrayList<Project>) projectDAO.getAll()));
 
-//
         if (updateForm) {
             title.setText("Editing Task: " + editingTask.getName());
             name.setText(editingTask.getName());
             project.getSelectionModel().select(editingTask.getProject() - 1);
             project.setDisable(true);
-
             submitButton.setText("Update Task");
             closeHBox.setStyle("visibility: visible;");
         }
@@ -129,7 +125,6 @@ public class TaskFormController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
                 title.setText("Task: " + name.getText() + " is Closed!");
-                // database query should go here!
             } else {
                 closeTask.setSelected(false);
             }

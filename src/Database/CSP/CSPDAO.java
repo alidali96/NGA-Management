@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This represent (Category, Status, Priority) Tables in database
+ * @author Ali Dali
+ */
 public class CSPDAO implements DAO<CSP> {
 
     Connection connection;
@@ -29,6 +33,12 @@ public class CSPDAO implements DAO<CSP> {
         updateList();
     }
 
+    /**
+     * get csp by id
+     * @param cspID
+     * @return csp object or null if no csp found with given id
+     * @author Ali Dali
+     */
     @Override
     public Optional<? extends CSP> get(int cspID) {
         CSP csp = null;
@@ -53,9 +63,6 @@ public class CSPDAO implements DAO<CSP> {
                         csp = new Priority(id, name, color);
                         break;
                 }
-                System.out.println(csp.getName() + " Retrieved");
-            } else {
-                System.out.println(cspID + " id was not found");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -74,6 +81,12 @@ public class CSPDAO implements DAO<CSP> {
         return Optional.ofNullable(csp);
     }
 
+    /**
+     * get csp by name
+     * @param CSPName
+     * @return project object or null if no csp found with given name
+     * @author Ali Dali
+     */
     @Override
     public Optional<? extends CSP> get(String CSPName) {
         CSP csp = null;
@@ -98,9 +111,6 @@ public class CSPDAO implements DAO<CSP> {
                         csp = new Priority(id, name, color);
                         break;
                 }
-                System.out.println(csp.getName() + " Retrieved");
-            } else {
-                System.out.println(CSPName + " was not found");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -119,11 +129,20 @@ public class CSPDAO implements DAO<CSP> {
         return Optional.ofNullable(csp);
     }
 
+    /**
+     *
+     * @return all csp
+     */
     @Override
     public List<? extends CSP> getAll() {
         return cspList;
     }
 
+    /**
+     * add csp to database
+     * @param csp
+     * @return an int that will determine if csp was created successfully or failed
+     */
     @Override
     public int create(CSP csp) {
         int result;
@@ -143,7 +162,6 @@ public class CSPDAO implements DAO<CSP> {
                     cspList.add(csp);
                 }
 
-                System.out.println(csp.getName() + " Inserted");
                 result = Const.SUCCESS;
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -161,12 +179,16 @@ public class CSPDAO implements DAO<CSP> {
                 }
             }
         } else {
-            System.out.println(csp.getName() + " already exists");
             result = Const.EXIST;
         }
         return result;
     }
 
+    /**
+     * update csp in database
+     * @param csp
+     * @return an int that will determine if csp was updated successfully or failed
+     */
     @Override
     public int update(CSP csp) {
         int result;
@@ -195,7 +217,6 @@ public class CSPDAO implements DAO<CSP> {
                     break;
                 }
             }
-            System.out.println(csp.getName() + " Updated");
             result = Const.SUCCESS;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -213,7 +234,11 @@ public class CSPDAO implements DAO<CSP> {
         return result;
     }
 
-
+    /**
+     * delete csp from database
+     * @param csp
+     * @return if csp was successfully deleted
+     */
     @Override
     public int delete(CSP csp) {
         int result;
@@ -231,7 +256,6 @@ public class CSPDAO implements DAO<CSP> {
                         break;
                     }
                 }
-                System.out.println(csp.getName() + " Deleted");
                 result = Const.SUCCESS;
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -247,14 +271,13 @@ public class CSPDAO implements DAO<CSP> {
                 }
             }
         } else {
-            System.out.println(csp.getId() + " id is not found (Can't delete)");
             result = Const.NOT_FOUND;
         }
         return result;
     }
 
     /**
-     * Populating CSPes ArrayList from database
+     * Populating CSPes list from database
      */
     @Override
     public void updateList() {
@@ -283,7 +306,6 @@ public class CSPDAO implements DAO<CSP> {
                 }
                 cspList.add(csp);
             }
-            System.out.println(this.getClass().getName()+" List Updated ");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -300,22 +322,26 @@ public class CSPDAO implements DAO<CSP> {
         }
     }
 
+    /**
+     * @return id of last inserted csp
+     * @author Ali Dali
+     */
     @Override
     public int getLastInsertedId() {
         return !cspList.isEmpty() ? cspList.get(cspList.size() - 1).getId() : 0;
     }
 
+    /**
+     *
+     * @param id
+     * @return csp object with matched id
+     * @author Ali Dali
+     */
     public CSP getItemById(int id) {
         for(CSP csp : cspList) {
             if(csp.getId() == id)
                 return csp;
         }
         return null;
-    }
-
-    public void testPrintAll() {
-        for (CSP csp : cspList) {
-            System.out.println(csp);
-        }
     }
 }

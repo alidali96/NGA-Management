@@ -1,7 +1,10 @@
 package Database.Project;
 
 import java.sql.Date;
-
+/**
+ * This class represent project record in database
+ * @author Ali Dali
+ */
 public class Project {
 
     private int id;
@@ -15,8 +18,8 @@ public class Project {
     private byte open;
 
     public Project(String title, String description, int status, int category, int priority, Date startDate, Date dueDate, byte open) {
-        this.title = title;
-        this.description = description;
+        this.title = title.trim();
+        this.description = description.trim();
         this.status = status;
         this.category = category;
         this.priority = priority;
@@ -27,8 +30,8 @@ public class Project {
 
     public Project(int id, String title, String description, int status, int category, int priority, Date startDate, Date dueDate, byte open) {
         this.id = id;
-        this.title = title;
-        this.description = description;
+        this.title = title.trim();
+        this.description = description.trim();
         this.status = status;
         this.category = category;
         this.priority = priority;

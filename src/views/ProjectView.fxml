@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-
-
 <VBox fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
       minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controllers.ProjectController">
@@ -18,7 +14,7 @@
                     <Text fx:id="viewTitle" styleClass="viewTitle" text="Projects"/>
                 </children>
             </HBox>
-            <TableView fx:id="table" prefHeight="600.0" prefWidth="1000" >
+            <TableView styleClass="projectsTable" fx:id="table" prefHeight="600.0" prefWidth="1000" >
                 <columns>
                     <TableColumn fx:id="projectName" text="Project Name"/>
                     <TableColumn fx:id="description" maxWidth="200" text="Description"/>

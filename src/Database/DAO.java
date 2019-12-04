@@ -3,6 +3,11 @@ package Database;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *
+ * @param <T>
+ * @author Ali Dali
+ */
 public interface DAO<T> {
 
     Optional<? extends T> get(int id);
@@ -19,5 +24,4 @@ public interface DAO<T> {
     void updateList();
 
     int getLastInsertedId();
-
 }

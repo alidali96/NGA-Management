@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.*?>
+<Pane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Text layoutX="36.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Credit">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Text>
+        <Text layoutX="36.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ndriçim Strazimiri"/>
+        <Text layoutX="36.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ghaith Darwish"/>
+        <Text layoutX="36.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ali Dali"/>
+        <Text layoutX="36.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Resources">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Text>
+        <Text layoutX="36.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Font"/>
+        <Text layoutX="94.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Font Awesome , Ubuntu"/>
+        <Text layoutX="36.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Library"/>
+        <Text layoutX="94.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jfoenix"/>
+    </children>
+</Pane>

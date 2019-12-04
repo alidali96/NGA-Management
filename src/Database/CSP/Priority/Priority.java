@@ -2,6 +2,10 @@ package Database.CSP.Priority;
 
 import Database.CSP.CSP;
 
+/**
+ * This class represent priority record in database
+ * @author Ali Dali
+ */
 public class Priority extends CSP {
 
     public Priority(String name, String color) {

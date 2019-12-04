@@ -23,6 +23,10 @@ import java.util.ResourceBundle;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
+/**
+ * Database Login
+ * @author Ali Dali
+ */
 public class DBLoginController implements Initializable {
 
     DBLoginModel model = DBLoginModel.getInstance();
@@ -38,10 +42,8 @@ public class DBLoginController implements Initializable {
     @FXML
     JFXCheckBox checkBox;
 
-
     @FXML
     VBox root;
-
 
     private Preferences preferences;
     boolean rememberMe = false;
@@ -96,6 +98,7 @@ public class DBLoginController implements Initializable {
             try {
                 Pane pane = FXMLLoader.load(getClass().getResource("/views/MainView.fxml"));
                 Scene scene = new Scene(pane);
+                scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Ubuntu");
                 scene.setFill(Color.TRANSPARENT);
                 Stage stage = Start.stage;
                 stage.setScene(scene);
@@ -124,7 +127,6 @@ public class DBLoginController implements Initializable {
         preferences.putBoolean("remember", true);
     }
 
-
     private void clearCredentials() {
         try {
             preferences.clear();
@@ -132,9 +134,4 @@ public class DBLoginController implements Initializable {
             e.printStackTrace();
         }
     }
-
-    private void login(String host, String database, String username, String password) {
-
-    }
-
 }
