@@ -357,10 +357,14 @@ public class ProjectDAO implements DAO<Project> {
     }
 
 
-    public ArrayList<Project> getProjectsByDate(List<Project> projects, LocalDate date) {
+    public ArrayList<Project> getProjectsByDate(List<Project> projects, LocalDate fromDate, LocalDate toDate) {
+        if(toDate == null)
+            toDate = LocalDate.now();
+
         ArrayList<Project> list = new ArrayList<>();
         for (Project project : projects) {
-            if (project.getStartDate().getYear() + 1900 >= date.getYear() && project.getStartDate().getMonth() + 1 >= date.getMonth().getValue()) {
+            if (project.getStartDate().getYear() + 1900 >= fromDate.getYear() && project.getStartDate().getMonth() + 1 >= fromDate.getMonth().getValue()
+            && project.getStartDate().getYear() + 1900 <= toDate.getYear() && project.getStartDate().getMonth() + 1 <= toDate.getMonth().getValue()) {
                 list.add(project);
             }
         }
