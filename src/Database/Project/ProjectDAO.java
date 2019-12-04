@@ -1,6 +1,10 @@
 package Database.Project;
 
 import Const.Const;
+import Database.CSP.CSP;
+import Database.CSP.Category.Category;
+import Database.CSP.Priority.Priority;
+import Database.CSP.Status.Status;
 import Database.DAO;
 import Database.DatabaseConnection;
 
@@ -305,25 +309,47 @@ public class ProjectDAO implements DAO<Project> {
         return !projects.isEmpty() ? projects.get(projects.size() - 1).getId() : 0;
     }
 
-    public int getProjectsCountByStatus(int statusID) {
-        int count = 0;
-        for(Project project: projects) {
-            if (project.getStatus() == statusID) count++;
-        }
-        return count;
-    }
+//    public int getProjectsCountByStatus(ArrayList<Project> projects, int statusID) {
+//        int count = 0;
+//        for(Project project: projects) {
+//            if (project.getStatus() == statusID) count++;
+//        }
+//        return count;
+//    }
+//
+//    public int getProjectsCountByCategory(ArrayList<Project> projects, int categoryID) {
+//        int count = 0;
+//        for(Project project: projects) {
+//            if (project.getCategory() == categoryID) count++;
+//        }
+//        return count;
+//    }
+//
+//    public int getProjectsCountByPriority(ArrayList<Project> projects, int priorityID) {
+//        int count = 0;
+//        for(Project project: projects) {
+//            if (project.getPriority() == priorityID) count++;
+//        }
+//        return count;
+//    }
 
-    public int getProjectsCountByCategory(int categoryID) {
+
+    public int getProjectsCountByCSP(ArrayList<Project> projects, CSP csp) {
         int count = 0;
-        for(Project project: projects) {
-            if (project.getCategory() == categoryID) count++;
+        for (Project project : projects) {
+            if (csp instanceof Category)
+                if (project.getCategory() == csp.getId()) count++;
+            if (csp instanceof Status)
+                if (project.getStatus() == csp.getId()) count++;
+            if (csp instanceof Priority)
+                if (project.getPriority() == csp.getId()) count++;
         }
         return count;
     }
 
     public ArrayList<Project> getFilteredProjects(int filter) {
         ArrayList<Project> list = new ArrayList<>();
-        for(Project project: projects) {
+        for (Project project : projects) {
             if (project.getOpen() == filter)
                 list.add(project);
         }

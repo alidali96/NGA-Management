@@ -32,6 +32,7 @@ public class DatabaseConnection {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://" + host + "/" + database, user, password);
 
+
             System.out.println("Database Connected");
 
             createTable(Const.CREATE_TABLE_PROJECT);
@@ -74,7 +75,7 @@ public class DatabaseConnection {
     public void alterTables(String[] sqlQueries) {
         if (connection != null) {
             try {
-                for(String sqlQuery: sqlQueries) {
+                for (String sqlQuery : sqlQueries) {
                     preparedStatement = connection.prepareStatement(sqlQuery);
                     preparedStatement.executeUpdate();
                     System.out.println(sqlQuery);

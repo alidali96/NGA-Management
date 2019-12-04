@@ -15,7 +15,7 @@
         <VBox fx:id="replaceable" alignment="TOP_RIGHT" spacing="5" >
             <HBox fx:id="topBar">
                 <children>
-                    <Text fx:id="viewTitle" styleClass="viewTitle" text="Projects 1"/>
+                    <Text fx:id="viewTitle" styleClass="viewTitle" text="Projects"/>
                 </children>
             </HBox>
             <TableView fx:id="table" prefHeight="600.0" prefWidth="1000" >

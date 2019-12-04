@@ -95,6 +95,9 @@ public class MainController implements Initializable {
             case "prioritiesButton":
                 changeTable("Priority");
                 break;
+            case "statisticButton":
+                changeTable("Statistic");
+                break;
             case "settingsButton":
                 changeTable("Settings");
                 break;
@@ -126,6 +129,5 @@ public class MainController implements Initializable {
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
-
     }
 }
