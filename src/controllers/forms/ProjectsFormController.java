@@ -27,7 +27,10 @@ import java.util.*;
 
 import java.net.URL;
 
-
+/**
+ * * @author Ghaith Darwish
+ * * Creating the ProjectsFormController that handles the Project form for add  and update
+ */
 public class ProjectsFormController implements Initializable {
 
     @FXML
@@ -51,10 +54,10 @@ public class ProjectsFormController implements Initializable {
     private JFXDatePicker startDatePicker;
     @FXML
     private JFXDatePicker dueDatePicker;
-
     @FXML
     private VBox errorDisplay;
-
+    public static boolean updateForm = false;
+    // setting the Update form to false to get the Add form when clicked on the add button
     private String projectNameStr = "";
     private String projectDescriptionStr = "";
     private int categoryStr;
@@ -62,22 +65,17 @@ public class ProjectsFormController implements Initializable {
     private int statusStr;
     private String startDateStr = "";
     private String endDateStr = "";
-
     public static Project editingProject;
-
     @FXML
     private Label projectTitle;
     @FXML
     private Button submitButton;
-
     @FXML
     private ToggleButton closeProject;
 
-    public static boolean updateForm = false;
     CategoryDAO categoryDAO = CategoryDAO.getInstance();
     PriorityDAO priorityDAO = PriorityDAO.getInstance();
     StatusDAO statusDAO = StatusDAO.getInstance();
-
 
     public void addNewTask() {
         newTask(null);
@@ -86,10 +84,7 @@ public class ProjectsFormController implements Initializable {
     LinkedList<String> tasksList = new LinkedList<>();
 
     public void processProjectsForm(ActionEvent actionEvent) {
-
         LinkedList<String> errors = new LinkedList<>();
-
-
         //check each field if the data is entered
         if (projectName.getText().isEmpty() || projectName.getText().length() < 10) {
             errors.add("Project name should contain at least 10 letters");
@@ -136,7 +131,6 @@ public class ProjectsFormController implements Initializable {
             priorityStr = priority.getSelectionModel().getSelectedItem().getId();
         }
 
-
         if (status.getValue() == null) {
             errors.add("Select a Status");
             status.setStyle("-fx-border-color: red;");
@@ -159,7 +153,6 @@ public class ProjectsFormController implements Initializable {
             endDateStr = dueDatePicker.getValue().toString();
         }
 
-
         //cleaning the Error container each click to remove old cache
         errorDisplay.getChildren().clear();
         if (errors.size() > 0) {
@@ -168,13 +161,11 @@ public class ProjectsFormController implements Initializable {
                 errorDisplay.getChildren().add(errorLabel);
             }
         } else {
-
             ProjectDAO projectDAO = ProjectDAO.getInstance();
             TaskDAO taskDAO = TaskDAO.getInstance();
 
             Date startdate = Date.valueOf(startDateStr);
             Date duedate = Date.valueOf(endDateStr);
-
             if (updateForm) {
                 editingProject.setTitle(projectNameStr);
                 editingProject.setDescription(projectDescription.getText());
@@ -190,9 +181,7 @@ public class ProjectsFormController implements Initializable {
                 editingProject.setOpen(open);
                 if (projectDAO.update(editingProject) == Const.SUCCESS) {
                     errorDisplay.getChildren().add(new Label("Project Updated Successfully"));
-
                 }
-
                 //if the number of tasks of the project from database is same as the number of task in the form(the user didn\t delete or add a task)
                 //update all of the DB task with those in form
                 if (tasksList.size() == taskDAO.getTasksByPojectID(editingProject.getId()).size()) {
@@ -226,14 +215,11 @@ public class ProjectsFormController implements Initializable {
                         taskDAO.create(insertTask);
                     }
                 }
-
             } else {
                 Project project = new Project(projectNameStr, projectDescriptionStr, statusStr, categoryStr, priorityStr, startdate, duedate, (byte) 1);
                 if (projectDAO.create(project) == Const.SUCCESS) {
                     errorDisplay.getChildren().add(new Label("Project Created Successfully"));
-
                 }
-
                 int lastInsertedId = projectDAO.getAll().get(projectDAO.getAll().size() - 1).getId();
                 System.out.println("Last inserted id " + lastInsertedId);
                 for (int i = 0; i < tasksList.size(); i++) {
@@ -241,18 +227,12 @@ public class ProjectsFormController implements Initializable {
                     taskDAO.create(task);
                 }
             }
-
-
         }
         category.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
-                    //TODO change me to something please
                 }
         );
-
-
     }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -274,7 +254,6 @@ public class ProjectsFormController implements Initializable {
             dueDatePicker.setValue(editingProject.getDueDate().toLocalDate());
             startDatePicker.setValue(editingProject.getStartDate().toLocalDate());
 
-
             projectTitle.setText("Editing Project: " + editingProject.getTitle());
 
             category.setItems(FXCollections.observableArrayList((ArrayList<Category>) categoryDAO.getAll()));
@@ -283,7 +262,6 @@ public class ProjectsFormController implements Initializable {
 
             submitButton.setText("Update");
             closeProject.setStyle("visibility: visible;");
-
         }
     }
 
@@ -297,8 +275,6 @@ public class ProjectsFormController implements Initializable {
             if (result.get() == ButtonType.OK) {
                 projectTitle.setText("Closed!"); // test
                 // database query should go here!
-
-
             } else {
                 closeProject.setSelected(false);
             }
@@ -309,7 +285,7 @@ public class ProjectsFormController implements Initializable {
      * Method to add new task on the fly
      * The task is added when you click the +
      * Each HBox added, has a - which help to delete that task on the fly
-
+     *
      * @param tasks
      */
     public void newTask(ArrayList<Task> tasks) {
@@ -321,7 +297,6 @@ public class ProjectsFormController implements Initializable {
                 task1.setText(tasks.get(0).getName());
                 loopSize = tasks.size();
             }
-
         }
         for (int i = 1; i < loopSize; i++) {
             vBox = new HBox();
@@ -356,4 +331,3 @@ public class ProjectsFormController implements Initializable {
 
     }
 }
-

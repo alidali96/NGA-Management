@@ -18,6 +18,10 @@ import javafx.scene.layout.HBox;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * @author Ghaith Darwish
+ * Creating the CategoriesContoller that handles all Categories Tables
+ */
 public class StatisticController implements Initializable {
 
     @FXML
@@ -30,8 +34,6 @@ public class StatisticController implements Initializable {
     private DatePicker endDatePicker;
     @FXML
     private HBox datePickerHbox;
-
-
     ProjectDAO projectDAO;
     CSPDAO cspdao;
     ObservableList<PieChart.Data> pieChartData;
@@ -113,22 +115,4 @@ public class StatisticController implements Initializable {
         lineChart.getData().clear();
         lineChart.getData().addAll(openProjectsSeries);
     }
-
-    //   private void testPieChart() {
-//        datePickerHbox.setStyle("visibility: true");
-//
-//        pieChartData = FXCollections.observableArrayList();
-//        statisticList = new HashMap<String, Integer>();
-//
-//        ArrayList<Project> openProjects = projectDAO.getFilteredProjects(Const.OPEN);
-//        ArrayList<Project> openProjectsWithRange = projectDAO.getProjectsByDate(openProjects, startDatePicker.getValue(), endDatePicker.getValue());
-//        for (Project project : openProjectsWithRange) {
-//            int count = projectDAO.getProjectsCountByDate(openProjectsWithRange, project.getStartDate());
-//            statisticList.put(getMonthName(project.getStartDate().getMonth()), count);
-//        }
-//        for (Map.Entry<String, Integer> data : statisticList.entrySet()) {
-//            pieChartData.add(new PieChart.Data(data.getKey(), data.getValue()));
-//        }
-//        piechart.setData(pieChartData);
-//    }
 }

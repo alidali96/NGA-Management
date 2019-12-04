@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import javafx.geometry.Insets?>
@@ -12,13 +11,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
       spacing="10.0" xmlns="http://javafx.com/javafx/8.0.231" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controllers.StatisticController">
     <children>
         <HBox spacing="10.0">
-
             <children>
                 <JFXButton id="statusButton" layoutX="10" layoutY="10" onAction="#statusButtonEvent"
                            styleClass="btnMenu" text="Status">
@@ -45,7 +42,6 @@
                     </cursor>
                 </JFXButton>
             </children>
-
         </HBox>
         <HBox fx:id="datePickerHbox" spacing="50.0" visible="false">
             <HBox spacing="10.0">
