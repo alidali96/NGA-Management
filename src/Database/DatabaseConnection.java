@@ -30,9 +30,12 @@ public class DatabaseConnection {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://" + host + "/" + database, user, password);
-//                connection=DriverManager.getConnection("jdbc:mysql://php.scweb.ca/"+Const.DB_NAME+"?user="+Const.DB_USER+"&password="+Const.DB_PASS);
-//                  connection=DriverManager.getConnection("jdbc:mysql://localhost/NGA_Management?user=root&password=webmaster&useSSL=false");
+                   connection = DriverManager.getConnection("jdbc:mysql://" + host + "/" + database, user, password);
+//                   connection=DriverManager.getConnection("jdbc:mysql://php.scweb.ca/"+Const.DB_NAME+"?user="+Const.DB_USER+"&password="+Const.DB_PASS);
+//                   connection = DriverManager.getConnection("jdbc:mysql://localhost:8889/NGA_PROJECT?user=root&password=root&useSSL=false");
+//                   connection = DriverManager.getConnection("jdbc:mysql://" + host + "/" + database, user, password);
+//                   connection=DriverManager.getConnection("jdbc:mysql://php.scweb.ca/"+Const.DB_NAME+"?user="+Const.DB_USER+"&password="+Const.DB_PASS);
+//                   connection=DriverManager.getConnection("jdbc:mysql://localhost/NGA_Management?user=root&password=webmaster&useSSL=false");
 
             System.out.println("Database Connected");
 
@@ -76,7 +79,7 @@ public class DatabaseConnection {
     public void alterTables(String[] sqlQueries) {
         if (connection != null) {
             try {
-                for(String sqlQuery: sqlQueries) {
+                for (String sqlQuery : sqlQueries) {
                     preparedStatement = connection.prepareStatement(sqlQuery);
                     preparedStatement.executeUpdate();
                     System.out.println(sqlQuery);
