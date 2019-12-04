@@ -4,26 +4,26 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-<VBox fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-      minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controllers.ProjectController">
+
+<VBox fx:id="parent" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProjectController">
+
     <children>
-        <VBox fx:id="replaceable" alignment="TOP_RIGHT" spacing="5" >
+        <VBox fx:id="replaceable" alignment="TOP_RIGHT" spacing="5">
             <HBox fx:id="topBar">
                 <children>
-                    <Text fx:id="viewTitle" styleClass="viewTitle" text="Projects"/>
+                    <Text fx:id="viewTitle" styleClass="viewTitle" text="Projects" />
                 </children>
             </HBox>
-            <TableView styleClass="projectsTable" fx:id="table" prefHeight="600.0" prefWidth="1000" >
+            <TableView fx:id="table" prefHeight="600.0">
                 <columns>
-                    <TableColumn fx:id="projectName" text="Project Name"/>
-                    <TableColumn fx:id="description" maxWidth="200" text="Description"/>
-                    <TableColumn fx:id="category" text="Category"/>
-                    <TableColumn fx:id="status" text="Status"/>
-                    <TableColumn fx:id="priority" text="Priority"/>
-                    <TableColumn fx:id="startDate" text="Start Date"/>
-                    <TableColumn fx:id="dueDate" text="Due Date"/>
-                    <TableColumn fx:id="edit" text="Edit"/>
+                    <TableColumn fx:id="projectName" maxWidth="1000.0" prefWidth="200.0" text="Project Name" />
+                    <TableColumn fx:id="description" maxWidth="1000.0" prefWidth="250.0" text="Description" />
+                    <TableColumn fx:id="category" maxWidth="1000.0" prefWidth="100.0" text="Category" />
+                    <TableColumn fx:id="status" maxWidth="1000.0" prefWidth="100.0" text="Status" />
+                    <TableColumn fx:id="priority" maxWidth="1000.0" prefWidth="100.0" text="Priority" />
+                    <TableColumn fx:id="startDate" maxWidth="1000.0" prefWidth="100.0" text="Start Date" />
+                    <TableColumn fx:id="dueDate" maxWidth="1000.0" prefWidth="100.0" text="Due Date" />
+                    <TableColumn fx:id="edit" maxWidth="1000.0" prefWidth="50.0" text="Edit" />
                 </columns>
             </TableView>
         </VBox>
