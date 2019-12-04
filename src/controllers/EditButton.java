@@ -1,5 +1,8 @@
 package controllers;
 
+import Database.CSP.Category.Category;
+import Database.CSP.Priority.Priority;
+import Database.CSP.Status.Status;
 import Database.Project.Project;
 import Database.Task.Task;
 import com.jfoenix.controls.JFXButton;
@@ -42,12 +45,17 @@ public class EditButton<S, T> extends TableCell<S, T> {
                 TaskFormController.updateForm = true;
                 PrioritiesFormController.updateForm = true;
                 CategoriesFormController.updateForm = true;
-                if(object instanceof Project){
+                if (object instanceof Project) {
                     ProjectsFormController.editingProject = (Project) object;
-                }else  if(object instanceof Task){
+                } else if (object instanceof Task) {
                     TaskFormController.editingTask = (Task) object;
+                } else if (object instanceof Category) {
+                    CategoriesFormController.editingCategory = (Category) object;
+                } else if (object instanceof Database.CSP.Priority.Priority) {
+                    PrioritiesFormController.editingPriority = (Priority) object;
+                } else if (object instanceof Status) {
+                    StatusFormController.editingStatus = (Status) object;
                 }
-
 
 
                 editProject(event);
