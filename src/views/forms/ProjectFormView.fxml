@@ -15,11 +15,9 @@
 <?import javafx.scene.text.Font?>
 
 <?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.ScrollPane?>
 <AnchorPane prefHeight="400.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.231" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.forms.ProjectsFormController">
     <VBox fx:id="projectsFormGrid" xmlns:fx="http://javafx.com/fxml">
-        <padding>
-            <Insets bottom="25" left="25" right="25" top="25" />
-        </padding>
         <HBox>
             <Label fx:id="projectTitle" text="Add new Project">
                 <font>
@@ -71,9 +69,6 @@
             <JFXToggleButton fx:id="closeProject" size="12.0" text="Close Project" toggleColor="#fafafa" toggleLineColor="#d70505" unToggleLineColor="#08f21b" wrapText="true" onAction="#closeTheProject"/>
         </HBox>
         <HBox>
-            <padding>
-                <Insets bottom="0" left="0" right="0" top="0" />
-            </padding>
             <!-- Add Submit Button -->
             <JFXButton fx:id="submitButton" buttonType="FLAT" onAction="#processProjectsForm" prefHeight="40" prefWidth="200" style="-fx-background-color: #0275d8; -fx-text-fill: white;" text="Add Project">
                 <padding>
@@ -85,4 +80,5 @@
         <VBox fx:id="errorDisplay">
         </VBox>
     </VBox>
+
 </AnchorPane>

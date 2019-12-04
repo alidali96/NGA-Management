@@ -55,23 +55,25 @@ public class TaskFormController implements Initializable {
     public void processForm(ActionEvent actionEvent) {
         LinkedList<String> errors = new LinkedList<>();
         //if selected project has less than 6 tasks
-        if (taskDAO.getTasksByPojectID(project.getSelectionModel().getSelectedItem().getId()).size() < 6) {
-            if (name.getText().isEmpty() || name.getText().length() < 10) {
-                errors.add("Task name should contain at least 10 letters");
-                name.setStyle("-fx-border-color: red;");
-            } else {
-                name.setStyle("-fx-border-color: none;");
-            }
+        if (!updateForm) {
+            if (taskDAO.getTasksByPojectID(project.getSelectionModel().getSelectedItem().getId()).size() < 5) {
+                if (name.getText().isEmpty() || name.getText().length() < 10) {
+                    errors.add("Task name should contain at least 10 letters");
+                    name.setStyle("-fx-border-color: red;");
+                } else {
+                    name.setStyle("-fx-border-color: none;");
+                }
 
-            if (project.getValue() == null) {
-                errors.add("Select a Project");
-                project.setStyle("-fx-border-color: red;");
+                if (project.getValue() == null) {
+                    errors.add("Select a Project");
+                    project.setStyle("-fx-border-color: red;");
+                } else {
+                    project.setStyle("-fx-border-color: none;");
+                }
             } else {
-                project.setStyle("-fx-border-color: none;");
+                errors.add("Selected project has already the minimum number of tasks");
+                project.setStyle("-fx-border-color: red;");
             }
-        } else {
-            errors.add("Selected project has already the minimum number of tasks");
-            project.setStyle("-fx-border-color: red;");
         }
 
         errorDisplay.getChildren().clear();

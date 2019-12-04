@@ -29,7 +29,6 @@ public class AddButton extends JFXButton {
         this.type = type;
         this.setText("Add " + type);
         this.getStyleClass().add("addingBtn");
-        this.setStyle("-fx-background-color: #903; -fx-text-fill: white; -fx-alignment: top-right;");
         this.setButtonType(ButtonType.RAISED);
         Text plus = GlyphsDude.createIcon(FontAwesomeIcon.PLUS);
         plus.setFill(Color.WHITE);

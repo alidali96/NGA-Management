@@ -21,7 +21,7 @@
               <HBox minHeight="700.0" prefWidth="1280.0" styleClass="mainPanel">
                   <VBox spacing="10" styleClass="menuPanel" GridPane.columnIndex="0" GridPane.rowIndex="0">
                       <padding>
-                          <Insets bottom="5" left="20" right="20" top="55" />
+                          <Insets bottom="5" left="10" right="10" top="55" />
                       </padding>
                           <children>
                               <JFXButton fx:id="projectsButton" layoutX="15.0" layoutY="94.0" mnemonicParsing="false" onAction="#switchTable" styleClass="btnMenu" text="Projects">

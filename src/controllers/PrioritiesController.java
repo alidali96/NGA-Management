@@ -50,6 +50,7 @@ public class PrioritiesController implements Initializable {
             public void updateItem(Priority priority, boolean empty) {
                 super.updateItem(priority, empty);
                 if (!empty) {
+                    getStyleClass().add("whiteText");
                     setStyle("-fx-background-color: " + priority.getColor());
                     setText(priority.getName());
                 }
