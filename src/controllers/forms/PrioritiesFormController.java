@@ -1,6 +1,7 @@
 package controllers.forms;
 
 
+import Const.Const;
 import Database.CSP.Priority.Priority;
 import Database.CSP.Priority.PriorityDAO;
 import com.jfoenix.controls.JFXColorPicker;
@@ -20,6 +21,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import static Const.Const.toRGBCode;
+import static controllers.forms.CategoriesFormController.HexToColor;
 
 public class PrioritiesFormController implements Initializable {
 
@@ -37,7 +39,7 @@ public class PrioritiesFormController implements Initializable {
     @FXML
     VBox errorDisplay;
     public static boolean updateForm = false;
-
+    public static Priority editingPriority;
     String colorNameStr;
     String priorityNameStr;
 
@@ -49,10 +51,13 @@ public class PrioritiesFormController implements Initializable {
         List<String> strings = priorityDAO.getAll().stream()
                 .map(object -> Objects.toString(object.toString().toLowerCase(), null))
                 .collect(Collectors.toList());
-        if(strings.contains(name.getText().toLowerCase())){
-            errors.add(name.getText()+" Already exists. Try to edit it or add another one with different name.");
-            name.setStyle("-fx-border-color: red;");
-        }else if(name.getText().isEmpty() || name.getText().length() < 3) {
+        if(!updateForm){
+            if(strings.contains(name.getText().toLowerCase())){
+                errors.add(name.getText()+" Already exists. Try to edit it or add another one with different name.");
+                name.setStyle("-fx-border-color: red;");
+            }
+        }
+        if(name.getText().isEmpty() || name.getText().length() < 3) {
             errors.add("Priority should contain 2 or more letters");
             name.setStyle("-fx-border-color: red;");
         } else {
@@ -74,9 +79,17 @@ public class PrioritiesFormController implements Initializable {
                 errorDisplay.getChildren().add(errorLabel);
             }
         }else{
-            Priority priority = new Priority(priorityNameStr,colorNameStr);
-            if(priorityDAO.create(priority)==1){
-                errorDisplay.getChildren().add(new Label(priorityNameStr+" added successfully."));
+            if(updateForm){
+                editingPriority.setName(name.getText());
+                editingPriority.setColor(colorNameStr);
+                if(priorityDAO.update(editingPriority)== Const.SUCCESS){
+                    errorDisplay.getChildren().add(new Label(priorityNameStr + " updated successfully."));
+                }
+            }else {
+                Priority priority = new Priority(priorityNameStr, colorNameStr);
+                if (priorityDAO.create(priority) == Const.SUCCESS) {
+                    errorDisplay.getChildren().add(new Label(priorityNameStr + " added successfully."));
+                }
             }
         }
 
@@ -85,8 +98,17 @@ public class PrioritiesFormController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (updateForm) {
-            title.setText("Edit Priority");
-            submitButton.setText("Submit");
+            title.setText("Editing Priority: "+editingPriority.getName());
+            submitButton.setText("Update");
+            name.setText(editingPriority.getName());
+            java.awt.Color awtColor =HexToColor(editingPriority.getColor());
+            int r = awtColor.getRed();
+            int g = awtColor.getGreen();
+            int b = awtColor.getBlue();
+            int a = awtColor.getAlpha();
+            double opacity = a / 255.0 ;
+            javafx.scene.paint.Color fxColor = javafx.scene.paint.Color.rgb(r, g, b, opacity);
+            color.setValue(fxColor);
         }
     }
 }

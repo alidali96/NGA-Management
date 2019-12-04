@@ -1,5 +1,6 @@
 package controllers.forms;
 
+import Const.Const;
 import Database.CSP.Category.Category;
 import Database.CSP.Category.CategoryDAO;
 import Database.CSP.Priority.Priority;
@@ -167,7 +168,6 @@ public class ProjectsFormController implements Initializable {
                 errorDisplay.getChildren().add(errorLabel);
             }
         } else {
-            errorDisplay.getChildren().add(new Label("ALL SET"));
 
             ProjectDAO projectDAO = ProjectDAO.getInstance();
             TaskDAO taskDAO = TaskDAO.getInstance();
@@ -183,38 +183,41 @@ public class ProjectsFormController implements Initializable {
                 editingProject.setPriority(priorityStr);
                 editingProject.setStartDate(startdate);
                 editingProject.setDueDate(duedate);
-                byte open=1;
-                if(closeProject.isSelected()){
-                    open=0;
+                byte open = 1;
+                if (closeProject.isSelected()) {
+                    open = 0;
                 }
                 editingProject.setOpen(open);
-                projectDAO.update(editingProject);
+                if (projectDAO.update(editingProject) == Const.SUCCESS) {
+                    errorDisplay.getChildren().add(new Label("Project Updated Successfully"));
+
+                }
 
                 //if the number of tasks of the project from database is same as the number of task in the form(the user didn\t delete or add a task)
                 //update all of the DB task with those in form
-                if(tasksList.size()==taskDAO.getTasksByPojectID(editingProject.getId()).size()){
+                if (tasksList.size() == taskDAO.getTasksByPojectID(editingProject.getId()).size()) {
                     for (int i = 0; i < tasksList.size(); i++) {
-                        Task updateTask=new Task(taskDAO.getTasksByPojectID(editingProject.getId()).get(i).getId(),tasksList.get(i),editingProject.getId(),(byte)1);
+                        Task updateTask = new Task(taskDAO.getTasksByPojectID(editingProject.getId()).get(i).getId(), tasksList.get(i), editingProject.getId(), (byte) 1);
                         taskDAO.update(updateTask);
                     }
-                }else if(tasksList.size()<taskDAO.getTasksByPojectID(editingProject.getId()).size()){
+                } else if (tasksList.size() < taskDAO.getTasksByPojectID(editingProject.getId()).size()) {
                     //if the form size is less than db size (user deleted a task from the form)
                     //firstly update those who exists in both places
                     for (int i = 0; i < tasksList.size(); i++) {
-                        Task updateTask=new Task(taskDAO.getTasksByPojectID(editingProject.getId()).get(i).getId(),tasksList.get(i),editingProject.getId(),(byte)1);
+                        Task updateTask = new Task(taskDAO.getTasksByPojectID(editingProject.getId()).get(i).getId(), tasksList.get(i), editingProject.getId(), (byte) 1);
                         taskDAO.update(updateTask);
                     }
                     //then delete the tasks who was deleted from form
                     for (int i = taskDAO.getTasksByPojectID(editingProject.getId()).size(); i > tasksList.size(); i--) {
-                            Optional<Task> deleteTask = (Optional<Task>) taskDAO.get(taskDAO.getTasksByPojectID(editingProject.getId()).get(i-1).getId());
+                        Optional<Task> deleteTask = (Optional<Task>) taskDAO.get(taskDAO.getTasksByPojectID(editingProject.getId()).get(i - 1).getId());
                         if (deleteTask.isPresent())
                             taskDAO.delete(deleteTask.get());
                     }
-                }else if(tasksList.size()>taskDAO.getTasksByPojectID(editingProject.getId()).size()){
+                } else if (tasksList.size() > taskDAO.getTasksByPojectID(editingProject.getId()).size()) {
                     //if form has more tasks than database (user added task while editing project)
                     //firstly update those who are in db with those who are in form
                     for (int i = 0; i < taskDAO.getTasksByPojectID(editingProject.getId()).size(); i++) {
-                        Task updateTask=new Task(taskDAO.getTasksByPojectID(editingProject.getId()).get(i).getId(),tasksList.get(i),editingProject.getId(),(byte)1);
+                        Task updateTask = new Task(taskDAO.getTasksByPojectID(editingProject.getId()).get(i).getId(), tasksList.get(i), editingProject.getId(), (byte) 1);
                         taskDAO.update(updateTask);
                     }
                     //then perform an insert for new tasks
@@ -226,7 +229,10 @@ public class ProjectsFormController implements Initializable {
 
             } else {
                 Project project = new Project(projectNameStr, projectDescriptionStr, statusStr, categoryStr, priorityStr, startdate, duedate, (byte) 1);
-                projectDAO.create(project);
+                if (projectDAO.create(project) == Const.SUCCESS) {
+                    errorDisplay.getChildren().add(new Label("Project Created Successfully"));
+
+                }
 
                 int lastInsertedId = projectDAO.getAll().get(projectDAO.getAll().size() - 1).getId();
                 System.out.println("Last inserted id " + lastInsertedId);
@@ -275,75 +281,79 @@ public class ProjectsFormController implements Initializable {
             priority.setItems(FXCollections.observableArrayList((ArrayList<Priority>) priorityDAO.getAll()));
             status.setItems(FXCollections.observableArrayList((ArrayList<Status>) statusDAO.getAll()));
 
-            if (updateForm) {
-                projectTitle.setText("Edit " + editingProject.getTitle());
-                submitButton.setText("Submit");
-                closeProject.setStyle("visibility: visible;");
+            submitButton.setText("Update");
+            closeProject.setStyle("visibility: visible;");
 
-            }
         }
     }
 
-        public void closeTheProject (ActionEvent actionEvent){
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Warning!");
-            alert.setContentText("Are you sure you want to close the project?");
-            if (closeProject.isSelected()) {
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK) {
-                    projectTitle.setText("Closed!"); // test
-                    // database query should go here!
+    public void closeTheProject(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Warning");
+        alert.setHeaderText("Warning!");
+        alert.setContentText("Are you sure you want to close the project?");
+        if (closeProject.isSelected()) {
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                projectTitle.setText("Closed!"); // test
+                // database query should go here!
 
 
-                } else {
-                    closeProject.setSelected(false);
-                }
-            }
-        }
-
-        public void newTask (ArrayList < Task > tasks) {
-            int loopSize=0;
-            if (tasks == null) {
-                loopSize = 2;
             } else {
-                if(tasks.size()!=0){
-                    task1.setText(tasks.get(0).getName());
-                    loopSize = tasks.size();
-                }
-
+                closeProject.setSelected(false);
             }
-            for (int i = 1; i < loopSize; i++) {
-                vBox = new HBox();
-                JFXTextField newTask = new JFXTextField();
-                if (tasks != null) {
-                    newTask.setText(tasks.get(i).getName());
-                }
-                JFXButton remove = new JFXButton();
-                remove.setText("-");
-                remove.getStyleClass().add("removeTaskBtn");
-                /**
-                 * Remove the task row,when - clicked
-                 */
-                remove.setOnAction(event -> {
-                    HBox thisParent = (HBox) remove.getParent();
-                    TasksHBox.getChildren().remove(thisParent);
-                    HBox parent = (HBox) remove.getParent();
-                    TasksHBox.getChildren().remove(parent);
-                });
-                taskOneLabel.setText("Task #1");
-                Label label = new Label("Task #" + (TasksHBox.getChildren().size() + 1));
-                label.setMinHeight(40);
-                label.setMinWidth(100);
-                newTask.setMinWidth(300);
-                newTask.setMinHeight(40);
+        }
+    }
 
-                vBox.getChildren().addAll(label, newTask, remove);
-                if (TasksHBox.getChildren().size() < 6) {
-                    TasksHBox.getChildren().add(vBox);
-                }
+    /**
+     * Method to add new task on the fly
+     * The task is added when you click the +
+     * Each HBox added, has a - which help to delete that task on the fly
+
+     * @param tasks
+     */
+    public void newTask(ArrayList<Task> tasks) {
+        int loopSize = 0;
+        if (tasks == null) {
+            loopSize = 2;
+        } else {
+            if (tasks.size() != 0) {
+                task1.setText(tasks.get(0).getName());
+                loopSize = tasks.size();
             }
 
         }
+        for (int i = 1; i < loopSize; i++) {
+            vBox = new HBox();
+            JFXTextField newTask = new JFXTextField();
+            if (tasks != null) {
+                newTask.setText(tasks.get(i).getName());
+            }
+            JFXButton remove = new JFXButton();
+            remove.setText("-");
+            remove.getStyleClass().add("removeTaskBtn");
+            /**
+             * Remove the task row,when - clicked
+             */
+            remove.setOnAction(event -> {
+                HBox thisParent = (HBox) remove.getParent();
+                TasksHBox.getChildren().remove(thisParent);
+                HBox parent = (HBox) remove.getParent();
+                TasksHBox.getChildren().remove(parent);
+            });
+            taskOneLabel.setText("Task #1");
+            Label label = new Label("Task #" + (TasksHBox.getChildren().size() + 1));
+            label.setMinHeight(40);
+            label.setMinWidth(100);
+            newTask.setMinWidth(300);
+            newTask.setMinHeight(40);
+
+            vBox.getChildren().addAll(label, newTask, remove);
+            if (TasksHBox.getChildren().size() < 6) {
+                TasksHBox.getChildren().add(vBox);
+            }
+        }
+
     }
+}
 

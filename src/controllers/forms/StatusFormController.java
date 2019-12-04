@@ -1,5 +1,6 @@
 package controllers.forms;
 
+import Const.Const;
 import Database.CSP.Priority.Priority;
 import Database.CSP.Priority.PriorityDAO;
 import Database.CSP.Status.Status;
@@ -22,6 +23,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import static Const.Const.toRGBCode;
+import static controllers.forms.CategoriesFormController.HexToColor;
 
 public class StatusFormController implements Initializable {
 
@@ -40,6 +42,7 @@ public class StatusFormController implements Initializable {
     VBox errorDisplay;
 
     public static boolean updateForm = false;
+    public static Status editingStatus;
 
     String colorNameStr;
     String statusNameStr;
@@ -48,14 +51,17 @@ public class StatusFormController implements Initializable {
     public void processForm(ActionEvent actionEvent) {
         LinkedList<String> errors = new LinkedList<>();
         colorNameStr = toRGBCode(color.getValue());
-        StatusDAO statusDAO=StatusDAO.getInstance();
+        StatusDAO statusDAO = StatusDAO.getInstance();
         List<String> strings = statusDAO.getAll().stream()
                 .map(object -> Objects.toString(object.toString().toLowerCase(), null))
                 .collect(Collectors.toList());
-        if(strings.contains(name.getText().toLowerCase())){
-            errors.add(name.getText()+" Already exists. Try to edit it or add another one with different name.");
-            name.setStyle("-fx-border-color: red;");
-        }else if(name.getText().isEmpty() || name.getText().length() < 3) {
+        if (!updateForm) {
+            if (strings.contains(name.getText().toLowerCase())) {
+                errors.add(name.getText() + " Already exists. Try to edit it or add another one with different name.");
+                name.setStyle("-fx-border-color: red;");
+            }
+        }
+        if (name.getText().isEmpty() || name.getText().length() < 3) {
             errors.add("Status should contain 2 or more letters");
             name.setStyle("-fx-border-color: red;");
         } else {
@@ -63,24 +69,33 @@ public class StatusFormController implements Initializable {
             statusNameStr = name.getText();
         }
 
-        if(colorNameStr.isEmpty() || colorNameStr.equals("#FFFFFF")){
+        if (colorNameStr.isEmpty() || colorNameStr.equals("#FFFFFF")) {
             errors.add("white color is not that nice :)");
             color.setStyle("-fx-border-color: red;");
-        }else{
+        } else {
             color.setStyle("-fx-border-color: none;");
             colorNameStr = toRGBCode(color.getValue());
         }
         errorDisplay.getChildren().clear();
-        if(errors.size()>0){
-            for(int i=0;i<errors.size();i++){
-                Label errorLabel=new Label(errors.get(i));
+        if (errors.size() > 0) {
+            for (int i = 0; i < errors.size(); i++) {
+                Label errorLabel = new Label(errors.get(i));
                 errorDisplay.getChildren().add(errorLabel);
             }
-        }else{
-            Status status = new Status(statusNameStr,colorNameStr);
-            if(statusDAO.create(status)==1){
-                errorDisplay.getChildren().add(new Label(statusNameStr+" added successfully."));
+        } else {
+            if (updateForm) {
+                editingStatus.setName(name.getText());
+                editingStatus.setColor(colorNameStr);
+                if (statusDAO.update(editingStatus) == Const.SUCCESS) {
+                    errorDisplay.getChildren().add(new Label(statusNameStr + " updated successfully."));
+                }
+            } else {
+                Status status = new Status(statusNameStr, colorNameStr);
+                if (statusDAO.create(status) == Const.SUCCESS) {
+                    errorDisplay.getChildren().add(new Label(statusNameStr + " added successfully."));
+                }
             }
+
         }
 
     }
@@ -88,8 +103,17 @@ public class StatusFormController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (updateForm) {
-            title.setText("Edit Status");
-            submitButton.setText("Submit");
+            name.setText(editingStatus.getName());
+            java.awt.Color awtColor = HexToColor(editingStatus.getColor());
+            int r = awtColor.getRed();
+            int g = awtColor.getGreen();
+            int b = awtColor.getBlue();
+            int a = awtColor.getAlpha();
+            double opacity = a / 255.0;
+            javafx.scene.paint.Color fxColor = javafx.scene.paint.Color.rgb(r, g, b, opacity);
+            color.setValue(fxColor);
+            title.setText("Editing Status: " + editingStatus.getName());
+            submitButton.setText("Update");
         }
     }
 }
