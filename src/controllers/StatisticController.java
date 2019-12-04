@@ -24,15 +24,11 @@ public class StatisticController implements Initializable {
     @FXML
     private PieChart piechart;
     ProjectDAO projectDAO;
-    StatusDAO statusDAO;
-    CategoryDAO categoryDAO;
-    PriorityDAO priorityDAO;
 
     CSPDAO cspdao;
 
     ObservableList<PieChart.Data> pieChartData;
     HashMap<String, Integer> statisticList;
-    HashMap<Integer, Integer> dateList;
     ArrayList<Project> openProject;
 
     @FXML
@@ -40,21 +36,7 @@ public class StatisticController implements Initializable {
 
     @FXML
     private void statusButtonEvent(ActionEvent event) {
-//        createPieChart(Const.TABLE_STATUS, "Status");
-
-        int totalProjects = projectDAO.getFilteredProjects(Const.OPEN).size();
-        statisticList = new HashMap<String, Integer>();
-        openProject = projectDAO.getFilteredProjects(Const.OPEN);
-        pieChartData = FXCollections.observableArrayList();
-        for (Project project : projectDAO.getAll()) {
-            statisticList.put(getMonthName(project.getStartDate().getMonth()), projectDAO.getProjectsCountByDate(projectDAO.getAll(), datePicker.getValue()));
-        }
-        for (Map.Entry<String, Integer> data : statisticList.entrySet()) {
-            pieChartData.add(new PieChart.Data(data.getKey(), data.getValue()));
-        }
-        piechart.setTitle("Date Statistic");
-        piechart.setData(pieChartData);
-//        createPieChart(Const.TABLE_STATUS, "Status");
+        createPieChart(Const.TABLE_STATUS, "Status");
     }
 
     private String getMonthName(int month) {

@@ -348,13 +348,23 @@ public class ProjectDAO implements DAO<Project> {
         return count;
     }
 
-
-    public int getProjectsCountByDate(List<Project> projects, LocalDate date) {
+    public int getProjectsCountByDate(ArrayList<Project> projects, Date date) {
         int count = 0;
-        for (Project project : projects) {
-            if (project.getStartDate().getMonth() == date.getMonth().getValue()) count++;
+        for(Project project: projects) {
+            if (project.getStartDate().getMonth() == date.getMonth()) count++;
         }
         return count;
+    }
+
+
+    public ArrayList<Project> getProjectsByDate(List<Project> projects, LocalDate date) {
+        ArrayList<Project> list = new ArrayList<>();
+        for (Project project : projects) {
+            if (project.getStartDate().getYear() + 1900 >= date.getYear() && project.getStartDate().getMonth() + 1 >= date.getMonth().getValue()) {
+                list.add(project);
+            }
+        }
+        return list;
     }
 
 
