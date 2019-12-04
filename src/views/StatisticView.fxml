@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StatisticController">
+    <children>
+        <HBox>
+            <children>
+                <JFXButton id="statusButton" layoutX="10" layoutY="10" onAction="#statusButtonEvent" styleClass="btnMenu" text="Status" />
+                <JFXButton id="categoryButton" layoutX="10" layoutY="40" onAction="#categoriesButtonEvent" styleClass="btnMenu" text="Categories" />
+                <JFXButton id="priorityButton" layoutX="10" layoutY="40" onAction="#priorityButtonEvent" styleClass="btnMenu" text="Priority" />
+                <JFXDatePicker fx:id="datePicker" prefHeight="40" prefWidth="300" />
+            </children>
+        </HBox>
+        <PieChart id="piechart" fx:id="piechart" layoutX="10" layoutY="110" />
+    </children>
+</Pane>

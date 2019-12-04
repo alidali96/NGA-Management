@@ -8,6 +8,7 @@ import Database.CSP.Priority.PriorityDAO;
 import Database.CSP.Status.StatusDAO;
 import Database.Project.Project;
 import Database.Project.ProjectDAO;
+import com.jfoenix.controls.JFXDatePicker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,7 +17,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 
 import java.net.URL;
-import java.sql.Date;
 import java.util.*;
 
 public class StatisticController implements Initializable {
@@ -32,8 +32,11 @@ public class StatisticController implements Initializable {
 
     ObservableList<PieChart.Data> pieChartData;
     HashMap<String, Integer> statisticList;
+    HashMap<Integer, Integer> dateList;
     ArrayList<Project> openProject;
 
+    @FXML
+    JFXDatePicker datePicker;
 
     @FXML
     private void statusButtonEvent(ActionEvent event) {
@@ -44,15 +47,19 @@ public class StatisticController implements Initializable {
         openProject = projectDAO.getFilteredProjects(Const.OPEN);
         pieChartData = FXCollections.observableArrayList();
         for (Project project : projectDAO.getAll()) {
-//            statisticList.put(project.getStartDate().getMonth(), projectDAO.getProjectsCountByDate(projectDAO.getAll(), new Date(Lo).setMonth(2)));
+            statisticList.put(getMonthName(project.getStartDate().getMonth()), projectDAO.getProjectsCountByDate(projectDAO.getAll(), datePicker.getValue()));
         }
         for (Map.Entry<String, Integer> data : statisticList.entrySet()) {
-            double parentage = 100.0 * data.getValue() / totalProjects;
-            pieChartData.add(new PieChart.Data(data.getKey() + " %" + String.format("%.2f", parentage), data.getValue()));
+            pieChartData.add(new PieChart.Data(data.getKey(), data.getValue()));
         }
         piechart.setTitle("Date Statistic");
         piechart.setData(pieChartData);
+//        createPieChart(Const.TABLE_STATUS, "Status");
+    }
 
+    private String getMonthName(int month) {
+        String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        return months[month];
     }
 
     @FXML

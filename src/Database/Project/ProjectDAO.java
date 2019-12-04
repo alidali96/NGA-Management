@@ -9,6 +9,7 @@ import Database.DAO;
 import Database.DatabaseConnection;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -121,7 +122,7 @@ public class ProjectDAO implements DAO<Project> {
     }
 
     @Override
-    public List<? extends Project> getAll() {
+    public List<Project> getAll() {
         return projects;
     }
 
@@ -348,10 +349,10 @@ public class ProjectDAO implements DAO<Project> {
     }
 
 
-    public int getProjectsCountByDate(ArrayList<Project> projects, Date date) {
+    public int getProjectsCountByDate(List<Project> projects, LocalDate date) {
         int count = 0;
         for (Project project : projects) {
-            if (project.getStartDate().getMonth() == date.getMonth()) count++;
+            if (project.getStartDate().getMonth() == date.getMonth().getValue()) count++;
         }
         return count;
     }
