@@ -16,48 +16,55 @@ public class DatabaseConnection {
     public static DatabaseConnection getInstance() {
         if (databaseConnection == null) {
             databaseConnection = new DatabaseConnection();
-            System.out.println("Connection Instance Created");
         }
-        System.out.println("Connection returned");
         return databaseConnection;
     }
 
     private DatabaseConnection() {
-
     }
 
-    public boolean createConnection(String host, String database, String user, String password) {
+    /**
+     * Create Connection to Database
+     *
+     * @param host     of database
+     * @param database name
+     * @param username database username
+     * @param password database password
+     * @return if the connection was successfully created
+     * @author Ali Dali
+     */
+    public boolean createConnection(String host, String database, String username, String password) {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://" + host + "/" + database, user, password);
+            connection = DriverManager.getConnection("jdbc:mysql://" + host + "/" + database, username, password);
 
-
-            System.out.println("Database Connected");
-
+            // Create tables in Database if not exist
             createTable(Const.CREATE_TABLE_PROJECT);
             createTable(Const.CREATE_TABLE_TASKS);
             createTable(Const.CREATE_TABLE_CATEGORY);
             createTable(Const.CREATE_TABLE_STATUS);
             createTable(Const.CREATE_TABLE_PRIORITY);
 
+            // Add foreign keys to tables
             alterTables(Const.ALTER_TABLES_FOREIGN_KEYS);
 
         } catch (Exception e) {
 //            e.printStackTrace();
-            System.out.println(e.getMessage());
             error = e.getMessage();
-            System.out.println("Failed");
         }
         return isConnected();
     }
 
+    /**
+     * @param sqlQuery create table query
+     * @author Ali Dali
+     */
     public void createTable(String sqlQuery) {
         if (connection != null) {
             try {
                 preparedStatement = connection.prepareStatement(sqlQuery);
                 preparedStatement.executeUpdate();
-                System.out.println(sqlQuery);
             } catch (SQLException e) {
                 e.printStackTrace();
                 error = e.getMessage();
@@ -72,13 +79,16 @@ public class DatabaseConnection {
         }
     }
 
+    /**
+     * @param sqlQueries
+     * @author Ali Dali
+     */
     public void alterTables(String[] sqlQueries) {
         if (connection != null) {
             try {
                 for (String sqlQuery : sqlQueries) {
                     preparedStatement = connection.prepareStatement(sqlQuery);
                     preparedStatement.executeUpdate();
-                    System.out.println(sqlQuery);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -102,8 +112,12 @@ public class DatabaseConnection {
         return connection != null;
     }
 
-    public void closeConnection() throws SQLException {
-        connection.close();
+    public void closeConnection() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getError() {

@@ -3,6 +3,10 @@ package Database.CSP.Status;
 import Const.Const;
 import Database.CSP.CSP;
 
+/**
+ * This class represent status record in database
+ * @author Ali Dali
+ */
 public class Status extends CSP {
 
 

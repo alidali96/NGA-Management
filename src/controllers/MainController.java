@@ -1,29 +1,14 @@
 package controllers;
 
 
-import Database.CSP.CSPDAO;
-import Database.CSP.Category.TestCategory;
-import Database.CSP.Priority.TestPriority;
-import Database.CSP.Status.Status;
-import Database.CSP.Status.StatusDAO;
 import Database.DatabaseConnection;
-import Database.CSP.Status.TestStatus;
-import Database.Project.TestProject;
-import Database.Task.TestTask;
 import com.jfoenix.controls.JFXButton;
-import controllers.ToolBarController;
-import de.jensd.fx.glyphs.GlyphIcons;
-import de.jensd.fx.glyphs.GlyphsDude;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -35,7 +20,6 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static de.jensd.fx.glyphs.GlyphsDude.createIcon;
-import static de.jensd.fx.glyphs.GlyphsDude.createIconLabel;
 
 public class MainController implements Initializable {
     @FXML

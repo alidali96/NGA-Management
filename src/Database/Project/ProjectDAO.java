@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This represent Projects Table in database
+ * @author Ali Dali
+ */
 public class ProjectDAO implements DAO<Project> {
 
     Connection connection;
@@ -25,18 +29,21 @@ public class ProjectDAO implements DAO<Project> {
     private static ProjectDAO projectDAO = new ProjectDAO();
 
     public static ProjectDAO getInstance() {
-//        if (projectDAO == null) {
-//            projectDAO = new ProjectDAO();
-//        }
         return projectDAO;
     }
 
     private ProjectDAO() {
         connection = DatabaseConnection.getConnection();
-//        projects = new ArrayList<>();
+        // get all projects from database and store them in 'projects' list
         updateList();
     }
 
+    /**
+     * get project by id
+     * @param projectID
+     * @return project object or null if no project found with given id
+     * @author Ali Dali
+     */
     @Override
     public Optional<? extends Project> get(int projectID) {
         Project project = null;
@@ -58,9 +65,6 @@ public class ProjectDAO implements DAO<Project> {
                 byte open = resultSet.getByte(Const.PROJECT_COLUMN_OPEN);
 
                 project = new Project(id, title, description, status, category, priority, startDate, dueDate, open);
-                System.out.println(project.getTitle() + " Retrieved");
-            } else {
-                System.out.println(projectID + " id was not found");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -79,6 +83,12 @@ public class ProjectDAO implements DAO<Project> {
         return Optional.ofNullable(project);
     }
 
+    /**
+     * get project by title
+     * @param projectTitle
+     * @return project object or null if no project found with given title
+     * @author Ali Dali
+     */
     @Override
     public Optional<? extends Project> get(String projectTitle) {
         Project project = null;
@@ -100,9 +110,6 @@ public class ProjectDAO implements DAO<Project> {
                 byte open = resultSet.getByte(Const.PROJECT_COLUMN_OPEN);
 
                 project = new Project(id, title, description, status, category, priority, startDate, dueDate, open);
-                System.out.println(project.getTitle() + " Retrieved");
-            } else {
-                System.out.println(projectTitle + " was not found");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -121,11 +128,20 @@ public class ProjectDAO implements DAO<Project> {
         return Optional.ofNullable(project);
     }
 
+    /**
+     *
+     * @return all projects
+     */
     @Override
     public List<Project> getAll() {
         return projects;
     }
 
+    /**
+     * add project to database
+     * @param project
+     * @return an int that will determine if project was created successfully or failed
+     */
     @Override
     public int create(Project project) {
         int result;
@@ -140,10 +156,8 @@ public class ProjectDAO implements DAO<Project> {
             preparedStatement.setDate(6, project.getStartDate());
             preparedStatement.setDate(7, project.getDueDate());
             preparedStatement.setByte(8, project.getOpen());
-//            System.out.println(preparedStatement);
 
             preparedStatement.executeUpdate();
-
 
             // Get last inserted ID and set it to the project object to add to the projects list
             resultSet = preparedStatement.getGeneratedKeys();
@@ -152,7 +166,6 @@ public class ProjectDAO implements DAO<Project> {
                 project.setId(id);
                 projects.add(project);
             }
-            System.out.println(project.getTitle() + " Inserted");
             result = Const.SUCCESS;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -172,6 +185,11 @@ public class ProjectDAO implements DAO<Project> {
         return result;
     }
 
+    /**
+     * update project in database
+     * @param project
+     * @return an int that will determine if project was updated successfully or failed
+     */
     @Override
     public int update(Project project) {
         int result;
@@ -224,6 +242,11 @@ public class ProjectDAO implements DAO<Project> {
         return result;
     }
 
+    /**
+     * delete project from database
+     * @param project
+     * @return if project was successfully deleted
+     */
     @Override
     public int delete(Project project) {
         int result;
@@ -241,7 +264,6 @@ public class ProjectDAO implements DAO<Project> {
                         break;
                     }
                 }
-                System.out.println(project.getTitle() + " Deleted");
                 result = Const.SUCCESS;
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -257,12 +279,14 @@ public class ProjectDAO implements DAO<Project> {
                 }
             }
         } else {
-            System.out.println(project.getId() + " id is not found (Can't delete)");
             result = Const.NOT_FOUND;
         }
         return result;
     }
 
+    /**
+     * populate projects list with records from database
+     */
     @Override
     public void updateList() {
         projects = new ArrayList<>();
@@ -288,7 +312,6 @@ public class ProjectDAO implements DAO<Project> {
                 projects.add(project);
             }
 
-            System.out.println("Project List Updated Project");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -305,36 +328,19 @@ public class ProjectDAO implements DAO<Project> {
         }
     }
 
+    /**
+     * @return id of last inserted project
+     * @author Ali Dali
+     */
     @Override
     public int getLastInsertedId() {
         return !projects.isEmpty() ? projects.get(projects.size() - 1).getId() : 0;
     }
 
-//    public int getProjectsCountByStatus(ArrayList<Project> projects, int statusID) {
-//        int count = 0;
-//        for(Project project: projects) {
-//            if (project.getStatus() == statusID) count++;
-//        }
-//        return count;
-//    }
-//
-//    public int getProjectsCountByCategory(ArrayList<Project> projects, int categoryID) {
-//        int count = 0;
-//        for(Project project: projects) {
-//            if (project.getCategory() == categoryID) count++;
-//        }
-//        return count;
-//    }
-//
-//    public int getProjectsCountByPriority(ArrayList<Project> projects, int priorityID) {
-//        int count = 0;
-//        for(Project project: projects) {
-//            if (project.getPriority() == priorityID) count++;
-//        }
-//        return count;
-//    }
-
-
+    /**
+     * @return id of last inserted project
+     * @author Ali Dali
+     */
     public int getProjectsCountByCSP(ArrayList<Project> projects, CSP csp) {
         int count = 0;
         for (Project project : projects) {
@@ -347,7 +353,10 @@ public class ProjectDAO implements DAO<Project> {
         }
         return count;
     }
-
+    /**
+     * @return count of projects started in each month
+     * @author Ali Dali
+     */
     public int getProjectsCountByDate(ArrayList<Project> projects, Date date) {
         int count = 0;
         for(Project project: projects) {
@@ -356,8 +365,13 @@ public class ProjectDAO implements DAO<Project> {
         return count;
     }
 
-
+    /**
+     * @return list of projects with specific date range
+     * @author Ali Dali
+     */
     public ArrayList<Project> getProjectsByDate(List<Project> projects, LocalDate fromDate, LocalDate toDate) {
+        if(fromDate == null)
+            fromDate = LocalDate.MIN;
         if(toDate == null)
             toDate = LocalDate.now();
 
@@ -371,7 +385,12 @@ public class ProjectDAO implements DAO<Project> {
         return list;
     }
 
-
+    /**
+     *
+     * @param filter close or open
+     * @return list of projects (closed / opened)
+     * @author Ali Dali
+     */
     public ArrayList<Project> getFilteredProjects(int filter) {
         ArrayList<Project> list = new ArrayList<>();
         for (Project project : projects) {
@@ -379,11 +398,5 @@ public class ProjectDAO implements DAO<Project> {
                 list.add(project);
         }
         return list;
-    }
-
-    public void testPrintAll() {
-        for (Project project : projects) {
-            System.out.println(project);
-        }
     }
 }
