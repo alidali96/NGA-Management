@@ -1,5 +1,6 @@
 package controllers.forms;
 
+import Const.Const;
 import Database.CSP.Category.Category;
 import Database.CSP.Category.CategoryDAO;
 import Database.Project.Project;
@@ -12,11 +13,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+import java.awt.*;
 import java.net.URL;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static Const.Const.toRGBCode;
@@ -37,6 +39,8 @@ public class CategoriesFormController implements Initializable {
     @FXML
     VBox errorDisplay;
 
+    public static Category editingCategory;
+
 
     String categoryNameStr;
     String colorNameStr;
@@ -51,17 +55,19 @@ public class CategoriesFormController implements Initializable {
         List<String> strings = categoryDAO.getAll().stream()
                 .map(object -> Objects.toString(object.toString().toLowerCase(), null))
                 .collect(Collectors.toList());
-        if(strings.contains(name.getText().toLowerCase())){
-            errors.add(name.getText()+" Already exists. Try to edit it or add another one with different name.");
-            name.setStyle("-fx-border-color: red;");
-        }else if(name.getText().isEmpty() || name.getText().length() < 3) {
+        if(!updateForm){
+            if(strings.contains(name.getText().toLowerCase())){
+                errors.add(name.getText()+" Already exists. Try to edit it or add another one with different name.");
+                name.setStyle("-fx-border-color: red;");
+            }
+        }
+        if(name.getText().isEmpty() || name.getText().length() < 3) {
             errors.add("Category should contain 2 or more letters");
             name.setStyle("-fx-border-color: red;");
         } else {
             name.setStyle("-fx-border-color: none;");
             categoryNameStr = name.getText();
         }
-
         if(colorNameStr.isEmpty() || colorNameStr.equals("#FFFFFF")){
             errors.add("white color is not that nice :)");
             color.setStyle("-fx-border-color: red;");
@@ -76,20 +82,72 @@ public class CategoriesFormController implements Initializable {
                 errorDisplay.getChildren().add(errorLabel);
             }
         }else{
-            Category category = new Category(categoryNameStr,colorNameStr);
-            if(categoryDAO.create(category)==1){
-                errorDisplay.getChildren().add(new Label(categoryNameStr+" added successfully."));
+            if(updateForm){
+                editingCategory.setName(categoryNameStr);
+                editingCategory.setColor(colorNameStr);
+                if(categoryDAO.update(editingCategory)==Const.SUCCESS){
+                    errorDisplay.getChildren().add(new Label(categoryNameStr+" updated successfully."));
+                }
+            }else{
+                Category category = new Category(categoryNameStr,colorNameStr);
+                if(categoryDAO.create(category)==Const.SUCCESS){
+                    errorDisplay.getChildren().add(new Label(categoryNameStr+" added successfully."));
+                }
             }
+
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (updateForm) {
-            title.setText("Edit Category");
-            submitButton.setText("Submit");
+
+            name.setText(editingCategory.getName());
+            java.awt.Color awtColor =HexToColor(editingCategory.getColor());
+            int r = awtColor.getRed();
+            int g = awtColor.getGreen();
+            int b = awtColor.getBlue();
+            int a = awtColor.getAlpha();
+            double opacity = a / 255.0 ;
+            javafx.scene.paint.Color fxColor = javafx.scene.paint.Color.rgb(r, g, b, opacity);
+            color.setValue(fxColor);
+            title.setText("Editing Category: "+editingCategory.getName());
+            submitButton.setText("Update");
         }
     }
 
+    /**
+     * Method to Convert from String to Color
+     * @param hex a string value of the HEX color
+     * @return Color object
+     */
+    public static Color HexToColor(String hex){
+        hex = hex.replace("#", "");
+        switch (hex.length()) {
+            case 6:
+                return new Color(
+                        Integer.valueOf(hex.substring(0, 2), 16),
+                        Integer.valueOf(hex.substring(2, 4), 16),
+                        Integer.valueOf(hex.substring(4, 6), 16));
+            case 8:
+                return new Color(
+                        Integer.valueOf(hex.substring(0, 2), 16),
+                        Integer.valueOf(hex.substring(2, 4), 16),
+                        Integer.valueOf(hex.substring(4, 6), 16),
+                        Integer.valueOf(hex.substring(6, 8), 16));
+        }
+        return null;
+    }
+
+
+
 
 }
+//    /**
+//     * @param colorStr e.g. "#FFFFFF"
+//     * @return
+//     */
+//    public static Color hex2Rgb(String colorStr) {
+//        return new Color(123,234,543);
+////        return new Color(Integer.valueOf( colorStr.substring( 1, 3 ), 16 ),Integer.valueOf( colorStr.substring( 3, 5 ), 16 ), Integer.valueOf( colorStr.substring( 5, 7 ), 16 ) );
+//    }

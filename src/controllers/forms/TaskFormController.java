@@ -1,5 +1,6 @@
 package controllers.forms;
 
+import Const.Const;
 import Database.CSP.Category.Category;
 import Database.Project.Project;
 import Database.Project.ProjectDAO;
@@ -44,23 +45,35 @@ public class TaskFormController implements Initializable {
     HBox closeHBox;
 
 
-
     public static Task editingTask;
 
     public static boolean updateForm = false;
 
-    TaskDAO taskDAO=TaskDAO.getInstance();
-    ProjectDAO projectDAO=ProjectDAO.getInstance();
+    TaskDAO taskDAO = TaskDAO.getInstance();
+    ProjectDAO projectDAO = ProjectDAO.getInstance();
 
     public void processForm(ActionEvent actionEvent) {
         LinkedList<String> errors = new LinkedList<>();
-        if (name.getText().isEmpty() || name.getText().length() < 10) {
-            errors.add("Task name should contain at least 10 letters");
-            name.setStyle("-fx-border-color: red;");
+        //if selected project has less than 6 tasks
+        if (taskDAO.getTasksByPojectID(project.getSelectionModel().getSelectedItem().getId()).size() < 6) {
+            if (name.getText().isEmpty() || name.getText().length() < 10) {
+                errors.add("Task name should contain at least 10 letters");
+                name.setStyle("-fx-border-color: red;");
+            } else {
+                name.setStyle("-fx-border-color: none;");
+            }
+
+            if (project.getValue() == null) {
+                errors.add("Select a Project");
+                project.setStyle("-fx-border-color: red;");
+            } else {
+                project.setStyle("-fx-border-color: none;");
+            }
         } else {
-            name.setStyle("-fx-border-color: none;");
+            errors.add("Selected project has already the minimum number of tasks");
+            project.setStyle("-fx-border-color: red;");
         }
-        System.out.println("proj: "+project.getSelectionModel().getSelectedItem());
+
         errorDisplay.getChildren().clear();
         if (errors.size() > 0) {
             for (int i = 0; i < errors.size(); i++) {
@@ -68,15 +81,25 @@ public class TaskFormController implements Initializable {
                 errorDisplay.getChildren().add(errorLabel);
             }
         } else {
-            errorDisplay.getChildren().add(new Label("ALL SET"));
-            editingTask.setName(name.getText());
-            byte taskOpen=1;
-            if(closeTask.isSelected()){
-                taskOpen=0;
+            if (updateForm) {
+                editingTask.setName(name.getText());
+                byte taskOpen = 1;
+                if (closeTask.isSelected()) {
+                    taskOpen = 0;
+                }
+                editingTask.setOpen(taskOpen);
+                if (taskDAO.update(editingTask) == Const.SUCCESS) {
+                    errorDisplay.getChildren().add(new Label("Task Updated"));
+                }
+            } else {
+                Task task = new Task(name.getText(), project.getSelectionModel().getSelectedItem().getId(), (byte) 1);
+                if (taskDAO.create(task) == Const.SUCCESS) {
+                    errorDisplay.getChildren().add(new Label("Task Created"));
+                }
+
             }
 
-            editingTask.setOpen(taskOpen);
-//            taskDAO.update(editingTask);
+
         }
     }
 
@@ -87,12 +110,13 @@ public class TaskFormController implements Initializable {
 
 //
         if (updateForm) {
-            title.setText("Edit Task");
+            title.setText("Editing Task: " + editingTask.getName());
             name.setText(editingTask.getName());
             project.getSelectionModel().select(editingTask.getProject() - 1);
+            project.setDisable(true);
 
             submitButton.setText("Update Task");
-            closeTask.setStyle("visibility: visible;");
+            closeHBox.setStyle("visibility: visible;");
         }
     }
 
@@ -104,13 +128,13 @@ public class TaskFormController implements Initializable {
         if (closeTask.isSelected()) {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-                title.setText("Task: "+name.getText()+" is Closed!");
+                title.setText("Task: " + name.getText() + " is Closed!");
                 // database query should go here!
             } else {
                 closeTask.setSelected(false);
             }
-        }else{
-            title.setText("Task: "+name.getText());
+        } else {
+            title.setText("Task: " + name.getText());
         }
     }
 }
