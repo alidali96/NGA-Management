@@ -3,18 +3,17 @@ package controllers;
 import Const.Const;
 import Database.CSP.CSP;
 import Database.CSP.CSPDAO;
-import Database.CSP.Category.CategoryDAO;
-import Database.CSP.Priority.PriorityDAO;
-import Database.CSP.Status.StatusDAO;
 import Database.Project.Project;
 import Database.Project.ProjectDAO;
-import com.jfoenix.controls.JFXDatePicker;
+import Database.Project.sort.ProjectSortStartDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.PieChart;
+import javafx.scene.chart.*;
+import javafx.scene.control.DatePicker;
+import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.util.*;
@@ -23,16 +22,27 @@ public class StatisticController implements Initializable {
 
     @FXML
     private PieChart piechart;
+    @FXML
+    private LineChart<String, Number> lineChart;
+    @FXML
+    private DatePicker startDatePicker;
+    @FXML
+    private DatePicker endDatePicker;
+    @FXML
+    private HBox datePickerHbox;
+
+
     ProjectDAO projectDAO;
-
     CSPDAO cspdao;
-
     ObservableList<PieChart.Data> pieChartData;
     HashMap<String, Integer> statisticList;
     ArrayList<Project> openProject;
 
-    @FXML
-    JFXDatePicker datePicker;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        projectDAO = ProjectDAO.getInstance();
+    }
 
     @FXML
     private void statusButtonEvent(ActionEvent event) {
@@ -56,6 +66,7 @@ public class StatisticController implements Initializable {
 
 
     public void createPieChart(String table, String title) {
+        datePickerHbox.setStyle("visibility: false");
         cspdao = new CSPDAO(table);
         int totalProjects = projectDAO.getFilteredProjects(Const.OPEN).size();
         statisticList = new HashMap<String, Integer>();
@@ -70,10 +81,54 @@ public class StatisticController implements Initializable {
         }
         piechart.setTitle(title + " Statistic");
         piechart.setData(pieChartData);
+
+        lineChart.setStyle("visibility: false");
+        piechart.setStyle("visibility: true");
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        projectDAO = ProjectDAO.getInstance();
+    public void dateButtonEvent(ActionEvent event) {
+        createLineChart();
     }
+
+    public void dateChanged(ActionEvent actionEvent) {
+        createLineChart();
+    }
+
+    private void createLineChart() {
+        datePickerHbox.setStyle("visibility: true");
+        lineChart.setStyle("visibility: true");
+        piechart.setStyle("visibility: false");
+        statisticList = new HashMap<String, Integer>();
+        XYChart.Series<String, Number> openProjectsSeries = new XYChart.Series();
+        openProjectsSeries.setName("Open Projects");
+
+        ArrayList<Project> openProjects = projectDAO.getFilteredProjects(Const.OPEN);
+        ArrayList<Project> openProjectsWithRange = projectDAO.getProjectsByDate(openProjects, startDatePicker.getValue(), endDatePicker.getValue());
+        openProjectsWithRange.sort(new ProjectSortStartDate());
+        for (Project project : openProjectsWithRange) {
+            int count = projectDAO.getProjectsCountByDate(openProjectsWithRange, project.getStartDate());
+            openProjectsSeries.getData().add(new XYChart.Data(getMonthName(project.getStartDate().getMonth()), count));
+            statisticList.put(getMonthName(project.getStartDate().getMonth()), count);
+        }
+        lineChart.getData().clear();
+        lineChart.getData().addAll(openProjectsSeries);
+    }
+
+    //   private void testPieChart() {
+//        datePickerHbox.setStyle("visibility: true");
+//
+//        pieChartData = FXCollections.observableArrayList();
+//        statisticList = new HashMap<String, Integer>();
+//
+//        ArrayList<Project> openProjects = projectDAO.getFilteredProjects(Const.OPEN);
+//        ArrayList<Project> openProjectsWithRange = projectDAO.getProjectsByDate(openProjects, startDatePicker.getValue(), endDatePicker.getValue());
+//        for (Project project : openProjectsWithRange) {
+//            int count = projectDAO.getProjectsCountByDate(openProjectsWithRange, project.getStartDate());
+//            statisticList.put(getMonthName(project.getStartDate().getMonth()), count);
+//        }
+//        for (Map.Entry<String, Integer> data : statisticList.entrySet()) {
+//            pieChartData.add(new PieChart.Data(data.getKey(), data.getValue()));
+//        }
+//        piechart.setData(pieChartData);
+//    }
 }
