@@ -13,27 +13,40 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <VBox alignment="TOP_CENTER" prefWidth="1000.0" spacing="25.0" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StatisticController">
     <children>
         <HBox alignment="CENTER" prefWidth="1000.0" spacing="10.0">
 
             <children>
-                <JFXButton id="statusButton" maxWidth="-Infinity" minWidth="-Infinity" onAction="#statusButtonEvent" prefWidth="250.0" style="-fx-text-alignement: center;" styleClass="btnMenu" text="Status">
+                <JFXButton id="categoryButton" maxWidth="-Infinity" minWidth="-Infinity" onAction="#categoriesButtonEvent" prefWidth="250.0" style="-fx-text-alignement: center;" styleClass="btnMenu" text="Categories">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="TH" glyphSize="15" style="-fx-text-fill:white; -fx-fill:white;" />
+                    </graphic>
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </JFXButton>
-                <JFXButton id="categoryButton" maxWidth="-Infinity" minWidth="-Infinity" onAction="#categoriesButtonEvent" prefWidth="250.0" style="-fx-text-alignement: center;" styleClass="btnMenu" text="Categories">
+                <JFXButton id="statusButton" maxWidth="-Infinity" minWidth="-Infinity" onAction="#statusButtonEvent" prefWidth="250.0" style="-fx-text-alignement: center;" styleClass="btnMenu" text="Status">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="CHECK" glyphSize="15" style="-fx-text-fill:white; -fx-fill:white;" />
+                    </graphic>
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </JFXButton>
                 <JFXButton id="priorityButton" maxWidth="-Infinity" minWidth="-Infinity" onAction="#priorityButtonEvent" prefWidth="250.0" style="-fx-text-alignement: center;" styleClass="btnMenu" text="Priority">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="LIST_ALT" glyphSize="15" style="-fx-text-fill:white; -fx-fill:white;" />
+                    </graphic>
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </JFXButton>
                 <JFXButton id="dateButton" maxWidth="-Infinity" minWidth="-Infinity" onAction="#dateButtonEvent" prefWidth="250.0" style="-fx-text-alignement: center;" styleClass="btnMenu" text="Date">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="CALENDAR_PLUS_ALT" glyphSize="15" style="-fx-text-fill:white; -fx-fill:white;" />
+                    </graphic>
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
