@@ -46,6 +46,7 @@ public class StatusContrller implements Initializable {
             public void updateItem(Status status, boolean empty) {
                 super.updateItem(status, empty);
                 if (!empty) {
+                    getStyleClass().add("whiteText");
                     setStyle("-fx-background-color: " + status.getColor());
                     setText(status.getName());
                 }

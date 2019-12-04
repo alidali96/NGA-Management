@@ -82,6 +82,7 @@ public class ProjectController implements Initializable {
             public void updateItem(Project project, boolean empty) {
                 super.updateItem(project, empty);
                 if (!empty) {
+                    getStyleClass().add("whiteText");
                     setStyle("-fx-background-color: " + categoryDAO.getItemById(project.getCategory()).getColor());
                     setText(categoryDAO.getItemById(project.getCategory()).getName());
                 }
@@ -94,6 +95,7 @@ public class ProjectController implements Initializable {
             public void updateItem(Project project, boolean empty) {
                 super.updateItem(project, empty);
                 if (!empty) {
+                    getStyleClass().add("whiteText");
                     setStyle("-fx-background-color: " + statusDAO.getItemById(project.getStatus()).getColor());
                     setText(statusDAO.getItemById(project.getStatus()).getName());
                 }
@@ -106,6 +108,7 @@ public class ProjectController implements Initializable {
             public void updateItem(Project project, boolean empty) {
                 super.updateItem(project, empty);
                 if (!empty) {
+                    getStyleClass().add("whiteText");
                     setStyle("-fx-background-color: " + priorityDAO.getItemById(project.getPriority()).getColor());
                     setText(priorityDAO.getItemById(project.getPriority()).getName());
                 }
