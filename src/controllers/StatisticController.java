@@ -15,6 +15,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
+import javafx.scene.control.DatePicker;
+import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.util.*;
@@ -27,9 +29,14 @@ public class StatisticController implements Initializable {
     private CategoryAxis xAxis;
     @FXML
     private NumberAxis yAxis;
-
     @FXML
     private LineChart<String, Number> lineChart;
+    @FXML
+    private DatePicker startDatePicker;
+    @FXML
+    private DatePicker endDatePicker;
+    @FXML
+    private HBox datePickerHbox;
 
 
     ProjectDAO projectDAO;
@@ -60,6 +67,7 @@ public class StatisticController implements Initializable {
 
 
     public void createPieChart(String table, String title) {
+        datePickerHbox.setStyle("visibility: false");
         cspdao = new CSPDAO(table);
         int totalProjects = projectDAO.getFilteredProjects(Const.OPEN).size();
         statisticList = new HashMap<String, Integer>();
@@ -80,6 +88,8 @@ public class StatisticController implements Initializable {
     }
 
     public void dateButtonEvent(ActionEvent event) {
+        datePickerHbox.setStyle("visibility: true");
+
         xAxis.setLabel("Month");
         yAxis.setLabel("Number");
         XYChart.Series<String, Number> series = new XYChart.Series();
@@ -102,7 +112,6 @@ public class StatisticController implements Initializable {
         lineChart.getData().addAll(series);
         lineChart.setStyle("visibility: true");
         piechart.setStyle("visibility: false");
-
     }
 
     @Override
