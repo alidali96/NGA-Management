@@ -3,12 +3,9 @@ package controllers;
 import Const.Const;
 import Database.CSP.CSP;
 import Database.CSP.CSPDAO;
-import Database.CSP.Category.CategoryDAO;
-import Database.CSP.Priority.PriorityDAO;
-import Database.CSP.Status.StatusDAO;
 import Database.Project.Project;
 import Database.Project.ProjectDAO;
-import com.jfoenix.controls.JFXDatePicker;
+import Database.Project.sort.ProjectSortStartDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,10 +22,6 @@ public class StatisticController implements Initializable {
 
     @FXML
     private PieChart piechart;
-    @FXML
-    private CategoryAxis xAxis;
-    @FXML
-    private NumberAxis yAxis;
     @FXML
     private LineChart<String, Number> lineChart;
     @FXML
@@ -95,30 +88,10 @@ public class StatisticController implements Initializable {
 
     public void dateButtonEvent(ActionEvent event) {
         createLineChart();
-//        testPieChart();
     }
 
     public void dateChanged(ActionEvent actionEvent) {
         createLineChart();
-//        testPieChart();
-    }
-
-    private void testPieChart() {
-        datePickerHbox.setStyle("visibility: true");
-
-        pieChartData = FXCollections.observableArrayList();
-        statisticList = new HashMap<String, Integer>();
-
-        ArrayList<Project> openProjects = projectDAO.getFilteredProjects(Const.OPEN);
-        ArrayList<Project> openProjectsWithRange = projectDAO.getProjectsByDate(openProjects, startDatePicker.getValue(), endDatePicker.getValue())
-        for (Project project : openProjectsWithRange) {
-            int count = projectDAO.getProjectsCountByDate(openProjectsWithRange, project.getStartDate());
-            statisticList.put(getMonthName(project.getStartDate().getMonth()), count);
-        }
-        for (Map.Entry<String, Integer> data : statisticList.entrySet()) {
-            pieChartData.add(new PieChart.Data(data.getKey(), data.getValue()));
-        }
-        piechart.setData(pieChartData);
     }
 
     private void createLineChart() {
@@ -126,21 +99,36 @@ public class StatisticController implements Initializable {
         lineChart.setStyle("visibility: true");
         piechart.setStyle("visibility: false");
         statisticList = new HashMap<String, Integer>();
-
-        xAxis.setLabel("Month");
-        yAxis.setLabel("Projects");
         XYChart.Series<String, Number> openProjectsSeries = new XYChart.Series();
         openProjectsSeries.setName("Open Projects");
 
         ArrayList<Project> openProjects = projectDAO.getFilteredProjects(Const.OPEN);
         ArrayList<Project> openProjectsWithRange = projectDAO.getProjectsByDate(openProjects, startDatePicker.getValue(), endDatePicker.getValue());
+        openProjectsWithRange.sort(new ProjectSortStartDate());
         for (Project project : openProjectsWithRange) {
             int count = projectDAO.getProjectsCountByDate(openProjectsWithRange, project.getStartDate());
             openProjectsSeries.getData().add(new XYChart.Data(getMonthName(project.getStartDate().getMonth()), count));
             statisticList.put(getMonthName(project.getStartDate().getMonth()), count);
         }
-
         lineChart.getData().clear();
         lineChart.getData().addAll(openProjectsSeries);
     }
+
+    //   private void testPieChart() {
+//        datePickerHbox.setStyle("visibility: true");
+//
+//        pieChartData = FXCollections.observableArrayList();
+//        statisticList = new HashMap<String, Integer>();
+//
+//        ArrayList<Project> openProjects = projectDAO.getFilteredProjects(Const.OPEN);
+//        ArrayList<Project> openProjectsWithRange = projectDAO.getProjectsByDate(openProjects, startDatePicker.getValue(), endDatePicker.getValue());
+//        for (Project project : openProjectsWithRange) {
+//            int count = projectDAO.getProjectsCountByDate(openProjectsWithRange, project.getStartDate());
+//            statisticList.put(getMonthName(project.getStartDate().getMonth()), count);
+//        }
+//        for (Map.Entry<String, Integer> data : statisticList.entrySet()) {
+//            pieChartData.add(new PieChart.Data(data.getKey(), data.getValue()));
+//        }
+//        piechart.setData(pieChartData);
+//    }
 }
