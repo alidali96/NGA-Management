@@ -28,7 +28,8 @@ public class AddButton extends JFXButton {
         this.replaceable = replaceable;
         this.type = type;
         this.setText("Add " + type);
-        this.setStyle("-fx-background-color: #903; -fx-text-fill: white;");
+        this.getStyleClass().add("addingBtn");
+        this.setStyle("-fx-background-color: #903; -fx-text-fill: white; -fx-alignment: top-right;");
         this.setButtonType(ButtonType.RAISED);
         Text plus = GlyphsDude.createIcon(FontAwesomeIcon.PLUS);
         plus.setFill(Color.WHITE);
@@ -45,6 +46,7 @@ public class AddButton extends JFXButton {
                 Pane pane = FXMLLoader.load(getClass().getResource("../views/forms/" + type + "FormView.fxml"));
                 replaceable.getChildren().retainAll();
                 replaceable.getChildren().add(pane);
+
             } catch (IOException er) {
                 er.printStackTrace();
             }

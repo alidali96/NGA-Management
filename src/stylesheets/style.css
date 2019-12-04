@@ -7,6 +7,15 @@
     -fx-alignment: center-left;
     -fx-padding:0 0 0 20;
 }
+.addingBtn{
+    -jfx-button-type: FLAT;
+    -fx-background-color: #903;
+    -fx-text-fill: white;
+    -fx-pref-height:32;
+    -fx-alignment: center-center;
+    -fx-text-alignment: center;
+    -fx-padding: 7 12 7 12;
+}
 .menuPanel{
 
 }
@@ -38,7 +47,7 @@ JFXColorPicker{
 
 /*     -fx-background-color: #2f3338; */
 .background {
-    -fx-background-color: #696969;
+    -fx-background-color: #fefefe;
     -fx-background-radius: 10 0;
 }
 .projectsTable .table-row-cell {
@@ -46,6 +55,6 @@ JFXColorPicker{
 }
 .viewTitle{
     -fx-margin-top:60;
-    -fx-font-size: 30;
+    -fx-font-size: 35;
     -fx-fill: #903;
 }

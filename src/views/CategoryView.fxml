@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.text.Text?>
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CategoriesContoller">
+<?import javafx.scene.layout.HBox?>
+<VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CategoriesContoller">
     <children>
-        <Text layoutX="50.0" layoutY="30.0" fx:id="viewTitle" styleClass="viewTitle" text="Categories"/>
-
-        <VBox fx:id="replaceable" alignment="TOP_RIGHT" spacing="5">
-            <JFXButton fx:id="addProjectsBtn" buttonType="RAISED" style="-fx-background-color: #0275d8; -fx-text-fill: white;" text="[+] Add">
-                <padding>
-                    <Insets bottom="5" left="20" right="20" top="5" />
-                </padding>
-            </JFXButton>
-            <TableView fx:id="categoriesTable" prefHeight="500.0" prefWidth="700.0">
+        <VBox fx:id="replaceable" alignment="TOP_RIGHT" spacing="5" >
+            <HBox fx:id="topBar">
+                <children>
+                    <Text fx:id="viewTitle" styleClass="viewTitle" text="Categories" />
+                </children>
+            </HBox>
+            <TableView fx:id="categoriesTable">
                 <columns>
                     <TableColumn fx:id="name" maxWidth="1000.0" minWidth="100.0" prefWidth="200.0" text="Name" />
                     <TableColumn fx:id="edit" maxWidth="1000.0" minWidth="100.0" prefWidth="200.0" text="Edit" />
@@ -26,4 +22,4 @@
             </TableView>
         </VBox>
     </children>
-</Pane>
+</VBox>
