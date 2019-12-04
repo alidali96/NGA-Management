@@ -16,6 +16,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import Database.Project.Project;
@@ -61,8 +63,10 @@ public class ProjectController implements Initializable {
         CategoryDAO categoryDAO = CategoryDAO.getInstance();
         StatusDAO statusDAO = StatusDAO.getInstance();
         PriorityDAO priorityDAO = PriorityDAO.getInstance();
+        Region region1 = new Region();
+        HBox.setHgrow(region1, Priority.ALWAYS);
 
-        topBar.getChildren().add(new AddButton(replaceable, "Project"));
+        topBar.getChildren().addAll(region1,new AddButton(replaceable, "Project"));
 
         projectName.setCellValueFactory(new PropertyValueFactory<>("title"));
         startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));

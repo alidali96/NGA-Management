@@ -8,6 +8,7 @@ import Database.CSP.Priority.PriorityDAO;
 import Database.CSP.Status.StatusDAO;
 import Database.Project.Project;
 import Database.Project.ProjectDAO;
+import com.jfoenix.controls.JFXDatePicker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,8 +23,6 @@ public class StatisticController implements Initializable {
 
     @FXML
     private PieChart piechart;
-
-
     @FXML
     private CategoryAxis xAxis;
     @FXML
@@ -42,7 +41,11 @@ public class StatisticController implements Initializable {
     @FXML
     private void statusButtonEvent(ActionEvent event) {
         createPieChart(Const.TABLE_STATUS, "Status");
+    }
 
+    private String getMonthName(int month) {
+        String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        return months[month];
     }
 
     @FXML

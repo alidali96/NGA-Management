@@ -10,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 
@@ -30,12 +32,17 @@ public class PrioritiesController implements Initializable {
     private VBox replaceable;
     @FXML
     Button addProjectsBtn;
+    @FXML
+    private HBox topBar;
 
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        replaceable.getChildren().set(0, new AddButton(replaceable, "Priority"));
+        Region region1 = new Region();
+        HBox.setHgrow(region1, javafx.scene.layout.Priority.ALWAYS);
+
+        topBar.getChildren().addAll(region1,new AddButton(replaceable, "Priority"));
 
         name.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         name.setCellFactory(param -> new TableCell<Priority, Priority>() {

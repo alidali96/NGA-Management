@@ -10,7 +10,11 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -24,13 +28,19 @@ public class CategoriesContoller implements Initializable {
     private TableColumn<Category, Category> name;
     @FXML
     private TableColumn<Category, Category> edit;
-
     @FXML
     private VBox replaceable;
 
+
+    @FXML
+    private HBox topBar;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        replaceable.getChildren().set(0, new AddButton(replaceable, "Category"));
+        Region region1 = new Region();
+        HBox.setHgrow(region1, Priority.ALWAYS);
+
+        topBar.getChildren().addAll(region1,new AddButton(replaceable, "Category"));
         name.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         name.setCellFactory(param -> new TableCell<Category, Category>() {
             @Override

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
@@ -8,38 +10,34 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.geometry.Insets?>
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0"
-      prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.231" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controllers.StatisticController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="25.0" xmlns="http://javafx.com/javafx/8.0.231" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StatisticController">
     <children>
-        <!--      <Pane>-->
-        <!--         <children>-->
-        <HBox>
+        <HBox spacing="10.0">
 
             <children>
-                <JFXButton id="statusButton" layoutX="10" layoutY="10" onAction="#statusButtonEvent"
-                           styleClass="btnMenu" text="Status"/>
-                <JFXButton id="categoryButton" layoutX="10" layoutY="40" onAction="#categoriesButtonEvent"
-                           styleClass="btnMenu" text="Categories"/>
-                <JFXButton id="priorityButton" layoutX="10" layoutY="40" onAction="#priorityButtonEvent"
-                           styleClass="btnMenu" text="Priority"/>
-                <JFXButton id="dateButton" layoutX="10" layoutY="40" onAction="#dateButtonEvent" styleClass="btnMenu"
-                           text="Date"/>
+                <JFXButton id="statusButton" layoutX="10" layoutY="10" onAction="#statusButtonEvent" styleClass="btnMenu" text="Status" />
+                <JFXButton id="categoryButton" layoutX="10" layoutY="40" onAction="#categoriesButtonEvent" styleClass="btnMenu" text="Categories" />
+                <JFXButton id="priorityButton" layoutX="10" layoutY="40" onAction="#priorityButtonEvent" styleClass="btnMenu" text="Priority" />
+                <JFXButton id="dateButton" layoutX="10" layoutY="40" onAction="#dateButtonEvent" styleClass="btnMenu" text="Date" />
             </children>
 
         </HBox>
         <Pane>
             <children>
-                <PieChart fx:id="piechart" prefWidth="600" prefHeight="600"/>
-                <LineChart fx:id="lineChart" visible="false" prefWidth="600" prefHeight="600">
+                <PieChart fx:id="piechart" prefHeight="600" prefWidth="600.0">
+               <padding>
+                  <Insets bottom="25.0" left="50.0" right="50.0" top="25.0" />
+               </padding></PieChart>
+                <LineChart fx:id="lineChart" prefHeight="600" prefWidth="600" visible="false">
                     <xAxis>
-                        <CategoryAxis fx:id="xAxis"/>
+                        <CategoryAxis fx:id="xAxis" />
                     </xAxis>
                     <yAxis>
-                        <NumberAxis fx:id="yAxis"/>
+                        <NumberAxis fx:id="yAxis" />
                     </yAxis>
+               <padding>
+                  <Insets bottom="25.0" left="50.0" right="50.0" top="25.0" />
+               </padding>
                 </LineChart>
             </children>
         </Pane>
