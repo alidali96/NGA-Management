@@ -319,7 +319,7 @@ public class ProjectsFormController implements Initializable {
             taskOneLabel.setText("Task #1");
             Label label = new Label("Task #" + (TasksHBox.getChildren().size() + 1));
             label.setMinHeight(40);
-            label.setMinWidth(100);
+            label.setMinWidth(150);
             newTask.setMinWidth(300);
             newTask.setMinHeight(40);
 
