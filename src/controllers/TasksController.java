@@ -11,6 +11,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -33,13 +36,20 @@ public class TasksController implements Initializable {
     TableColumn<Task, Task> edit;
 
     @FXML
+    private HBox topBar;
+
+    @FXML
     private VBox replaceable;
 
 
     ProjectDAO projectDAO=ProjectDAO.getInstance();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        replaceable.getChildren().set(0, new AddButton(replaceable, "Task"));
+        Region region1 = new Region();
+        HBox.setHgrow(region1, Priority.ALWAYS);
+
+        topBar.getChildren().addAll(region1,new AddButton(replaceable, "Task"));
+
 
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
 

@@ -86,7 +86,6 @@ public class CategoriesFormController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (updateForm) {
-            CategoriesContoller.categoryTitle.setVisible(false);
             title.setText("Edit Category");
             submitButton.setText("Submit");
         }

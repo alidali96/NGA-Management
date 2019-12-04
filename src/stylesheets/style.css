@@ -7,6 +7,15 @@
     -fx-alignment: center-left;
     -fx-padding:0 0 0 20;
 }
+.addingBtn{
+    -jfx-button-type: FLAT;
+    -fx-background-color: #903;
+    -fx-text-fill: white;
+    -fx-pref-height:32;
+    -fx-alignment: center-center;
+    -fx-text-alignment: center
+    -fx-padding: 5 5 5 5;
+}
 .menuPanel{
 
 }
