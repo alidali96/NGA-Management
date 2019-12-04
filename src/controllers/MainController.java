@@ -71,8 +71,6 @@ public class MainController implements Initializable {
             case "creditButton":
                 changeTable("Credit");
                 break;
-            default:
-                System.out.println("ID not found");
         }
     }
 
