@@ -5,6 +5,7 @@ import Database.CSP.Category.CategoryDAO;
 import Database.Project.Project;
 import com.jfoenix.controls.JFXColorPicker;
 import com.jfoenix.controls.JFXTextField;
+import controllers.CategoriesContoller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.*;
@@ -34,6 +36,7 @@ public class CategoriesFormController implements Initializable {
 
     @FXML
     VBox errorDisplay;
+
 
     String categoryNameStr;
     String colorNameStr;

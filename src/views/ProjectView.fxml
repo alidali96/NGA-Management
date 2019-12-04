@@ -7,33 +7,29 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ProjectController">
+
+<VBox fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+      minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.ProjectController">
     <children>
-        <VBox fx:id="replaceable" alignment="TOP_RIGHT" spacing="5" styleClass="replaceable">
-           <children>
-            <HBox fx:id="topBar" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                    <Text fx:id="viewTitle" styleClass="viewTitle" text="Projects" />
-               </children>
+        <VBox fx:id="replaceable" alignment="TOP_RIGHT" spacing="5" >
+            <HBox fx:id="topBar">
+                <children>
+                    <Text fx:id="viewTitle" styleClass="viewTitle" text="Projects"/>
+                </children>
             </HBox>
-               <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
-                  <children>
-                  <TableView fx:id="table" prefHeight="600.0" prefWidth="900" styleClass="projectsTable">
-                      <columns>
-                          <TableColumn fx:id="projectName" text="Project Name" />
-                          <TableColumn fx:id="description" maxWidth="200" text="Description" />
-                          <TableColumn fx:id="category" text="Category" />
-                          <TableColumn fx:id="status" text="Status" />
-                          <TableColumn fx:id="priority" text="Priority" />
-                          <TableColumn fx:id="startDate" text="Start Date" />
-                          <TableColumn fx:id="dueDate" text="Due Date" />
-                          <TableColumn fx:id="edit" text="Edit" />
-                      </columns>
-                  </TableView>
-                  </children>
-               </Pane>
-           </children>
+            <TableView fx:id="table" prefHeight="600.0" prefWidth="1000" >
+                <columns>
+                    <TableColumn fx:id="projectName" text="Project Name"/>
+                    <TableColumn fx:id="description" maxWidth="200" text="Description"/>
+                    <TableColumn fx:id="category" text="Category"/>
+                    <TableColumn fx:id="status" text="Status"/>
+                    <TableColumn fx:id="priority" text="Priority"/>
+                    <TableColumn fx:id="startDate" text="Start Date"/>
+                    <TableColumn fx:id="dueDate" text="Due Date"/>
+                    <TableColumn fx:id="edit" text="Edit"/>
+                </columns>
+            </TableView>
         </VBox>
     </children>
-
-</Pane>
+</VBox>
