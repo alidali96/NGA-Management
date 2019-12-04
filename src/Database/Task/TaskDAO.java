@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This represent Task Tables in database
+ * @author Ali Dali
+ */
 public class TaskDAO implements DAO<Task> {
 
     Connection connection;
@@ -31,6 +35,12 @@ public class TaskDAO implements DAO<Task> {
         updateList();
     }
 
+    /**
+     * get task by id
+     * @param taskID
+     * @return task object or null if no task found with given id
+     * @author Ali Dali
+     */
     @Override
     public Optional<? extends Task> get(int taskID) {
         Task task = null;
@@ -46,9 +56,6 @@ public class TaskDAO implements DAO<Task> {
                 byte open = resultSet.getByte(Const.TASK_COLUMN_OPEN);
 
                 task = new Task(id, name, project, open);
-                System.out.println(task.getName() + " Retrieved");
-            } else {
-                System.out.println(taskID + " id was not found");
             }
         } catch (
                 SQLException e) {
@@ -68,6 +75,12 @@ public class TaskDAO implements DAO<Task> {
         return Optional.ofNullable(task);
     }
 
+    /**
+     * get task by name
+     * @param taskName
+     * @return task object or null if no task found with given name
+     * @author Ali Dali
+     */
     @Override
     public Optional<? extends Task> get(String taskName) {
         Task task = null;
@@ -84,9 +97,6 @@ public class TaskDAO implements DAO<Task> {
                 byte open = resultSet.getByte(Const.TASK_COLUMN_OPEN);
 
                 task = new Task(id, name, project, open);
-                System.out.println(task.getName() + " Retrieved");
-            } else {
-                System.out.println(taskName + " was not found");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -105,11 +115,19 @@ public class TaskDAO implements DAO<Task> {
         return Optional.ofNullable(task);
     }
 
+    /**
+     * @return all tasks
+     */
     @Override
     public List<? extends Task> getAll() {
         return tasks;
     }
 
+    /**
+     * add task to database
+     * @param task
+     * @return an int that will determine if task was created successfully or failed
+     */
     @Override
     public int create(Task task) {
         int result;
@@ -131,7 +149,6 @@ public class TaskDAO implements DAO<Task> {
                 task.setId(id);
                 tasks.add(task);
             }
-            System.out.println(task.getName() + " Inserted");
             result = Const.SUCCESS;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -151,6 +168,11 @@ public class TaskDAO implements DAO<Task> {
         return result;
     }
 
+    /**
+     * update task in database
+     * @param task
+     * @return an int that will determine if task was updated successfully or failed
+     */
     @Override
     public int update(Task task) {
         int result;
@@ -174,7 +196,6 @@ public class TaskDAO implements DAO<Task> {
                     break;
                 }
             }
-            System.out.println(task.getName() + " Updated");
             result = Const.SUCCESS;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -192,6 +213,11 @@ public class TaskDAO implements DAO<Task> {
         return result;
     }
 
+    /**
+     * delete task from database
+     * @param task
+     * @return if task was successfully deleted
+     */
     @Override
     public int delete(Task task) {
         int result;
@@ -209,7 +235,6 @@ public class TaskDAO implements DAO<Task> {
                         break;
                     }
                 }
-                System.out.println(task.getName() + " Deleted");
                 result = Const.SUCCESS;
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -225,12 +250,14 @@ public class TaskDAO implements DAO<Task> {
                 }
             }
         } else {
-            System.out.println(task.getId() + " id is not found (Can't delete)");
             result = Const.NOT_FOUND;
         }
         return result;
     }
 
+    /**
+     * Populating tasks list from database
+     */
     @Override
     public void updateList() {
         tasks = new ArrayList<>();
@@ -248,8 +275,6 @@ public class TaskDAO implements DAO<Task> {
                 task = new Task(id, name, project, open);
                 tasks.add(task);
             }
-
-            System.out.println("List Updated Task");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -266,12 +291,21 @@ public class TaskDAO implements DAO<Task> {
         }
     }
 
+    /**
+     * @return id of last inserted task
+     * @author Ali Dali
+     */
     @Override
     public int getLastInsertedId() {
         return !tasks.isEmpty() ? tasks.get(tasks.size() - 1).getId() : 0;
     }
 
-
+    /**
+     *
+     * @param projectID
+     * @return list of tasks of a project with the given id
+     * @author Ali Dali
+     */
     public ArrayList<Task> getTasksByPojectID(int projectID) {
         ArrayList<Task> list = new ArrayList<>();
         for(Task task: tasks) {
@@ -279,10 +313,5 @@ public class TaskDAO implements DAO<Task> {
                 list.add(task);
         }
         return list;
-    }
-    public void testPrintAll() {
-        for (Task task : tasks) {
-            System.out.println(task);
-        }
     }
 }

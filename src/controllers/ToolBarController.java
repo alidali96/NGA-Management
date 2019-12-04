@@ -5,7 +5,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-
+/**
+ * App Tool Bar
+ * @author Ali Dali
+ */
 public class ToolBarController {
 
     Stage stage;
