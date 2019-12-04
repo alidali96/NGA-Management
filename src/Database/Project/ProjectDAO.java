@@ -358,6 +358,8 @@ public class ProjectDAO implements DAO<Project> {
 
 
     public ArrayList<Project> getProjectsByDate(List<Project> projects, LocalDate fromDate, LocalDate toDate) {
+        if (fromDate == null)
+            fromDate = LocalDate.MIN;
         if(toDate == null)
             toDate = LocalDate.now();
 
