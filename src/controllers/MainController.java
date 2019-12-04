@@ -110,7 +110,7 @@ public class MainController implements Initializable {
             Stage stage = (Stage) root.getScene().getWindow();
             stage.setScene(scene);
             stage.centerOnScreen();
-        } catch (IOException | SQLException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
