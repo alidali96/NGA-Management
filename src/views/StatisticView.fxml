@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import javafx.geometry.Insets?>
@@ -52,7 +51,6 @@
                     </cursor>
                 </JFXButton>
             </children>
-
         </HBox>
         <HBox fx:id="datePickerHbox" alignment="CENTER" spacing="50.0" visible="false">
             <HBox alignment="CENTER_LEFT" spacing="10.0">

@@ -20,6 +20,10 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
 
+/**
+ * @author Ghaith Darwish
+ * Creating the CategoriesContoller that handles all Categories Tables
+ */
 public class StatusContrller implements Initializable {
 
     @FXML
@@ -38,8 +42,9 @@ public class StatusContrller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         Region region1 = new Region();
         HBox.setHgrow(region1, Priority.ALWAYS);
-        topBar.getChildren().addAll(region1,new AddButton(replaceable, "Status"));
 
+        // Adding the an instance of the AddButton class to get an add button
+        topBar.getChildren().addAll(region1, new AddButton(replaceable, "Status"));
         name.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         name.setCellFactory(param -> new TableCell<Status, Status>() {
             @Override
@@ -53,12 +58,10 @@ public class StatusContrller implements Initializable {
             }
         });
 
+        // Adding an instance of the EditButton on each table row and make it open the Edit project Form
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         edit.setCellFactory(param -> new EditButton(replaceable, "Status"));
-
         StatusDAO statusDAO = StatusDAO.getInstance();
-
         statusTable.setItems(FXCollections.observableArrayList((ArrayList<Status>) statusDAO.getAll()));
-
     }
 }

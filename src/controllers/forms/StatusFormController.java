@@ -1,8 +1,6 @@
 package controllers.forms;
 
 import Const.Const;
-import Database.CSP.Priority.Priority;
-import Database.CSP.Priority.PriorityDAO;
 import Database.CSP.Status.Status;
 import Database.CSP.Status.StatusDAO;
 import com.jfoenix.controls.JFXColorPicker;
@@ -12,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -25,28 +22,27 @@ import java.util.stream.Collectors;
 import static Const.Const.toRGBCode;
 import static controllers.forms.CategoriesFormController.HexToColor;
 
+/**
+ * * @author Ghaith Darwish
+ * * Creating the StatusFormController that handles the Status form for add  and update
+ */
 public class StatusFormController implements Initializable {
 
     @FXML
     Button submitButton;
     @FXML
     Label title;
-
     @FXML
     JFXTextField name;
-
     @FXML
     JFXColorPicker color;
-
     @FXML
     VBox errorDisplay;
-
     public static boolean updateForm = false;
+    // setting the Update form to false to get the Add form when clicked on the add button
     public static Status editingStatus;
-
     String colorNameStr;
     String statusNameStr;
-
 
     public void processForm(ActionEvent actionEvent) {
         LinkedList<String> errors = new LinkedList<>();
@@ -95,9 +91,7 @@ public class StatusFormController implements Initializable {
                     errorDisplay.getChildren().add(new Label(statusNameStr + " added successfully."));
                 }
             }
-
         }
-
     }
 
     @Override

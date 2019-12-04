@@ -33,33 +33,16 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Default Screen
         changeTable("Project");
-        // Create Database Connection
-//        DatabaseConnection.getInstance();
-
-
-        // Test Status Table Class
-//        TestStatus testStatus =  = new CategoryDAO()new TestStatus();
-
-//         Test Category Table Class
-//        TestCategory testCategory = new TestCategory();
-
-//         Test Priority Table Class
-//        TestPriority testPriority = new TestPriority();
-
-        // Test Project Table Class
-//        TestProject testProject = new TestProject();
-
-        // Test Task Table Class
-//        TestTask testTask = new TestTask();
-
-
-//        Label icon=createIconLabel("Project");
-//        projectsButton.setGraphic(GlyphsDude.createIcon(FontAwesomeIcons.BRIEFCASE,"13px"));
-
     }
 
 
+    /**
+     * Call changeTable() and pass view name
+     * @param event
+     * @author Ali Dali
+     */
     public void switchTable(ActionEvent event) {
         Button button = (Button) event.getSource();
 
@@ -93,6 +76,11 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Navigate between different screens
+     * @param view name
+     * @author Ali Dali
+     */
     private void changeTable(String view) {
         try {
             Pane pane = FXMLLoader.load(getClass().getResource("../views/" + view + "View.fxml"));
@@ -103,7 +91,11 @@ public class MainController implements Initializable {
         }
     }
 
-
+    /**
+     * Logout and open Database Login Form
+     * @param actionEvent
+     * @author Ali Dali
+     */
     public void logout(ActionEvent actionEvent) {
         try {
             DatabaseConnection.getInstance().closeConnection();

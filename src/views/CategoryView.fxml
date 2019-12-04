@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
@@ -11,7 +10,7 @@
         <VBox fx:id="replaceable" alignment="TOP_RIGHT" spacing="5">
             <HBox fx:id="topBar">
                 <children>
-                    <Text fx:id="viewTitle" styleClass="viewTitle" text="Categories" />
+                    <Text fx:id="viewTitle" styleClass="viewTitle" text="Categories"/>
                 </children>
             </HBox>
             <TableView fx:id="categoriesTable" prefHeight="600.0">

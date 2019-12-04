@@ -27,11 +27,14 @@ import Database.Project.Project;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * @author Ghaith Darwish
+ * Creating the CategoriesContoller that handles all Categories Tables
+ */
 public class ProjectController implements Initializable {
 
     @FXML
     TableView table;
-
     @FXML
     TableColumn<Project, String> projectName;
     @FXML
@@ -48,15 +51,10 @@ public class ProjectController implements Initializable {
     TableColumn<Project, String> dueDate;
     @FXML
     TableColumn<Project, Project> edit;
-
     @FXML
     private VBox replaceable;
     @FXML
     private HBox topBar;
-
-    @FXML
-    JFXButton addProjectsBtn;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -68,13 +66,14 @@ public class ProjectController implements Initializable {
         Region region1 = new Region();
         HBox.setHgrow(region1, Priority.ALWAYS);
 
-        topBar.getChildren().addAll(region1,new AddButton(replaceable, "Project"));
-
+        // Adding the an instance of the AddButton class to get an add button
+        topBar.getChildren().addAll(region1, new AddButton(replaceable, "Project"));
         projectName.setCellValueFactory(new PropertyValueFactory<>("title"));
         startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
         dueDate.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
         description.setCellValueFactory(new PropertyValueFactory<>("description"));
 
+        // Adding an instance of the EditButton on each table row and make it open the Edit project Form
         edit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         edit.setCellFactory(param -> new EditButton(replaceable, "Project"));
 
