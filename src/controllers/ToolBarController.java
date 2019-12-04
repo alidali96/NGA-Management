@@ -43,6 +43,6 @@ public class ToolBarController {
     public void minimize(MouseEvent mouseEvent) {
         if(stage == null)
             stage = (Stage) root.getScene().getWindow();
-        stage.toBack();
+        stage.setIconified(true);
     }
 }
