@@ -36,4 +36,10 @@ public class ToolBarController {
     public void released(MouseEvent mouseEvent) {
         root.getStyleClass().remove("drag");
     }
+
+    public void minimize(MouseEvent mouseEvent) {
+        if(stage == null)
+            stage = (Stage) root.getScene().getWindow();
+        stage.toBack();
+    }
 }
