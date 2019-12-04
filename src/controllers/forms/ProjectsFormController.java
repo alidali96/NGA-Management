@@ -349,7 +349,7 @@ public class ProjectsFormController implements Initializable {
             newTask.setMinHeight(40);
 
             vBox.getChildren().addAll(label, newTask, remove);
-            if (TasksHBox.getChildren().size() < 6) {
+            if (TasksHBox.getChildren().size() < 5) {
                 TasksHBox.getChildren().add(vBox);
             }
         }
