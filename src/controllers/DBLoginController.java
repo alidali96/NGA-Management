@@ -1,6 +1,7 @@
 package controllers;
 
 import Const.Const;
+import Start.Start;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -85,20 +86,21 @@ public class DBLoginController implements Initializable {
         }
 
         boolean connected = model.establishConnection(host, database, username, password);
+        System.out.println("Credential " + host + database + username);
+        System.out.println(rememberMe);
         if (connected) {
+            if (rememberMe)
+                saveCredentials();
+            else
+                clearCredentials();
             try {
-
-                if (rememberMe)
-                    saveCredentials();
-                else
-                    clearCredentials();
-
                 Pane pane = FXMLLoader.load(getClass().getResource("/views/MainView.fxml"));
                 Scene scene = new Scene(pane);
                 scene.setFill(Color.TRANSPARENT);
-                Stage stage = (Stage) root.getScene().getWindow();
+                Stage stage = Start.stage;
                 stage.setScene(scene);
                 stage.centerOnScreen();
+                System.out.println("Login");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -108,8 +110,7 @@ public class DBLoginController implements Initializable {
             alert.setHeaderText("Failed to connect to Database");
             alert.setContentText(model.errorMessage());
             alert.show();
-        }
-    }
+        }    }
 
     public void rememberMe(ActionEvent actionEvent) {
         rememberMe = !rememberMe;
@@ -130,6 +131,10 @@ public class DBLoginController implements Initializable {
         } catch (BackingStoreException e) {
             e.printStackTrace();
         }
+    }
+
+    private void login(String host, String database, String username, String password) {
+
     }
 
 }

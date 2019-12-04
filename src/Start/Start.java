@@ -10,24 +10,24 @@ import javafx.stage.StageStyle;
 
 public class Start extends Application {
 
-
+    public static Stage stage;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
 //        DatabaseConnection.getInstance();
         //run sucker
+        stage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("/views/DBLoginView.fxml"));
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("NGA Management");
-        primaryStage.centerOnScreen();
+        stage.setScene(scene);
+        stage.setTitle("NGA Management");
+        stage.centerOnScreen();
 //        primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
-        primaryStage.setResizable(false);
-        primaryStage.show();
-
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setResizable(false);
+        stage.show();
     }
 
 
