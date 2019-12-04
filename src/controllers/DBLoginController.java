@@ -88,8 +88,6 @@ public class DBLoginController implements Initializable {
         }
 
         boolean connected = model.establishConnection(host, database, username, password);
-        System.out.println("Credential " + host + database + username);
-        System.out.println(rememberMe);
         if (connected) {
             if (rememberMe)
                 saveCredentials();
@@ -103,7 +101,6 @@ public class DBLoginController implements Initializable {
                 Stage stage = Start.stage;
                 stage.setScene(scene);
                 stage.centerOnScreen();
-                System.out.println("Login");
             } catch (IOException e) {
                 e.printStackTrace();
             }
