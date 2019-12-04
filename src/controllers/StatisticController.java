@@ -45,6 +45,12 @@ public class StatisticController implements Initializable {
     HashMap<String, Integer> statisticList;
     ArrayList<Project> openProject;
 
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        projectDAO = ProjectDAO.getInstance();
+    }
+
     @FXML
     private void statusButtonEvent(ActionEvent event) {
         createPieChart(Const.TABLE_STATUS, "Status");
@@ -88,34 +94,53 @@ public class StatisticController implements Initializable {
     }
 
     public void dateButtonEvent(ActionEvent event) {
-        datePickerHbox.setStyle("visibility: true");
-
-        xAxis.setLabel("Month");
-        yAxis.setLabel("Number");
-        XYChart.Series<String, Number> series = new XYChart.Series();
-        series.setName("My portfolio");
-
-        series.getData().add(new XYChart.Data("Jan", 23));
-        series.getData().add(new XYChart.Data("Feb", 14));
-        series.getData().add(new XYChart.Data("Mar", 15));
-        series.getData().add(new XYChart.Data("Apr", 24));
-        series.getData().add(new XYChart.Data("May", 34));
-        series.getData().add(new XYChart.Data("Jun", 36));
-        series.getData().add(new XYChart.Data("Jul", 22));
-        series.getData().add(new XYChart.Data("Aug", 45));
-        series.getData().add(new XYChart.Data("Sep", 43));
-        series.getData().add(new XYChart.Data("Oct", 17));
-        series.getData().add(new XYChart.Data("Nov", 29));
-        series.getData().add(new XYChart.Data("Dec", 25));
-
-        lineChart.getData().clear();
-        lineChart.getData().addAll(series);
-        lineChart.setStyle("visibility: true");
-        piechart.setStyle("visibility: false");
+        createLineChart();
+//        testPieChart();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        projectDAO = ProjectDAO.getInstance();
+    public void dateChanged(ActionEvent actionEvent) {
+        createLineChart();
+//        testPieChart();
+    }
+
+    private void testPieChart() {
+        datePickerHbox.setStyle("visibility: true");
+
+        pieChartData = FXCollections.observableArrayList();
+        statisticList = new HashMap<String, Integer>();
+
+        ArrayList<Project> openProjects = projectDAO.getFilteredProjects(Const.OPEN);
+        ArrayList<Project> openProjectsWithRange = projectDAO.getProjectsByDate(openProjects, startDatePicker.getValue(), endDatePicker.getValue())
+        for (Project project : openProjectsWithRange) {
+            int count = projectDAO.getProjectsCountByDate(openProjectsWithRange, project.getStartDate());
+            statisticList.put(getMonthName(project.getStartDate().getMonth()), count);
+        }
+        for (Map.Entry<String, Integer> data : statisticList.entrySet()) {
+            pieChartData.add(new PieChart.Data(data.getKey(), data.getValue()));
+        }
+        piechart.setData(pieChartData);
+    }
+
+    private void createLineChart() {
+        datePickerHbox.setStyle("visibility: true");
+        lineChart.setStyle("visibility: true");
+        piechart.setStyle("visibility: false");
+        statisticList = new HashMap<String, Integer>();
+
+        xAxis.setLabel("Month");
+        yAxis.setLabel("Projects");
+        XYChart.Series<String, Number> openProjectsSeries = new XYChart.Series();
+        openProjectsSeries.setName("Open Projects");
+
+        ArrayList<Project> openProjects = projectDAO.getFilteredProjects(Const.OPEN);
+        ArrayList<Project> openProjectsWithRange = projectDAO.getProjectsByDate(openProjects, startDatePicker.getValue(), endDatePicker.getValue());
+        for (Project project : openProjectsWithRange) {
+            int count = projectDAO.getProjectsCountByDate(openProjectsWithRange, project.getStartDate());
+            openProjectsSeries.getData().add(new XYChart.Data(getMonthName(project.getStartDate().getMonth()), count));
+            statisticList.put(getMonthName(project.getStartDate().getMonth()), count);
+        }
+
+        lineChart.getData().clear();
+        lineChart.getData().addAll(openProjectsSeries);
     }
 }
