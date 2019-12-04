@@ -101,6 +101,9 @@ public class MainController implements Initializable {
             case "settingsButton":
                 changeTable("Settings");
                 break;
+            case "creditButton":
+                changeTable("Credit");
+                break;
             default:
                 System.out.println("ID not found");
         }
@@ -130,4 +133,6 @@ public class MainController implements Initializable {
             e.printStackTrace();
         }
     }
+
+
 }
