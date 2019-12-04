@@ -347,6 +347,16 @@ public class ProjectDAO implements DAO<Project> {
         return count;
     }
 
+
+    public int getProjectsCountByDate(ArrayList<Project> projects, Date date) {
+        int count = 0;
+        for (Project project : projects) {
+            if (project.getStartDate().getMonth() == date.getMonth()) count++;
+        }
+        return count;
+    }
+
+
     public ArrayList<Project> getFilteredProjects(int filter) {
         ArrayList<Project> list = new ArrayList<>();
         for (Project project : projects) {
