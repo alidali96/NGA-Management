@@ -16,19 +16,33 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
+/**
+ * @param <S>
+ * @param <T>
+ * @author Ghaith Darwish
+ * This class create the edit button on each row and add an event listner that will be used to open the edit form
+ */
 public class EditButton<S, T> extends TableCell<S, T> {
-
 
     JFXButton btn;
     Pane replaceable;
     String form;
 
+    /**
+     * @param replaceable
+     * @param form
+     */
     public EditButton(Pane replaceable, String form) {
         this.replaceable = replaceable;
         this.form = form;
         btn = new JFXButton();
     }
 
+    /**
+     * @param object
+     * @param empty
+     * This function Create the Edit-Icon-Button and opens the edit record form when clicked
+     */
     @Override
     public void updateItem(T object, boolean empty) {
         super.updateItem(object, empty);
@@ -37,9 +51,9 @@ public class EditButton<S, T> extends TableCell<S, T> {
             setText(null);
         } else {
             btn.setGraphic(GlyphsDude.createIcon(FontAwesomeIcon.PENCIL));
-
             btn.setButtonType(JFXButton.ButtonType.RAISED);
             btn.setOnAction(event -> {
+                // Setting the updateForm to true on all tables when the Edit-Icon is clicked
                 ProjectsFormController.updateForm = true;
                 StatusFormController.updateForm = true;
                 TaskFormController.updateForm = true;
@@ -56,8 +70,7 @@ public class EditButton<S, T> extends TableCell<S, T> {
                 } else if (object instanceof Status) {
                     StatusFormController.editingStatus = (Status) object;
                 }
-
-
+                // Calling the function that opens the update foem
                 editProject(event);
             });
             setGraphic(btn);
@@ -65,6 +78,10 @@ public class EditButton<S, T> extends TableCell<S, T> {
         }
     }
 
+    /**
+     * @param actionEvent
+     * This function opens the update form
+     */
     public void editProject(ActionEvent actionEvent) {
         try {
             Pane pane = FXMLLoader.load(getClass().getResource("../views/forms/" + form + "FormView.fxml"));
@@ -74,5 +91,4 @@ public class EditButton<S, T> extends TableCell<S, T> {
             e.printStackTrace();
         }
     }
-
 }
