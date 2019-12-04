@@ -2,22 +2,22 @@
 
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.VBox?>
-
-<?import javafx.scene.text.Text?>
 <?import javafx.scene.layout.HBox?>
-<VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CategoriesContoller">
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox fx:id="root" prefWidth="1000.0" styleClass="table-view" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CategoriesContoller">
     <children>
-        <VBox fx:id="replaceable" alignment="TOP_RIGHT" spacing="5" >
+        <VBox fx:id="replaceable" alignment="TOP_RIGHT" spacing="5">
             <HBox fx:id="topBar">
                 <children>
                     <Text fx:id="viewTitle" styleClass="viewTitle" text="Categories" />
                 </children>
             </HBox>
-            <TableView fx:id="categoriesTable">
+            <TableView fx:id="categoriesTable" prefHeight="600.0">
                 <columns>
-                    <TableColumn fx:id="name" maxWidth="1000.0" minWidth="100.0" prefWidth="200.0" text="Name" />
-                    <TableColumn fx:id="edit" maxWidth="1000.0" minWidth="100.0" prefWidth="200.0" text="Edit" />
+                    <TableColumn fx:id="name" maxWidth="1000.0" minWidth="100.0" prefWidth="500.0" text="Name" />
+                    <TableColumn fx:id="edit" maxWidth="1000.0" minWidth="100.0" prefWidth="500.0" text="Edit" />
                 </columns>
             </TableView>
         </VBox>

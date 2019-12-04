@@ -44,17 +44,18 @@ JFXColorPicker{
 .root {
     -fx-background-color: transparent;
 }
-.projectsTable .table-cell{
+.table-view .table-cell{
     -fx-padding:10px 5px 10px 5px;
+    -fx-alignment: center;
 }
-.projectsTable .column-header,.projectsTable .column-header-background{
+.table-view .column-header,.table-view .column-header-background{
     -fx-background-color:#eb6151;
 }
-.projectsTable .column-header-background .label{
+.table-view .column-header-background .label{
     -fx-padding:10px 5px 10px 5px;
     -fx-text-fill:#fff;
     -fx-font-family: 'Ubuntu', sans-serif;
-    -fx-font-size:18;
+    -fx-font-size:16;
     -fx-text-transform:uppercase;
 }
 .table-row-cell:odd{
@@ -67,7 +68,7 @@ JFXColorPicker{
     -fx-background-color: #fefefe;
     -fx-background-radius: 10 0;
 }
-.projectsTable .table-row-cell {
+.table-view .table-row-cell {
     -fx-cell-size: 50px;
 }
 .viewTitle{

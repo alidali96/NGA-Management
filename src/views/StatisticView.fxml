@@ -13,69 +13,60 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      spacing="10.0" xmlns="http://javafx.com/javafx/8.0.231" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controllers.StatisticController">
+<VBox alignment="TOP_CENTER" prefWidth="1000.0" spacing="25.0" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StatisticController">
     <children>
-        <HBox spacing="10.0">
+        <HBox alignment="CENTER" prefWidth="1000.0" spacing="10.0">
 
             <children>
-                <JFXButton id="statusButton" layoutX="10" layoutY="10" onAction="#statusButtonEvent"
-                           styleClass="btnMenu" text="Status">
+                <JFXButton id="statusButton" maxWidth="-Infinity" minWidth="-Infinity" onAction="#statusButtonEvent" prefWidth="250.0" style="-fx-text-alignement: center;" styleClass="btnMenu" text="Status">
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                 </JFXButton>
-                <JFXButton id="categoryButton" layoutX="10" layoutY="40" onAction="#categoriesButtonEvent"
-                           styleClass="btnMenu" text="Categories">
+                <JFXButton id="categoryButton" maxWidth="-Infinity" minWidth="-Infinity" onAction="#categoriesButtonEvent" prefWidth="250.0" style="-fx-text-alignement: center;" styleClass="btnMenu" text="Categories">
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                 </JFXButton>
-                <JFXButton id="priorityButton" layoutX="10" layoutY="40" onAction="#priorityButtonEvent"
-                           styleClass="btnMenu" text="Priority">
+                <JFXButton id="priorityButton" maxWidth="-Infinity" minWidth="-Infinity" onAction="#priorityButtonEvent" prefWidth="250.0" style="-fx-text-alignement: center;" styleClass="btnMenu" text="Priority">
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                 </JFXButton>
-                <JFXButton id="dateButton" layoutX="10" layoutY="40" onAction="#dateButtonEvent" styleClass="btnMenu"
-                           text="Date">
+                <JFXButton id="dateButton" maxWidth="-Infinity" minWidth="-Infinity" onAction="#dateButtonEvent" prefWidth="250.0" style="-fx-text-alignement: center;" styleClass="btnMenu" text="Date">
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                 </JFXButton>
             </children>
 
         </HBox>
-        <HBox fx:id="datePickerHbox" spacing="50.0" visible="false">
-            <HBox spacing="10.0">
-                <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                       text="Start Date"/>
-                <JFXDatePicker fx:id="startDatePicker" onAction="#dateChanged" prefHeight="0.0" prefWidth="300"
-                               promptText="2019-01-01"/>
+        <HBox fx:id="datePickerHbox" alignment="CENTER" spacing="50.0" visible="false">
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Start Date" />
+                <JFXDatePicker fx:id="startDatePicker" onAction="#dateChanged" prefHeight="0.0" prefWidth="300" promptText="2019-01-01" />
             </HBox>
-            <HBox spacing="10.0">
-                <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                       text="End Date"/>
-                <JFXDatePicker fx:id="endDatePicker" onAction="#dateChanged" prefHeight="0.0" prefWidth="300"/>
+            <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="End Date" />
+                <JFXDatePicker fx:id="endDatePicker" onAction="#dateChanged" prefHeight="0.0" prefWidth="300" />
             </HBox>
         </HBox>
         <Pane>
             <children>
-                <PieChart fx:id="piechart" prefHeight="500.0" prefWidth="800.0">
+                <PieChart fx:id="piechart" prefHeight="500.0" prefWidth="1000.0">
                     <padding>
-                        <Insets bottom="25.0" left="50.0" right="50.0" top="25.0"/>
+                        <Insets bottom="25.0" left="50.0" right="50.0" top="25.0" />
                     </padding>
                 </PieChart>
-                <LineChart fx:id="lineChart" prefHeight="500.0" prefWidth="800.0" visible="false">
+                <LineChart fx:id="lineChart" prefHeight="500.0" prefWidth="1000.0" visible="false">
                     <xAxis>
-                        <CategoryAxis fx:id="xAxis"/>
+                        <CategoryAxis fx:id="xAxis" />
                     </xAxis>
                     <yAxis>
-                        <NumberAxis fx:id="yAxis"/>
+                        <NumberAxis fx:id="yAxis" />
                     </yAxis>
                     <padding>
-                        <Insets bottom="25.0" left="50.0" right="50.0" top="25.0"/>
+                        <Insets bottom="25.0" left="50.0" right="50.0" top="25.0" />
                     </padding>
                 </LineChart>
             </children>
