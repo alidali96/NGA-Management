@@ -20,6 +20,7 @@ public class Start extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/views/DBLoginView.fxml"));
 
         Scene scene = new Scene(root);
+        scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Ubuntu");
         scene.setFill(Color.TRANSPARENT);
         stage.setScene(scene);
         stage.setTitle("NGA Management");

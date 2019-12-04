@@ -122,6 +122,7 @@ public class MainController implements Initializable {
             DatabaseConnection.getInstance().closeConnection();
             Pane pane = FXMLLoader.load(getClass().getResource("../views/DBLoginView.fxml"));
             Scene scene = new Scene(pane);
+            scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Ubuntu");
             scene.setFill(Color.TRANSPARENT);
             Stage stage = (Stage) root.getScene().getWindow();
             stage.setScene(scene);

@@ -47,6 +47,7 @@ public class CategoriesContoller implements Initializable {
             public void updateItem(Category category, boolean empty) {
                 super.updateItem(category, empty);
                 if (!empty) {
+                    getStyleClass().add("whiteText");
                     setStyle("-fx-background-color: " + category.getColor());
                     setText(category.getName());
                 }
