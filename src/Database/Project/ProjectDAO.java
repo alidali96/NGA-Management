@@ -8,6 +8,7 @@ import Database.CSP.Status.Status;
 import Database.DAO;
 import Database.DatabaseConnection;
 
+import javax.xml.crypto.Data;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -206,8 +207,6 @@ public class ProjectDAO implements DAO<Project> {
             preparedStatement.setByte(8, project.getOpen());
             preparedStatement.setInt(9, project.getId());
 
-            System.out.println(preparedStatement);
-
             preparedStatement.executeUpdate();
 
             // Update project in projects list :)
@@ -224,7 +223,6 @@ public class ProjectDAO implements DAO<Project> {
                     break;
                 }
             }
-            System.out.println(project.getTitle() + " Updated");
             result = Const.SUCCESS;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -371,17 +369,14 @@ public class ProjectDAO implements DAO<Project> {
      */
     public ArrayList<Project> getProjectsByDate(List<Project> projects, LocalDate fromDate, LocalDate toDate) {
         if(fromDate == null)
-
-            fromDate = LocalDate.MIN;
+            fromDate = LocalDate.of(2000,1,1);
         if(toDate == null)
             toDate = LocalDate.now();
 
         ArrayList<Project> list = new ArrayList<>();
         for (Project project : projects) {
-            if (project.getStartDate().getYear() + 1900 >= fromDate.getYear() && project.getStartDate().getMonth() + 1 >= fromDate.getMonth().getValue()
-            && project.getStartDate().getYear() + 1900 <= toDate.getYear() && project.getStartDate().getMonth() + 1 <= toDate.getMonth().getValue()) {
+            if(project.getStartDate().after(Date.valueOf(fromDate)) && project.getStartDate().before(Date.valueOf(toDate)))
                 list.add(project);
-            }
         }
         return list;
     }

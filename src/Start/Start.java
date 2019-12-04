@@ -15,8 +15,6 @@ public class Start extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-//        DatabaseConnection.getInstance();
-        //run sucker
         stage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("/views/DBLoginView.fxml"));
 
@@ -26,7 +24,6 @@ public class Start extends Application {
         stage.setScene(scene);
         stage.setTitle("NGA Management");
         stage.centerOnScreen();
-//        primaryStage.initStyle(StageStyle.UNDECORATED);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setResizable(false);
         stage.show();

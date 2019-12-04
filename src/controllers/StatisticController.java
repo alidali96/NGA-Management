@@ -100,7 +100,7 @@ public class StatisticController implements Initializable {
         datePickerHbox.setStyle("visibility: true");
         lineChart.setStyle("visibility: true");
         piechart.setStyle("visibility: false");
-        statisticList = new HashMap<String, Integer>();
+        statisticList = new LinkedHashMap<>();
         XYChart.Series<String, Number> openProjectsSeries = new XYChart.Series();
         openProjectsSeries.setName("Open Projects");
 

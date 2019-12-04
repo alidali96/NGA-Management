@@ -138,8 +138,6 @@ public class TaskDAO implements DAO<Task> {
             preparedStatement.setInt(2, task.getProject());
             preparedStatement.setByte(3, task.getOpen());
 
-            System.out.println(preparedStatement);
-
             preparedStatement.executeUpdate();
 
             // Get last inserted ID and set it to the project object to add to the projects list
@@ -183,7 +181,6 @@ public class TaskDAO implements DAO<Task> {
             preparedStatement.setInt(2, task.getProject());
             preparedStatement.setByte(3, task.getOpen());
             preparedStatement.setInt(4, task.getId());
-            System.out.println(preparedStatement);
 
             preparedStatement.executeUpdate();
 

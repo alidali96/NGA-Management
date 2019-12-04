@@ -221,7 +221,6 @@ public class ProjectsFormController implements Initializable {
                     errorDisplay.getChildren().add(new Label("Project Created Successfully"));
                 }
                 int lastInsertedId = projectDAO.getAll().get(projectDAO.getAll().size() - 1).getId();
-                System.out.println("Last inserted id " + lastInsertedId);
                 for (int i = 0; i < tasksList.size(); i++) {
                     Task task = new Task(tasksList.get(i), lastInsertedId, (byte) 1);
                     taskDAO.create(task);
