@@ -31,7 +31,6 @@ public class TaskDAO implements DAO<Task> {
     }
 
     private TaskDAO() {
-        connection = DatabaseConnection.getConnection();
         updateList();
     }
 
@@ -46,6 +45,7 @@ public class TaskDAO implements DAO<Task> {
         Task task = null;
         try {
             String queryString = "SELECT * FROM `" + Const.TABLE_TASKS + "` WHERE " + Const.TASK_COLUMN_ID + " = ? LIMIT 1";
+            connection = DatabaseConnection.getConnection();
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setInt(1, taskID);
             resultSet = preparedStatement.executeQuery();
@@ -86,6 +86,7 @@ public class TaskDAO implements DAO<Task> {
         Task task = null;
         try {
             String queryString = "SELECT * FROM `" + Const.TABLE_TASKS + "` WHERE " + Const.TASK_COLUMN_NAME + " = ? LIMIT 1";
+            connection = DatabaseConnection.getConnection();
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setString(1, taskName);
             resultSet = preparedStatement.executeQuery();
@@ -133,6 +134,7 @@ public class TaskDAO implements DAO<Task> {
         int result;
         try {
             String queryString = "INSERT INTO `" + Const.TABLE_TASKS + "` VALUES(0,?,?,?)";
+            connection = DatabaseConnection.getConnection();
             preparedStatement = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, task.getName());
             preparedStatement.setInt(2, task.getProject());
@@ -176,6 +178,7 @@ public class TaskDAO implements DAO<Task> {
         int result;
         try {
             String queryString = String.format("UPDATE `%s` SET %s=?, %s=?, %s=? WHERE %s=?", Const.TABLE_TASKS, Const.TASK_COLUMN_NAME, Const.TASK_COLUMN_PROJECT, Const.TASK_COLUMN_OPEN, Const.TASK_COLUMN_ID);
+            connection = DatabaseConnection.getConnection();
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setString(1, task.getName());
             preparedStatement.setInt(2, task.getProject());
@@ -221,6 +224,7 @@ public class TaskDAO implements DAO<Task> {
         if (get(task.getId()).isPresent()) {
             try {
                 String queryString = "DELETE FROM `" + Const.TABLE_STATUS + "` WHERE " + Const.TASK_COLUMN_ID + " = ?";
+                connection = DatabaseConnection.getConnection();
                 preparedStatement = connection.prepareStatement(queryString);
                 preparedStatement.setInt(1, task.getId());
                 preparedStatement.executeUpdate();
@@ -261,6 +265,7 @@ public class TaskDAO implements DAO<Task> {
         Task task = null;
         try {
             String queryString = "SELECT * FROM `" + Const.TABLE_TASKS + "`";
+            connection = DatabaseConnection.getConnection();
             preparedStatement = connection.prepareStatement(queryString);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

@@ -34,7 +34,6 @@ public class ProjectDAO implements DAO<Project> {
     }
 
     private ProjectDAO() {
-        connection = DatabaseConnection.getConnection();
         // get all projects from database and store them in 'projects' list
         updateList();
     }
@@ -50,6 +49,7 @@ public class ProjectDAO implements DAO<Project> {
         Project project = null;
         try {
             String queryString = "SELECT * FROM `" + Const.TABLE_PROJECT + "` WHERE " + Const.PROJECT_COLUMN_ID + " = ? LIMIT 1";
+            connection = DatabaseConnection.getConnection();
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setInt(1, projectID);
             resultSet = preparedStatement.executeQuery();
@@ -95,6 +95,7 @@ public class ProjectDAO implements DAO<Project> {
         Project project = null;
         try {
             String queryString = "SELECT * FROM `" + Const.TABLE_PROJECT + "` WHERE " + Const.PROJECT_COLUMN_TITLE + " = ? LIMIT 1";
+            connection = DatabaseConnection.getConnection();
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setString(1, projectTitle);
             resultSet = preparedStatement.executeQuery();
@@ -148,6 +149,7 @@ public class ProjectDAO implements DAO<Project> {
         int result;
         try {
             String queryString = "INSERT INTO `" + Const.TABLE_PROJECT + "` VALUES(0,?,?,?,?,?,?,?,?)";
+            connection = DatabaseConnection.getConnection();
             preparedStatement = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, project.getTitle());
             preparedStatement.setString(2, project.getDescription());
@@ -196,6 +198,7 @@ public class ProjectDAO implements DAO<Project> {
         int result;
         try {
             String queryString = String.format("UPDATE `%s` SET %s=?, %s=?, %s=?, %s=?, %s=?, %s=?, %s=?, %s=? WHERE %s=?", Const.TABLE_PROJECT, Const.PROJECT_COLUMN_TITLE, Const.PROJECT_COLUMN_DESCRIPTION, Const.PROJECT_COLUMN_STATUS, Const.PROJECT_COLUMN_CATEGORY, Const.PROJECT_COLUMN_PRIORITY, Const.PROJECT_COLUMN_START_DATE, Const.PROJECT_COLUMN_DUE_DATE, Const.PROJECT_COLUMN_OPEN, Const.PROJECT_COLUMN_ID);
+            connection = DatabaseConnection.getConnection();
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setString(1, project.getTitle());
             preparedStatement.setString(2, project.getDescription());
@@ -251,6 +254,7 @@ public class ProjectDAO implements DAO<Project> {
         if (get(project.getId()).isPresent()) {
             try {
                 String queryString = "DELETE FROM `" + Const.TABLE_PROJECT + "` WHERE " + Const.PROJECT_COLUMN_ID + " = ?";
+                connection = DatabaseConnection.getConnection();
                 preparedStatement = connection.prepareStatement(queryString);
                 preparedStatement.setInt(1, project.getId());
                 preparedStatement.executeUpdate();
@@ -291,7 +295,7 @@ public class ProjectDAO implements DAO<Project> {
         Project project;
         try {
             String queryString = "SELECT * FROM `" + Const.TABLE_PROJECT + "`";
-
+            connection = DatabaseConnection.getConnection();
             preparedStatement = connection.prepareStatement(queryString);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

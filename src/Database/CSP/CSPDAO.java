@@ -15,6 +15,7 @@ import java.util.Optional;
 
 /**
  * This represent (Category, Status, Priority) Tables in database
+ *
  * @author Ali Dali
  */
 public class CSPDAO implements DAO<CSP> {
@@ -23,18 +24,18 @@ public class CSPDAO implements DAO<CSP> {
     PreparedStatement preparedStatement;
     ResultSet resultSet;
 
-    private  List<CSP> cspList = null;
+    private List<CSP> cspList = null;
 
     private String table;
 
     public CSPDAO(String table) {
         this.table = table;
-        connection = DatabaseConnection.getConnection();
         updateList();
     }
 
     /**
      * get csp by id
+     *
      * @param cspID
      * @return csp object or null if no csp found with given id
      * @author Ali Dali
@@ -44,6 +45,7 @@ public class CSPDAO implements DAO<CSP> {
         CSP csp = null;
         try {
             String queryString = "SELECT * FROM `" + table + "` WHERE id=? LIMIT 1";
+            connection = DatabaseConnection.getConnection();
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setInt(1, cspID);
             resultSet = preparedStatement.executeQuery();
@@ -83,6 +85,7 @@ public class CSPDAO implements DAO<CSP> {
 
     /**
      * get csp by name
+     *
      * @param CSPName
      * @return project object or null if no csp found with given name
      * @author Ali Dali
@@ -92,6 +95,7 @@ public class CSPDAO implements DAO<CSP> {
         CSP csp = null;
         try {
             String queryString = "SELECT * FROM `" + table + "` WHERE  " + Const.CSP_COLUMN_NAME + " = ? LIMIT 1";
+            connection = DatabaseConnection.getConnection();
             preparedStatement = connection.prepareStatement(queryString);
             preparedStatement.setString(1, CSPName);
             resultSet = preparedStatement.executeQuery();
@@ -130,7 +134,6 @@ public class CSPDAO implements DAO<CSP> {
     }
 
     /**
-     *
      * @return all csp
      */
     @Override
@@ -140,6 +143,7 @@ public class CSPDAO implements DAO<CSP> {
 
     /**
      * add csp to database
+     *
      * @param csp
      * @return an int that will determine if csp was created successfully or failed
      */
@@ -149,6 +153,7 @@ public class CSPDAO implements DAO<CSP> {
         if (!get(csp.getName()).isPresent()) {
             try {
                 String queryString = "INSERT INTO `" + table + "`(" + Const.CSP_COLUMN_ID + ", " + Const.CSP_COLUMN_NAME + ", " + Const.CSP_COLUMN_COLOR + ") VALUES(0,?,?)";
+                connection = DatabaseConnection.getConnection();
                 preparedStatement = connection.prepareStatement(queryString, Statement.RETURN_GENERATED_KEYS);
                 preparedStatement.setString(1, csp.getName());
                 preparedStatement.setString(2, csp.getColor());
@@ -186,6 +191,7 @@ public class CSPDAO implements DAO<CSP> {
 
     /**
      * update csp in database
+     *
      * @param csp
      * @return an int that will determine if csp was updated successfully or failed
      */
@@ -193,6 +199,7 @@ public class CSPDAO implements DAO<CSP> {
     public int update(CSP csp) {
         int result;
         try {
+            connection = DatabaseConnection.getConnection();
             // Check if name already exist do not update it (prevent duplicate names)
             if (!get(csp.getName()).isPresent()) {
                 String queryString = "UPDATE `" + table + "` SET " + Const.CSP_COLUMN_NAME + " = ? ,  " + Const.CSP_COLUMN_COLOR + " = ? WHERE " + Const.CSP_COLUMN_ID + " = ?";
@@ -236,6 +243,7 @@ public class CSPDAO implements DAO<CSP> {
 
     /**
      * delete csp from database
+     *
      * @param csp
      * @return if csp was successfully deleted
      */
@@ -245,6 +253,7 @@ public class CSPDAO implements DAO<CSP> {
         if (get(csp.getId()).isPresent()) {
             try {
                 String queryString = "DELETE FROM `" + table + "` WHERE id=?";
+                connection = DatabaseConnection.getConnection();
                 preparedStatement = connection.prepareStatement(queryString);
                 preparedStatement.setInt(1, csp.getId());
                 preparedStatement.executeUpdate();
@@ -285,6 +294,7 @@ public class CSPDAO implements DAO<CSP> {
         CSP csp = null;
         try {
             String queryString = "SELECT * FROM `" + table + "`";
+            connection = DatabaseConnection.getConnection();
             preparedStatement = connection.prepareStatement(queryString);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -295,10 +305,10 @@ public class CSPDAO implements DAO<CSP> {
 
                 switch (table) {
                     case Const.TABLE_STATUS:
-                        csp = new Status(id, name,color);
+                        csp = new Status(id, name, color);
                         break;
                     case Const.TABLE_CATEGORY:
-                        csp = new Category(id, name,color);
+                        csp = new Category(id, name, color);
                         break;
                     case Const.TABLE_PRIORITY:
                         csp = new Priority(id, name, color);
@@ -332,14 +342,13 @@ public class CSPDAO implements DAO<CSP> {
     }
 
     /**
-     *
      * @param id
      * @return csp object with matched id
      * @author Ali Dali
      */
     public CSP getItemById(int id) {
-        for(CSP csp : cspList) {
-            if(csp.getId() == id)
+        for (CSP csp : cspList) {
+            if (csp.getId() == id)
                 return csp;
         }
         return null;
